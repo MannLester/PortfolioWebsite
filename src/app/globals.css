@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@400;500;600;700&family=Roboto:wght@400;500;700&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -14,8 +16,57 @@
   }
 }
 
-body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+@layer base {
+  body {
+    @apply text-foreground bg-background;
+  }
+}
+
+@layer components {
+  /* Creative Design Components */
+  .creative-heading {
+    @apply font-creative text-4xl md:text-5xl lg:text-6xl font-bold text-creative-primary;
+  }
+  .creative-subheading {
+    @apply font-creative text-2xl md:text-3xl font-semibold text-creative-secondary;
+  }
+  .creative-text {
+    @apply font-creative text-lg leading-relaxed;
+  }
+
+  /* Professional Design Components */
+  .professional-heading {
+    @apply font-professional text-3xl md:text-4xl font-bold text-professional-primary;
+  }
+  .professional-subheading {
+    @apply font-professional text-xl md:text-2xl font-semibold text-professional-secondary;
+  }
+  .professional-text {
+    @apply font-professional text-base leading-relaxed;
+  }
+
+  /* Simple Design Components */
+  .simple-heading {
+    @apply font-simple text-2xl md:text-3xl font-bold text-simple-primary;
+  }
+  .simple-subheading {
+    @apply font-simple text-xl font-medium text-simple-secondary;
+  }
+  .simple-text {
+    @apply font-simple text-base leading-relaxed;
+  }
+
+  /* Common Components */
+  .btn-primary {
+    @apply px-6 py-3 rounded-lg transition-all duration-300 font-medium;
+  }
+  .btn-creative {
+    @apply btn-primary bg-creative-primary text-white hover:bg-creative-secondary;
+  }
+  .btn-professional {
+    @apply btn-primary bg-professional-primary text-white hover:bg-professional-secondary;
+  }
+  .btn-simple {
+    @apply btn-primary bg-simple-primary text-white hover:bg-simple-secondary;
+  }
 }
