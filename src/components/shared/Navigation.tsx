@@ -13,8 +13,8 @@ const Navigation = ({ activeDesign, onDesignChange }: NavigationProps) => {
   const pathname = usePathname();
 
   const navItems = [
-    { href: '/home', label: 'Home' },
-    { href: '/', label: 'About' },
+    { href: '/', label: 'Home' },
+    { href: '/about', label: 'About' },
     { href: '/projects', label: 'Projects' },
     { href: '/resume', label: 'Resume' },
     { href: '/contact', label: 'Contact' },
