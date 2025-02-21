@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import PixelBackground from './PixelBackground';
 import Image from 'next/image';
@@ -8,50 +8,35 @@ import sunAsset from '@/assets/CreativeDesign/pics/sun_asset.png';
 import moonAsset from '@/assets/CreativeDesign/pics/moon_asset.png';
 import rocketAsset from '@/assets/CreativeDesign/pics/rocket_ship.png';
 import moonSurface from '@/assets/CreativeDesign/pics/moon_surface.png';
-import sunIcon from '@/assets/CreativeDesign/buttons/sun_icon.png';
-import moonIcon from '@/assets/CreativeDesign/buttons/moon_icon.png';
 import Navigation from '@/components/shared/Navigation';
 
-const HomePage = () => {
-  const [isDark, setIsDark] = useState(false);
-  const [activeDesign, setActiveDesign] = useState<'creative' | 'professional' | 'simple'>('creative');
-  const [mounted, setMounted] = useState(false);
+interface HomePageProps {
+  isDark: boolean;
+  onThemeToggle: () => void;
+  activeDesign: 'creative' | 'professional' | 'simple';
+  onDesignChange: (design: 'creative' | 'professional' | 'simple') => void;
+}
 
-  // Initialize dark mode from localStorage and set mounted state
+const HomePage = ({ isDark, onThemeToggle, activeDesign, onDesignChange }: HomePageProps) => {
+  // Update dark mode class
   useEffect(() => {
-    const darkMode = localStorage.getItem('darkMode');
-    setIsDark(darkMode === 'true');
-    setMounted(true);
-  }, []);
-
-  // Update dark mode class and localStorage
-  useEffect(() => {
-    if (mounted) {
-      if (isDark) {
-        document.documentElement.classList.add('dark');
-        localStorage.setItem('darkMode', 'true');
-      } else {
-        document.documentElement.classList.remove('dark');
-        localStorage.setItem('darkMode', 'false');
-      }
+    if (isDark) {
+      document.documentElement.classList.add('dark');
+      localStorage.setItem('darkMode', 'true');
+    } else {
+      document.documentElement.classList.remove('dark');
+      localStorage.setItem('darkMode', 'false');
     }
-  }, [isDark, mounted]);
-
-  const handleThemeToggle = () => {
-    setIsDark(prev => !prev);
-  };
-
-  // Don't render anything until mounted to prevent hydration mismatch
-  if (!mounted) return null;
+  }, [isDark]);
 
   return (
     <div className={`fixed inset-0 w-full h-screen overflow-hidden transition-colors duration-300 ${isDark ? 'dark' : ''}`}> 
       {/* Navigation */}
       <Navigation 
         activeDesign={activeDesign}
-        onDesignChange={setActiveDesign}
+        onDesignChange={onDesignChange}
         isDark={isDark}
-        onThemeToggle={handleThemeToggle}
+        onThemeToggle={onThemeToggle}
       />
       
       {/* Pixel Background */}
