@@ -33,9 +33,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="scroll-smooth">
+    <html lang="en" className="scroll-smooth" suppressHydrationWarning>
       <body
-        className={`${inter.variable} ${playfair.variable} ${roboto.variable} antialiased`}
+        className={`${inter.variable} ${playfair.variable} ${roboto.variable} antialiased min-h-screen transition-colors duration-300`}
       >
         {children}
       </body>

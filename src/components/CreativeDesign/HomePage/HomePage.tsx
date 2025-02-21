@@ -1,7 +1,7 @@
 'use client';
 
-import { useState } from 'react';
-import { motion } from 'framer-motion';
+import { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import PixelBackground from './PixelBackground';
 import Image from 'next/image';
 import sunAsset from '@/assets/CreativeDesign/pics/sun_asset.png';
@@ -10,12 +10,50 @@ import rocketAsset from '@/assets/CreativeDesign/pics/rocket_ship.png';
 import moonSurface from '@/assets/CreativeDesign/pics/moon_surface.png';
 import sunIcon from '@/assets/CreativeDesign/buttons/sun_icon.png';
 import moonIcon from '@/assets/CreativeDesign/buttons/moon_icon.png';
+import Navigation from '@/components/shared/Navigation';
 
 const HomePage = () => {
   const [isDark, setIsDark] = useState(false);
+  const [activeDesign, setActiveDesign] = useState<'creative' | 'professional' | 'simple'>('creative');
+  const [mounted, setMounted] = useState(false);
+
+  // Initialize dark mode from localStorage and set mounted state
+  useEffect(() => {
+    const darkMode = localStorage.getItem('darkMode');
+    setIsDark(darkMode === 'true');
+    setMounted(true);
+  }, []);
+
+  // Update dark mode class and localStorage
+  useEffect(() => {
+    if (mounted) {
+      if (isDark) {
+        document.documentElement.classList.add('dark');
+        localStorage.setItem('darkMode', 'true');
+      } else {
+        document.documentElement.classList.remove('dark');
+        localStorage.setItem('darkMode', 'false');
+      }
+    }
+  }, [isDark, mounted]);
+
+  const handleThemeToggle = () => {
+    setIsDark(prev => !prev);
+  };
+
+  // Don't render anything until mounted to prevent hydration mismatch
+  if (!mounted) return null;
 
   return (
-    <div className="fixed inset-0 w-full h-screen overflow-hidden"> 
+    <div className={`fixed inset-0 w-full h-screen overflow-hidden transition-colors duration-300 ${isDark ? 'dark' : ''}`}> 
+      {/* Navigation */}
+      <Navigation 
+        activeDesign={activeDesign}
+        onDesignChange={setActiveDesign}
+        isDark={isDark}
+        onThemeToggle={handleThemeToggle}
+      />
+      
       {/* Pixel Background */}
       <PixelBackground isDark={isDark} />
 
@@ -36,99 +74,108 @@ const HomePage = () => {
         </motion.div>
       </div>
 
-      {/* Sun (visible in light mode) */}
-      <motion.div
-        className="absolute w-[20rem] md:w-[24rem] lg:w-[28rem] aspect-square z-20"
-        style={{ 
-          imageRendering: 'pixelated',
-          left: '10%',
-          top: '20%',
-          transformOrigin: 'center center'
-        }}
-        animate={isDark ? {
-          x: '-50vw',
-          y: '50vh',
-          opacity: 0,
-          scale: 0.8,
-        } : {
-          x: 0,
-          y: 0,
-          opacity: 1,
-          scale: 1,
-        }}
-        whileInView={!isDark ? {
-          y: [-5, 5, -5],
-          rotate: [-1, 1, -1],
-        } : undefined}
-        transition={{ 
-          duration: 6,
-          ease: [0.4, 0, 0.2, 1],
-          y: {
-            repeat: Infinity,
-            duration: 4,
-            ease: "easeInOut"
-          },
-          rotate: {
-            repeat: Infinity,
-            duration: 4,
-            ease: "easeInOut"
-          }
-        }}
-      >
-        <Image
-          src={sunAsset}
-          alt="Sun"
-          fill
-          className="object-contain"
-          style={{ imageRendering: 'pixelated' }}
-        />
-      </motion.div>
-
-      {/* Moon (visible in dark mode) */}
-      <motion.div
-        className="absolute w-[20rem] md:w-[24rem] lg:w-[28rem] aspect-square z-20"
-        style={{ 
-          imageRendering: 'pixelated',
-          transformOrigin: 'center center'
-        }}
-        animate={isDark ? {
-          x: 'calc(70vw - 100px)',
-          y: '15vh',
-          opacity: 1,
-          scale: 1,
-        } : {
-          x: '100vw',
-          y: '50vh',
-          opacity: 0,
-          scale: 0.8,
-        }}
-        whileInView={isDark ? {
-          y: ['15vh', '13vh', '15vh'],
-          rotate: [-1, 1, -1],
-        } : undefined}
-        transition={{ 
-          duration: 6,
-          ease: [0.4, 0, 0.2, 1],
-          y: {
-            repeat: Infinity,
-            duration: 4,
-            ease: "easeInOut"
-          },
-          rotate: {
-            repeat: Infinity,
-            duration: 4,
-            ease: "easeInOut"
-          }
-        }}
-      >
-        <Image
-          src={moonAsset}
-          alt="Moon"
-          fill
-          className="object-contain"
-          style={{ imageRendering: 'pixelated' }}
-        />
-      </motion.div>
+      {/* Sun and Moon */}
+      <AnimatePresence initial={false}>
+        {!isDark ? (
+          <motion.div
+            key="sun"
+            className="absolute w-[20rem] md:w-[24rem] lg:w-[28rem] aspect-square z-20"
+            style={{ 
+              imageRendering: 'pixelated',
+              left: '10%',
+              top: '20%',
+              transformOrigin: 'center center'
+            }}
+            initial={{ x: '-50vw', y: '50vh', opacity: 0, scale: 0.8 }}
+            animate={{
+              x: 0,
+              y: 0,
+              opacity: 1,
+              scale: 1,
+            }}
+            exit={{
+              x: '-50vw',
+              y: '50vh',
+              opacity: 0,
+              scale: 0.8,
+            }}
+            transition={{ 
+              duration: 6,
+              ease: [0.4, 0, 0.2, 1],
+            }}
+          >
+            <motion.div
+              animate={{
+                y: [-5, 5, -5],
+                rotate: [-1, 1, -1],
+              }}
+              transition={{
+                repeat: Infinity,
+                duration: 4,
+                ease: "easeInOut"
+              }}
+              className="w-full h-full relative"
+            >
+              <Image
+                src={sunAsset}
+                alt="Sun"
+                fill
+                className="object-contain"
+                style={{ imageRendering: 'pixelated' }}
+                priority
+              />
+            </motion.div>
+          </motion.div>
+        ) : (
+          <motion.div
+            key="moon"
+            className="absolute w-[20rem] md:w-[24rem] lg:w-[28rem] aspect-square z-20"
+            style={{ 
+              imageRendering: 'pixelated',
+              transformOrigin: 'center center'
+            }}
+            initial={{ x: '100vw', y: '15vh', opacity: 0, scale: 0.8 }}
+            animate={{
+              x: 'calc(70vw - 100px)',
+              y: '15vh',
+              opacity: 1,
+              scale: 1,
+            }}
+            exit={{
+              x: '100vw',
+              y: '15vh',
+              opacity: 0,
+              scale: 0.8,
+            }}
+            transition={{ 
+              duration: 6,
+              ease: [0.4, 0, 0.2, 1],
+            }}
+          >
+            <motion.div
+              animate={{
+                y: [-5, 5, -5],
+                rotate: [-1, 1, -1],
+              }}
+              transition={{
+                repeat: Infinity,
+                duration: 4,
+                ease: "easeInOut"
+              }}
+              className="w-full h-full relative"
+            >
+              <Image
+                src={moonAsset}
+                alt="Moon"
+                fill
+                className="object-contain"
+                style={{ imageRendering: 'pixelated' }}
+                priority
+              />
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       {/* Moon Surface */}
       <div 
@@ -152,14 +199,14 @@ const HomePage = () => {
           left: '40%',
           transform: 'translateX(-50%)'
         }}
-          animate={{
-            y: [-5, 0, -5],
-          }}
-          transition={{
-            duration: 5,
-            repeat: Infinity,
-            ease: "easeInOut"
-          }}
+        animate={{
+          y: [-5, 0, -5],
+        }}
+        transition={{
+          duration: 5,
+          repeat: Infinity,
+          ease: "easeInOut"
+        }}
       >
         <div className="relative w-64 md:w-72 lg:w-96 aspect-square">
           <Image
@@ -169,25 +216,10 @@ const HomePage = () => {
             className="object-contain"
             quality={100}
             style={{ imageRendering: 'pixelated' }}
+            priority
           />
         </div>
       </motion.div>
-
-      {/* Theme Toggle Button */}
-      <button
-        onClick={() => setIsDark(!isDark)}
-        className="fixed top-24 right-4 z-50 p-2 rounded-full bg-white/10 backdrop-blur hover:bg-white/20 transition-colors"
-      >
-        <div className="w-6 md:w-8 aspect-square relative">
-          <Image 
-            src={isDark ? sunIcon : moonIcon}
-            alt={isDark ? "Switch to Light Mode" : "Switch to Dark Mode"}
-            fill
-            className="object-contain"
-            style={{ imageRendering: 'pixelated' }}
-          />
-        </div>
-      </button>
     </div>
   );
 };
