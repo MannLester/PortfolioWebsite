@@ -91,13 +91,13 @@ const HomePage = ({ isDark, onThemeToggle, activeDesign, onDesignChange }: HomeP
           >
             <motion.div
               animate={{
-                y: [-5, 5, -5],
+                y: [-7, 7, -7],
                 rotate: [-1, 1, -1],
               }}
               transition={{
                 repeat: Infinity,
-                duration: 4,
-                ease: "easeInOut"
+                duration: 6,
+                ease: "easeInOut",
               }}
               className="w-full h-full relative"
             >
