@@ -6,6 +6,7 @@ import { motion } from 'framer-motion';
 import Image from 'next/image';
 import sunIcon from '@/assets/CreativeDesign/buttons/sun_icon.png';
 import moonIcon from '@/assets/CreativeDesign/buttons/moon_icon.png';
+import logoIcon from '@/assets/CreativeDesign/buttons/logo_icon_pixel_white.png';
 
 interface NavigationProps {
   activeDesign: 'creative' | 'professional' | 'simple';
@@ -34,7 +35,7 @@ const Navigation = ({ activeDesign, onDesignChange, isDark, onThemeToggle }: Nav
         <div className="flex items-center space-x-8">
           {/* Logo Placeholder */}
           <div className="w-12 h-12 bg-creative-primary rounded-lg flex items-center justify-center font-bold text-white" style={{ imageRendering: 'pixelated' }}>
-            ML
+            <Image src={logoIcon} alt="Logo" />
           </div>
 
           {/* Navigation Links */}
