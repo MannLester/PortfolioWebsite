@@ -7,10 +7,16 @@ import { EnvelopeIcon, PhoneIcon, MapPinIcon } from '@heroicons/react/24/outline
 
 export default function Contact() {
   const [activeDesign, setActiveDesign] = useState<'creative' | 'professional' | 'simple'>('creative');
+  const [isDark, setIsDark] = useState(false);
 
   return (
     <>
-      <Navigation activeDesign={activeDesign} onDesignChange={setActiveDesign} />
+      <Navigation 
+        activeDesign={activeDesign} 
+        onDesignChange={setActiveDesign} 
+        isDark={isDark}
+        onThemeToggle={() => setIsDark(!isDark)}
+      />
       <main className="min-h-screen pt-20">
         <div className="container mx-auto px-4 max-w-4xl">
           <motion.div
