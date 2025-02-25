@@ -1,20 +1,12 @@
-import type { Metadata, Viewport } from "next";
+import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import { Header, Footer } from "@/components/core";
+import { ThemeProvider } from "@/components/theme/ThemeProvider";
 
 const inter = Inter({ 
   subsets: ["latin"],
-  display: 'swap', // Ensures text remains visible during webfont load
 });
-
-export const viewport: Viewport = {
-  width: 'device-width',
-  initialScale: 1,
-  maximumScale: 5,
-  minimumScale: 1,
-  viewportFit: 'cover',
-};
 
 export const metadata: Metadata = {
   title: "Mann Lee - Full Stack Developer",
@@ -37,16 +29,24 @@ export default function RootLayout({
     <html 
       lang="en" 
       suppressHydrationWarning
-      className="scroll-smooth"
+      className="dark scroll-smooth"
     >
       <body className={`${inter.className} antialiased`}>
-        <div className="relative flex min-h-screen flex-col">
-          <Header />
-          <main className="flex-1">
-            {children}
-          </main>
-          <Footer />
-        </div>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="dark"
+          enableSystem
+          disableTransitionOnChange
+          storageKey="theme"
+        >
+          <div className="relative flex min-h-screen flex-col">
+            <Header />
+            <main className="flex-1">
+              {children}
+            </main>
+            <Footer />
+          </div>
+        </ThemeProvider>
       </body>
     </html>
   );

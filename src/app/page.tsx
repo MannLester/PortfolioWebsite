@@ -7,22 +7,6 @@ export default function Home() {
     <div className="flex min-h-screen flex-col">
       {/* Hero Section */}
       <section className="relative h-screen flex items-center justify-center px-4">
-        {/* Moon in dark mode */}
-        <motion.div
-          className="absolute hidden dark:block"
-          style={{
-            left: 'calc(70vw - 100px)',
-            top: '15vh',
-            width: '200px',
-            height: '200px',
-          }}
-          initial={{ opacity: 0, scale: 0.8 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 1, ease: "easeOut" }}
-        >
-          <div className="w-full h-full rounded-full bg-gray-300 dark:bg-gray-400 shadow-lg" />
-        </motion.div>
-
         <div className="text-center space-y-6 max-w-4xl mx-auto">
           <motion.h1 
             className="text-4xl md:text-6xl lg:text-7xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary to-primary/70"

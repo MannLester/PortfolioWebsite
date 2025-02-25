@@ -3,6 +3,7 @@
 import { motion } from 'framer-motion';
 import Link from 'next/link';
 import { MobileNav } from '../Navigation/MobileNav';
+import { ThemeToggle } from '@/components/theme/ThemeToggle';
 
 const Header = () => {
   return (
@@ -17,7 +18,7 @@ const Header = () => {
           ML
         </Link>
         
-        <nav className="hidden md:flex space-x-8">
+        <nav className="hidden md:flex items-center space-x-8">
           <Link href="#about" className="hover:text-primary transition-colors">
             About
           </Link>
@@ -36,9 +37,13 @@ const Header = () => {
           <Link href="#contact" className="hover:text-primary transition-colors">
             Contact
           </Link>
+          <ThemeToggle />
         </nav>
 
-        <MobileNav />
+        <div className="md:hidden flex items-center space-x-4">
+          <ThemeToggle />
+          <MobileNav />
+        </div>
       </div>
     </motion.header>
   );
