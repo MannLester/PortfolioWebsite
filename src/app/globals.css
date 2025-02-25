@@ -1,77 +1,118 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@400;500;600;700&family=Roboto:wght@400;500;700&display=swap');
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Light theme variables */
+  --background: 0 0% 100%;
+  --foreground: 222.2 84% 4.9%;
+  --card: 0 0% 100%;
+  --card-foreground: 222.2 84% 4.9%;
+  --popover: 0 0% 100%;
+  --popover-foreground: 222.2 84% 4.9%;
+  --primary: 221.2 83.2% 53.3%;
+  --primary-foreground: 210 40% 98%;
+  --secondary: 210 40% 96.1%;
+  --secondary-foreground: 222.2 47.4% 11.2%;
+  --muted: 210 40% 96.1%;
+  --muted-foreground: 215.4 16.3% 46.9%;
+  --accent: 210 40% 96.1%;
+  --accent-foreground: 222.2 47.4% 11.2%;
+  --border: 214.3 31.8% 91.4%;
+  --input: 214.3 31.8% 91.4%;
+  --ring: 221.2 83.2% 53.3%;
+  --radius: 0.5rem;
 }
 
-.dark {
-  --background: #0B1026;
-  --foreground: #ededed;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+[data-theme='dark'] {
+  /* Dark theme variables */
+  --background: 222.2 84% 4.9%;
+  --foreground: 210 40% 98%;
+  --card: 222.2 84% 4.9%;
+  --card-foreground: 210 40% 98%;
+  --popover: 222.2 84% 4.9%;
+  --popover-foreground: 210 40% 98%;
+  --primary: 217.2 91.2% 59.8%;
+  --primary-foreground: 222.2 47.4% 11.2%;
+  --secondary: 217.2 32.6% 17.5%;
+  --secondary-foreground: 210 40% 98%;
+  --muted: 217.2 32.6% 17.5%;
+  --muted-foreground: 215 20.2% 65.1%;
+  --accent: 217.2 32.6% 17.5%;
+  --accent-foreground: 210 40% 98%;
+  --border: 217.2 32.6% 17.5%;
+  --input: 217.2 32.6% 17.5%;
+  --ring: 224.3 76.3% 48%;
 }
 
 @layer base {
+  * {
+    @apply border-border;
+    -webkit-tap-highlight-color: transparent;
+  }
+  
+  html {
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+    touch-action: manipulation;
+    scroll-behavior: smooth;
+  }
+
   body {
-    @apply text-foreground bg-background transition-colors duration-300;
+    @apply bg-background text-foreground;
+    font-feature-settings: "rlig" 1, "calt" 1;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
+    position: relative;
+  }
+
+  /* Improve media defaults */
+  img, picture, video, canvas, svg {
+    display: block;
+    max-width: 100%;
+  }
+
+  /* Remove built-in form typography styles */
+  input, button, textarea, select {
+    font: inherit;
+  }
+
+  /* Avoid text overflows */
+  p, h1, h2, h3, h4, h5, h6 {
+    overflow-wrap: break-word;
+  }
+
+  /* Create a root stacking context */
+  #root, #__next {
+    isolation: isolate;
   }
 }
 
-@layer components {
-  /* Creative Design Components */
-  .creative-heading {
-    @apply font-creative text-4xl md:text-5xl lg:text-6xl font-bold text-creative-primary;
-  }
-  .creative-subheading {
-    @apply font-creative text-2xl md:text-3xl font-semibold text-creative-secondary;
-  }
-  .creative-text {
-    @apply font-creative text-lg leading-relaxed;
+/* Custom scrollbar for Webkit browsers */
+@media (min-width: 768px) {
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
   }
 
-  /* Professional Design Components */
-  .professional-heading {
-    @apply font-professional text-3xl md:text-4xl font-bold text-professional-primary;
-  }
-  .professional-subheading {
-    @apply font-professional text-xl md:text-2xl font-semibold text-professional-secondary;
-  }
-  .professional-text {
-    @apply font-professional text-base leading-relaxed;
+  ::-webkit-scrollbar-track {
+    @apply bg-secondary;
   }
 
-  /* Simple Design Components */
-  .simple-heading {
-    @apply font-simple text-2xl md:text-3xl font-bold text-simple-primary;
-  }
-  .simple-subheading {
-    @apply font-simple text-xl font-medium text-simple-secondary;
-  }
-  .simple-text {
-    @apply font-simple text-base leading-relaxed;
+  ::-webkit-scrollbar-thumb {
+    @apply bg-primary/50 rounded-full;
   }
 
-  /* Common Components */
-  .btn-primary {
-    @apply px-6 py-3 rounded-lg transition-all duration-300 font-medium;
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-primary;
   }
-  .btn-creative {
-    @apply btn-primary bg-creative-primary text-white hover:bg-creative-secondary;
-  }
-  .btn-professional {
-    @apply btn-primary bg-professional-primary text-white hover:bg-professional-secondary;
-  }
-  .btn-simple {
-    @apply btn-primary bg-simple-primary text-white hover:bg-simple-secondary;
+}
+
+/* Remove tap highlight on mobile */
+@media (max-width: 767px) {
+  * {
+    -webkit-tap-highlight-color: transparent;
   }
 }

@@ -1,30 +1,31 @@
-import type { Metadata } from "next";
-import { Inter, Playfair_Display, Roboto } from "next/font/google";
+import type { Metadata, Viewport } from "next";
+import { Inter } from "next/font/google";
 import "./globals.css";
+import { Header, Footer } from "@/components/core";
 
-const inter = Inter({
-  subsets: ['latin'],
-  display: 'swap',
-  variable: '--font-inter',
+const inter = Inter({ 
+  subsets: ["latin"],
+  display: 'swap', // Ensures text remains visible during webfont load
 });
 
-const playfair = Playfair_Display({
-  subsets: ['latin'],
-  display: 'swap',
-  variable: '--font-playfair',
-});
-
-const roboto = Roboto({
-  subsets: ['latin'],
-  weight: ['400', '500', '700'],
-  display: 'swap',
-  variable: '--font-roboto',
-});
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 5,
+  minimumScale: 1,
+  viewportFit: 'cover',
+};
 
 export const metadata: Metadata = {
-  title: "Mann Lee - Portfolio",
-  description: "Full Stack Developer Portfolio showcasing creative, professional, and simple design variations",
-  keywords: ["portfolio", "developer", "full stack", "react", "next.js", "typescript"],
+  title: "Mann Lee - Full Stack Developer",
+  description: "Portfolio website of Mann Lee, a Full Stack Developer specializing in modern web technologies.",
+  applicationName: 'Mann Lee Portfolio',
+  authors: [{ name: 'Mann Lee' }],
+  keywords: ['Full Stack Developer', 'Backend Developer', 'Web Development', 'Portfolio'],
+  themeColor: [
+    { media: '(prefers-color-scheme: light)', color: 'white' },
+    { media: '(prefers-color-scheme: dark)', color: '#000' },
+  ],
 };
 
 export default function RootLayout({
@@ -33,11 +34,19 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="scroll-smooth" suppressHydrationWarning>
-      <body
-        className={`${inter.variable} ${playfair.variable} ${roboto.variable} antialiased min-h-screen transition-colors duration-300`}
-      >
-        {children}
+    <html 
+      lang="en" 
+      suppressHydrationWarning
+      className="scroll-smooth"
+    >
+      <body className={`${inter.className} antialiased`}>
+        <div className="relative flex min-h-screen flex-col">
+          <Header />
+          <main className="flex-1">
+            {children}
+          </main>
+          <Footer />
+        </div>
       </body>
     </html>
   );
