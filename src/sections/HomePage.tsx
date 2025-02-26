@@ -21,9 +21,14 @@ export default function HomePage() {
     <div className="h-screen flex bg-black overflow-hidden">
       {/* Hero Section */}
       <section className="flex w-full h-full">
-        {/* Left side - will be for content later */}
-        <div className="flex-1">
-          {/* Content will go here */}
+        {/* Left side - content */}
+        <div className="flex-1 flex items-center justify-center px-16">
+          <div className="space-y-6">
+            <h2 className="text-white text-4xl font-bold">Full Stack Developer</h2>
+            <p className="text-gray-300 text-lg max-w-xl">
+              Passionate about crafting seamless web experiences with expertise in both frontend and backend technologies.
+            </p>
+          </div>
         </div>
 
         {/* Right side - contains image and card suits */}
