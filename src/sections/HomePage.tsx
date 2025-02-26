@@ -16,7 +16,7 @@ import spadeImage from '@/assets/images/home_page/spade_design.png';
 import clubImage from '@/assets/images/home_page/club_design.png';
 import diamondImage from '@/assets/images/home_page/diamond_design.png';
 
-export default function Home() {
+export default function HomePage() {
   return (
     <div className="h-screen flex bg-black overflow-hidden">
       {/* Hero Section */}
