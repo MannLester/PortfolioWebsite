@@ -24,7 +24,7 @@ export default function HomePage() {
         {/* Left side - content */}
         <div className="flex-1 flex items-center justify-center px-16">
           <div className="space-y-6">
-            <h2 className="text-white text-4xl font-bold">Full Stack Developer</h2>
+            <h2 className="text-white text-4xl font-bold">Junior Full Stack Developer</h2>
             <p className="text-gray-300 text-lg max-w-xl">
               Passionate about crafting seamless web experiences with expertise in both frontend and backend technologies.
             </p>
