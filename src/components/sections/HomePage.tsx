@@ -33,6 +33,8 @@ export default function HomePage() {
 
         {/* Right side - contains image and card suits */}
         <div className="w-[50%] relative">
+          {/* Card suits */}
+
           {/* Title and Image Container */}
           <div className="absolute right-[10%] top-[20%] text-right pr-8 flex flex-col items-end">
             {/* Image and card suits container */}
@@ -53,6 +55,26 @@ export default function HomePage() {
                 animate={{ opacity: 1 }}
                 transition={{ duration: 0.5, delay: 0.4 }}
               >
+                {/* Background Spade */}
+                <div className="absolute -left-20 top-32 z-5 scale-[1.8]">
+                  <Image src={spadeImage} alt="Spade" width={600} height={600} className="opacity-100" />
+                </div>
+
+                {/* Background Diamond */}
+                <div className="absolute left-[-5vw] top-32 z-5 scale-[2]">
+                  <Image src={diamondImage} alt="Diamond" width={600} height={600} className="opacity-100" />
+                </div>
+
+                {/* Background Club */}
+                <div className="absolute left-[-5vw] top-32 z-5 scale-[1.8]">
+                  <Image src={clubImage} alt="Club" width={600} height={600} className="opacity-100" />
+                </div>
+
+                {/* Background Heart */}
+                <div className="absolute left-[-5vw] top-32 z-5 scale-[1.9]">
+                  <Image src={heartImage} alt="Heart" width={600} height={600} className="opacity-100" />
+                </div>
+
                 {/* Main image */}
                 <Image
                   src={personImage}
@@ -62,44 +84,6 @@ export default function HomePage() {
                   className="relative z-20 -translate-x-16 -translate-y-3"
                   priority
                 />
-
-                {/* Card suits */}
-                <motion.div
-                  className="absolute -right-8 -top-8"
-                  initial={{ scale: 0.8 }}
-                  animate={{ scale: 1 }}
-                  transition={{ duration: 0.5, delay: 0.6 }}
-                >
-                  <Image src={heartImage} alt="Heart" width={60} height={60} />
-                </motion.div>
-
-                <motion.div
-                  className="absolute right-16 -top-4"
-                  initial={{ scale: 0.8 }}
-                  animate={{ scale: 1 }}
-                  transition={{ duration: 0.5, delay: 0.7 }}
-                >
-                  <Image src={clubImage} alt="Club" width={60} height={60} />
-                </motion.div>
-
-                <motion.div
-                  className="absolute right-4 bottom-16"
-                  initial={{ scale: 0.8 }}
-                  animate={{ scale: 1 }}
-                  transition={{ duration: 0.5, delay: 0.8 }}
-                >
-                  <Image src={spadeImage} alt="Spade" width={60} height={60} />
-                </motion.div>
-
-                <motion.div
-                  className="absolute -right-4 bottom-32"
-                  initial={{ scale: 0.8 }}
-                  animate={{ scale: 1 }}
-                  transition={{ duration: 0.5, delay: 0.9 }}
-                >
-                  <Image src={diamondImage} alt="Diamond" width={60} height={60} />
-                </motion.div>
-
                 {/* Bottom text overlapping with image */}
                 <motion.div 
                   className={`absolute -bottom-4 -right-8 z-30 text-[112px] tracking-[25px] text-white leading-none whitespace-nowrap [text-shadow:0_0_10px_#990904,0_0_20px_#990904,0_0_30px_#990904] ${anton.className}`}
