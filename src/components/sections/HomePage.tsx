@@ -1,13 +1,8 @@
 "use client";
 
+import { Anton } from 'next/font/google';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
-import { Anton } from 'next/font/google';
-
-const anton = Anton({
-  weight: '400',
-  subsets: ['latin'],
-});
 
 // Import images
 import personImage from '@/assets/images/home_page/person_design.png';
@@ -16,7 +11,12 @@ import spadeImage from '@/assets/images/home_page/spade_design.png';
 import clubImage from '@/assets/images/home_page/club_design.png';
 import diamondImage from '@/assets/images/home_page/diamond_design.png';
 
-export default function HomePage() {
+const anton = Anton({
+  weight: '400',
+  subsets: ['latin'],
+});
+
+const HomePage = () => {
   return (
     <div className="h-screen flex bg-black overflow-hidden">
       {/* Hero Section */}
@@ -24,37 +24,102 @@ export default function HomePage() {
         {/* Left side - content */}
         <div className="flex-1 flex items-center justify-center px-16">
           <div className="space-y-6">
-            <h2 className="text-white text-4xl font-bold">Junior Full Stack Developer</h2>
-            <p className="text-gray-300 text-lg max-w-xl">
-              Passionate about crafting seamless web experiences with expertise in both frontend and backend technologies.
-            </p>
+            <h2 className="text-white text-4xl font-bold">Hi, I'm Lester</h2>
+            <div className="space-y-4">
+              <p className="text-gray-300 text-lg">
+                The Jack of All Trades Junior Developer.
+                <br />
+                <br />
+                From idea generation to product creation. From deployment to marketing and maintenance. I can execute and be a part of it all.
+              </p>
+              <p className="text-gray-300 text-lg">
+                With my technical and soft skills, alongside my innate programming capabilities enhanced with my expertise of taking AI tools to the next level. There is nothing we can't create!
+              </p>
+              <p className="text-gray-300 text-lg">
+                I may be a Master of None, But I will always get it Done.
+              </p>
+            </div>
           </div>
         </div>
 
-        {/* Right side - contains image and card suits */}
+        {/* Right side - contains image and text */}
         <div className="w-[50%] relative">
-          {/* Card suits */}
-
           {/* Title and Image Container */}
           <div className="absolute right-[10%] top-[20%] text-right pr-8 flex flex-col items-end">
-            {/* Image and card suits container */}
             <div className="relative w-[350px]">
               {/* Top text overlapping with image */}
-              <motion.div 
-                className={`absolute top-6 right-0 z-10 text-[98px] text-white leading-none whitespace-nowrap [text-shadow:0_0_10px_#990904,0_0_20px_#990904,0_0_30px_#990904] ${anton.className}`}
-                initial={{ opacity: 0, x: 20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.5 }}
-              >
-                JACK OF ALL
-              </motion.div>
+              <div className={`absolute top-6 right-0 z-10 text-[98px] leading-none whitespace-nowrap flex gap-5 ${anton.className}`}>
+                <motion.span
+                  className="[text-shadow:unset]"
+                  initial={{ opacity: 1, color: "#000000" }}
+                  animate={{
+                    color: ["#000000", "#fff", "#000000", "#fff", "#000000", "#fff"],
+                    textShadow: [
+                      "unset",
+                      "0 0 7px #990904, 0 0 10px #990904, 0 0 21px #990904, 0 0 42px #990904",
+                      "unset",
+                      "0 0 7px #990904, 0 0 10px #990904, 0 0 21px #990904, 0 0 42px #990904",
+                      "unset",
+                      "0 0 7px #990904, 0 0 10px #990904, 0 0 21px #990904, 0 0 42px #990904"
+                    ]
+                  }}
+                  transition={{
+                    duration: 1.5,
+                    times: [0, 0.2, 0.4, 0.6, 0.8, 1],
+                    ease: "easeInOut"
+                  }}
+                >
+                  JACK
+                </motion.span>
+                <motion.span
+                  className="[text-shadow:unset]"
+                  initial={{ opacity: 1, color: "#000000" }}
+                  animate={{
+                    color: ["#000000", "#fff", "#000000", "#fff", "#000000", "#fff"],
+                    textShadow: [
+                      "unset",
+                      "0 0 7px #990904, 0 0 10px #990904, 0 0 21px #990904, 0 0 42px #990904",
+                      "unset",
+                      "0 0 7px #990904, 0 0 10px #990904, 0 0 21px #990904, 0 0 42px #990904",
+                      "unset",
+                      "0 0 7px #990904, 0 0 10px #990904, 0 0 21px #990904, 0 0 42px #990904"
+                    ]
+                  }}
+                  transition={{
+                    duration: 1.5,
+                    times: [0, 0.2, 0.4, 0.6, 0.8, 1],
+                    delay: 0.5,
+                    ease: "easeInOut"
+                  }}
+                >
+                  OF
+                </motion.span>
+                <motion.span
+                  className="[text-shadow:unset]"
+                  initial={{ opacity: 1, color: "#000000" }}
+                  animate={{
+                    color: ["#000000", "#fff", "#000000", "#fff", "#000000", "#fff"],
+                    textShadow: [
+                      "unset",
+                      "0 0 7px #990904, 0 0 10px #990904, 0 0 21px #990904, 0 0 42px #990904",
+                      "unset",
+                      "0 0 7px #990904, 0 0 10px #990904, 0 0 21px #990904, 0 0 42px #990904",
+                      "unset",
+                      "0 0 7px #990904, 0 0 10px #990904, 0 0 21px #990904, 0 0 42px #990904"
+                    ]
+                  }}
+                  transition={{
+                    duration: 1.5,
+                    times: [0, 0.2, 0.4, 0.6, 0.8, 1],
+                    delay: 1,
+                    ease: "easeInOut"
+                  }}
+                >
+                  ALL
+                </motion.span>
+              </div>
 
-              <motion.div 
-                className="relative"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ duration: 0.5, delay: 0.4 }}
-              >
+              <motion.div className="relative">
                 {/* Background Spade */}
                 <div className="absolute -left-20 top-32 z-5 scale-[1.8]">
                   <Image src={spadeImage} alt="Spade" width={600} height={600} className="opacity-100" />
@@ -85,11 +150,26 @@ export default function HomePage() {
                   priority
                 />
                 {/* Bottom text overlapping with image */}
-                <motion.div 
-                  className={`absolute -bottom-4 -right-8 z-30 text-[112px] tracking-[25px] text-white leading-none whitespace-nowrap [text-shadow:0_0_10px_#990904,0_0_20px_#990904,0_0_30px_#990904] ${anton.className}`}
-                  initial={{ opacity: 0, x: 20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ duration: 0.5, delay: 0.8 }}
+                <motion.div
+                  className={`absolute -bottom-4 -right-8 z-30 text-[112px] tracking-[25px] leading-none whitespace-nowrap [text-shadow:unset] ${anton.className}`}
+                  initial={{ opacity: 1, color: "#000000" }}
+                  animate={{
+                    color: ["#000000", "#fff", "#000000", "#fff", "#000000", "#fff"],
+                    textShadow: [
+                      "unset",
+                      "0 0 7px #f97316, 0 0 10px #f97316, 0 0 21px #f97316, 0 0 42px #f97316",
+                      "unset",
+                      "0 0 7px #f97316, 0 0 10px #f97316, 0 0 21px #f97316, 0 0 42px #f97316",
+                      "unset",
+                      "0 0 7px #f97316, 0 0 10px #f97316, 0 0 21px #f97316, 0 0 42px #f97316"
+                    ]
+                  }}
+                  transition={{
+                    duration: 1.5,
+                    times: [0, 0.2, 0.4, 0.6, 0.8, 1],
+                    delay: 2,
+                    ease: "easeInOut"
+                  }}
                 >
                   TRADES
                 </motion.div>
@@ -117,4 +197,6 @@ export default function HomePage() {
       </section>
     </div>
   );
-}
+};
+
+export default HomePage;
