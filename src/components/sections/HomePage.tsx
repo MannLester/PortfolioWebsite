@@ -10,6 +10,7 @@ import heartImage from '@/assets/images/home_page/heart_design.png';
 import spadeImage from '@/assets/images/home_page/spade_design.png';
 import clubImage from '@/assets/images/home_page/club_design.png';
 import diamondImage from '@/assets/images/home_page/diamond_design.png';
+import brickBackground from '@/assets/images/home_page/brick_bg.jpg';
 
 const anton = Anton({
   weight: '400',
@@ -18,25 +19,35 @@ const anton = Anton({
 
 const HomePage = () => {
   return (
-    <div className="h-screen flex bg-black overflow-hidden">
+    <div className="h-screen flex bg-black overflow-hidden" style={{ backgroundImage: `url(${brickBackground.src})`, backgroundSize: 'cover', backgroundPosition: 'center' }}>
+      <div className="absolute inset-0 bg-black opacity-45" />
       {/* Hero Section */}
-      <section className="flex w-full h-full">
+      <section className="flex w-full h-full z-10">
         {/* Left side - content */}
         <div className="flex-1 flex items-center justify-center px-16">
-          <div className="space-y-6">
-            <h2 className="text-white text-4xl font-bold">Hi, I'm Lester</h2>
-            <div className="space-y-4">
-              <p className="text-gray-300 text-lg">
+          <div className="space-y-6 mt-16">
+            <div className="space-y-6">
+              <h2 className="text-white text-4xl font-bold">Hi, I'm <span
+                className="text-white [text-shadow:0_0_7px_#9933ff,0_0_10px_#9933ff,0_0_21px_#9933ff,0_0_42px_#9933ff]"
+              >LESTER</span></h2>
+              <p className="text-white text-lg tracking-wide leading-relaxed">
                 The Jack of All Trades Junior Developer.
                 <br />
                 <br />
                 From idea generation to product creation. From deployment to marketing and maintenance. I can execute and be a part of it all.
               </p>
-              <p className="text-gray-300 text-lg">
-                With my technical and soft skills, alongside my innate programming capabilities enhanced with my expertise of taking AI tools to the next level. There is nothing we can't create!
+              <p className="text-white text-lg tracking-wide leading-relaxed">
+                With my technical and soft skills, alongside my innate programming capabilities enhanced with my expertise of taking AI tools to the next level.</p>
+              <p className="text-white text-lg tracking-wide leading-relaxed">
+                <span className="relative inline-block">THERE IS NOTHING WE CAN'T CREATE<span className="absolute -bottom-2 left-0 w-full h-[3px] bg-white [box-shadow:0_0_10px_#fff,0_0_20px_#fff,0_0_30px_#fff,0_0_40px_#fff,0_0_70px_#fff]"></span></span>!
               </p>
-              <p className="text-gray-300 text-lg">
-                I may be a Master of None, But I will always get it Done.
+              <br />
+              <p className="text-white text-lg tracking-wide leading-relaxed">
+                I may be a <span
+                  className="text-white text-xl [text-shadow:0_0_7px_#0099ff,0_0_14px_#0099ff,0_0_21px_#0099ff,0_0_42px_#0099ff,0_0_82px_#0099ff]"
+                >MASTER OF NONE</span>, But I will always <span
+                  className="text-white text-xl [text-shadow:0_0_7px_#00cc66,0_0_14px_#00cc66,0_0_21px_#00cc66,0_0_42px_#00cc66,0_0_82px_#00cc66]"
+                >GET IT DONE</span>.
               </p>
             </div>
           </div>
@@ -53,20 +64,25 @@ const HomePage = () => {
                   className="[text-shadow:unset]"
                   initial={{ opacity: 1, color: "#000000" }}
                   animate={{
-                    color: ["#000000", "#fff", "#000000", "#fff", "#000000", "#fff"],
+                    color: ["#000000", "#fff", "#fff", "#fff", "#fff", "#fff", "#000000", "#fff"],
                     textShadow: [
                       "unset",
-                      "0 0 7px #990904, 0 0 10px #990904, 0 0 21px #990904, 0 0 42px #990904",
+                      "0 0 7px #ff1a1a, 0 0 10px #ff1a1a, 0 0 21px #ff1a1a, 0 0 42px #ff1a1a",
+                      "0 0 4px #ff1a1a, 0 0 8px #ff1a1a, 0 0 16px #ff1a1a, 0 0 32px #ff1a1a",
+                      "0 0 7px #ff1a1a, 0 0 10px #ff1a1a, 0 0 21px #ff1a1a, 0 0 42px #ff1a1a",
+                      "0 0 4px #ff1a1a, 0 0 8px #ff1a1a, 0 0 16px #ff1a1a, 0 0 32px #ff1a1a",
+                      "0 0 7px #ff1a1a, 0 0 10px #ff1a1a, 0 0 21px #ff1a1a, 0 0 42px #ff1a1a",
                       "unset",
-                      "0 0 7px #990904, 0 0 10px #990904, 0 0 21px #990904, 0 0 42px #990904",
-                      "unset",
-                      "0 0 7px #990904, 0 0 10px #990904, 0 0 21px #990904, 0 0 42px #990904"
-                    ]
+                      "0 0 7px #ff1a1a, 0 0 10px #ff1a1a, 0 0 21px #ff1a1a, 0 0 42px #ff1a1a"
+                    ],
+                    x: [0, 0.5, -0.5, 0.25, -0.25, 0, 0, 0]
                   }}
                   transition={{
-                    duration: 1.5,
-                    times: [0, 0.2, 0.4, 0.6, 0.8, 1],
-                    ease: "easeInOut"
+                    duration: 2.5,
+                    times: [0, 0.1, 0.2, 0.4, 0.6, 0.7, 0.8, 1],
+                    ease: "easeInOut",
+                    delay: 0.3,
+                    repeat: Infinity
                   }}
                 >
                   JACK
@@ -75,21 +91,25 @@ const HomePage = () => {
                   className="[text-shadow:unset]"
                   initial={{ opacity: 1, color: "#000000" }}
                   animate={{
-                    color: ["#000000", "#fff", "#000000", "#fff", "#000000", "#fff"],
+                    color: ["#000000", "#fff", "#fff", "#fff", "#fff", "#fff", "#000000", "#fff"],
                     textShadow: [
                       "unset",
-                      "0 0 7px #990904, 0 0 10px #990904, 0 0 21px #990904, 0 0 42px #990904",
+                      "0 0 7px #ff1a1a, 0 0 10px #ff1a1a, 0 0 21px #ff1a1a, 0 0 42px #ff1a1a",
+                      "0 0 4px #ff1a1a, 0 0 8px #ff1a1a, 0 0 16px #ff1a1a, 0 0 32px #ff1a1a",
+                      "0 0 7px #ff1a1a, 0 0 10px #ff1a1a, 0 0 21px #ff1a1a, 0 0 42px #ff1a1a",
+                      "0 0 4px #ff1a1a, 0 0 8px #ff1a1a, 0 0 16px #ff1a1a, 0 0 32px #ff1a1a",
+                      "0 0 7px #ff1a1a, 0 0 10px #ff1a1a, 0 0 21px #ff1a1a, 0 0 42px #ff1a1a",
                       "unset",
-                      "0 0 7px #990904, 0 0 10px #990904, 0 0 21px #990904, 0 0 42px #990904",
-                      "unset",
-                      "0 0 7px #990904, 0 0 10px #990904, 0 0 21px #990904, 0 0 42px #990904"
-                    ]
+                      "0 0 7px #ff1a1a, 0 0 10px #ff1a1a, 0 0 21px #ff1a1a, 0 0 42px #ff1a1a"
+                    ],
+                    x: [0, -0.25, 0.25, -0.5, 0.5, 0, 0, 0]
                   }}
                   transition={{
-                    duration: 1.5,
-                    times: [0, 0.2, 0.4, 0.6, 0.8, 1],
-                    delay: 0.5,
-                    ease: "easeInOut"
+                    duration: 2.5,
+                    times: [0, 0.1, 0.2, 0.4, 0.6, 0.7, 0.8, 1],
+                    ease: "easeInOut",
+                    delay: 0.6,
+                    repeat: Infinity
                   }}
                 >
                   OF
@@ -98,21 +118,25 @@ const HomePage = () => {
                   className="[text-shadow:unset]"
                   initial={{ opacity: 1, color: "#000000" }}
                   animate={{
-                    color: ["#000000", "#fff", "#000000", "#fff", "#000000", "#fff"],
+                    color: ["#000000", "#fff", "#fff", "#fff", "#fff", "#fff", "#000000", "#fff"],
                     textShadow: [
                       "unset",
-                      "0 0 7px #990904, 0 0 10px #990904, 0 0 21px #990904, 0 0 42px #990904",
+                      "0 0 7px #ff1a1a, 0 0 10px #ff1a1a, 0 0 21px #ff1a1a, 0 0 42px #ff1a1a",
+                      "0 0 4px #ff1a1a, 0 0 8px #ff1a1a, 0 0 16px #ff1a1a, 0 0 32px #ff1a1a",
+                      "0 0 7px #ff1a1a, 0 0 10px #ff1a1a, 0 0 21px #ff1a1a, 0 0 42px #ff1a1a",
+                      "0 0 4px #ff1a1a, 0 0 8px #ff1a1a, 0 0 16px #ff1a1a, 0 0 32px #ff1a1a",
+                      "0 0 7px #ff1a1a, 0 0 10px #ff1a1a, 0 0 21px #ff1a1a, 0 0 42px #ff1a1a",
                       "unset",
-                      "0 0 7px #990904, 0 0 10px #990904, 0 0 21px #990904, 0 0 42px #990904",
-                      "unset",
-                      "0 0 7px #990904, 0 0 10px #990904, 0 0 21px #990904, 0 0 42px #990904"
-                    ]
+                      "0 0 7px #ff1a1a, 0 0 10px #ff1a1a, 0 0 21px #ff1a1a, 0 0 42px #ff1a1a"
+                    ],
+                    x: [0, 0.5, -0.25, 0.25, -0.5, 0, 0, 0]
                   }}
                   transition={{
-                    duration: 1.5,
-                    times: [0, 0.2, 0.4, 0.6, 0.8, 1],
-                    delay: 1,
-                    ease: "easeInOut"
+                    duration: 2.5,
+                    times: [0, 0.1, 0.2, 0.4, 0.6, 0.7, 0.8, 1],
+                    ease: "easeInOut",
+                    delay: 0.9,
+                    repeat: Infinity
                   }}
                 >
                   ALL
@@ -154,21 +178,25 @@ const HomePage = () => {
                   className={`absolute -bottom-4 -right-8 z-30 text-[112px] tracking-[25px] leading-none whitespace-nowrap [text-shadow:unset] ${anton.className}`}
                   initial={{ opacity: 1, color: "#000000" }}
                   animate={{
-                    color: ["#000000", "#fff", "#000000", "#fff", "#000000", "#fff"],
+                    color: ["#000000", "#fff", "#fff", "#fff", "#fff", "#fff", "#000000", "#fff"],
                     textShadow: [
                       "unset",
-                      "0 0 7px #f97316, 0 0 10px #f97316, 0 0 21px #f97316, 0 0 42px #f97316",
+                      "0 0 7px #ff6600, 0 0 10px #ff6600, 0 0 21px #ff6600, 0 0 42px #ff6600",
+                      "0 0 4px #ff6600, 0 0 8px #ff6600, 0 0 16px #ff6600, 0 0 32px #ff6600",
+                      "0 0 7px #ff6600, 0 0 10px #ff6600, 0 0 21px #ff6600, 0 0 42px #ff6600",
+                      "0 0 4px #ff6600, 0 0 8px #ff6600, 0 0 16px #ff6600, 0 0 32px #ff6600",
+                      "0 0 7px #ff6600, 0 0 10px #ff6600, 0 0 21px #ff6600, 0 0 42px #ff6600",
                       "unset",
-                      "0 0 7px #f97316, 0 0 10px #f97316, 0 0 21px #f97316, 0 0 42px #f97316",
-                      "unset",
-                      "0 0 7px #f97316, 0 0 10px #f97316, 0 0 21px #f97316, 0 0 42px #f97316"
-                    ]
+                      "0 0 7px #ff6600, 0 0 10px #ff6600, 0 0 21px #ff6600, 0 0 42px #ff6600"
+                    ],
+                    x: [0, -0.5, 0.25, -0.25, 0.5, 0, 0, 0]
                   }}
                   transition={{
-                    duration: 1.5,
-                    times: [0, 0.2, 0.4, 0.6, 0.8, 1],
-                    delay: 2,
-                    ease: "easeInOut"
+                    duration: 2.5,
+                    times: [0, 0.1, 0.2, 0.4, 0.6, 0.7, 0.8, 1],
+                    ease: "easeInOut",
+                    delay: 1.2,
+                    repeat: Infinity
                   }}
                 >
                   TRADES
@@ -192,6 +220,8 @@ const HomePage = () => {
           <div className="absolute inset-0 -z-10 overflow-hidden pointer-events-none">
             <div className="absolute top-1/4 right-1/4 w-96 h-96 bg-red-500/10 rounded-full blur-[100px]" />
             <div className="absolute bottom-1/4 left-1/4 w-96 h-96 bg-red-500/5 rounded-full blur-[100px]" />
+            <div className="absolute top-1/4 right-1/4 w-96 h-96 bg-red-500/20 rounded-full blur-[150px]" />
+            <div className="absolute bottom-1/4 left-1/4 w-96 h-96 bg-red-500/10 rounded-full blur-[150px]" />
           </div>
         </div>
       </section>
