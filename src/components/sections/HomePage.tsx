@@ -19,17 +19,25 @@ const anton = Anton({
 
 const HomePage = () => {
   return (
-    <div className="h-screen flex bg-black overflow-hidden" style={{ backgroundImage: `url(${brickBackground.src})`, backgroundSize: 'cover', backgroundPosition: 'center' }}>
-      <div className="absolute inset-0 bg-black opacity-45" />
+    <div className="h-screen flex bg-black overflow-hidden backdrop-blur-lg" style={{ backgroundImage: `url(${brickBackground.src})`, backgroundSize: 'cover', backgroundPosition: 'center' }}>
+      <div className="absolute inset-0 bg-black opacity-50" />
       {/* Hero Section */}
       <section className="flex w-full h-full z-10">
         {/* Left side - content */}
-        <div className="flex-1 flex items-center justify-center px-16">
-          <div className="space-y-6 mt-16">
+        <div className="flex-1 flex items-start justify-start px-16">
+          <div className="space-y-6 mt-36">
             <div className="space-y-6">
-              <h2 className="text-white text-4xl font-bold">Hi, I'm <span
-                className="text-white [text-shadow:0_0_7px_#9933ff,0_0_10px_#9933ff,0_0_21px_#9933ff,0_0_42px_#9933ff]"
-              >LESTER</span></h2>
+              <h1 className={`text-white text-4xl tracking-normal font-bold [text-shadow:0_0_7px_#9933ff,0_0_10px_#9933ff,0_0_21px_#9933ff,0_0_42px_#9933ff] ${anton.className}`}>H E L L O !</h1>
+
+              <h2 className={`text-white text-8xl tracking-normal ${anton.className}`}>I<span className="text-white [text-shadow:0_0_7px_#9933ff,0_0_10px_#9933ff,0_0_21px_#9933ff,0_0_42px_#9933ff]">'</span>m <span className="text-white [text-shadow:0_0_7px_#9933ff,0_0_10px_#9933ff,0_0_21px_#9933ff,0_0_42px_#9933ff]">Mann Lester Magbuhos</span></h2>
+
+              <p className="text-white text-3xl font-semibold tracking-wider ${anton.className}">Junior Full Stack Developer</p>
+
+              <div className="flex space-x-4 mt-6">
+                <button className="bg-blue-500 text-white px-4 py-2 rounded">Know More</button>
+                <button className="bg-green-500 text-white px-4 py-2 rounded">Contact Me</button>
+              </div>
+              {/*
               <p className="text-white text-lg tracking-wide leading-relaxed">
                 The Jack of All Trades Junior Developer.
                 <br />
@@ -37,18 +45,20 @@ const HomePage = () => {
                 From idea generation to product creation. From deployment to marketing and maintenance. I can execute and be a part of it all.
               </p>
               <p className="text-white text-lg tracking-wide leading-relaxed">
-                With my technical and soft skills, alongside my innate programming capabilities enhanced with my expertise of taking AI tools to the next level.</p>
+                With my technical and soft skills, alongside my innate programming capabilities enhanced with my expertise of taking AI tools to the next level.
+              </p>
               <p className="text-white text-lg tracking-wide leading-relaxed">
                 <span className="relative inline-block">THERE IS NOTHING WE CAN'T CREATE<span className="absolute -bottom-2 left-0 w-full h-[3px] bg-white [box-shadow:0_0_10px_#fff,0_0_20px_#fff,0_0_30px_#fff,0_0_40px_#fff,0_0_70px_#fff]"></span></span>!
               </p>
               <br />
               <p className="text-white text-lg tracking-wide leading-relaxed">
                 I may be a <span
-                  className="text-white text-xl [text-shadow:0_0_7px_#0099ff,0_0_14px_#0099ff,0_0_21px_#0099ff,0_0_42px_#0099ff,0_0_82px_#0099ff]"
+                className="text-white text-xl [text-shadow:0_0_7px_#0099ff,0_0_14px_#0099ff,0_0_21px_#0099ff,0_0_42px_#0099ff,0_0_82px_#0099ff]"
                 >MASTER OF NONE</span>, But I will always <span
-                  className="text-white text-xl [text-shadow:0_0_7px_#00cc66,0_0_14px_#00cc66,0_0_21px_#00cc66,0_0_42px_#00cc66,0_0_82px_#00cc66]"
+                className="text-white text-xl [text-shadow:0_0_7px_#00cc66,0_0_14px_#00cc66,0_0_21px_#00cc66,0_0_42px_#00cc66,0_0_82px_#00cc66]"
                 >GET IT DONE</span>.
               </p>
+              */}
             </div>
           </div>
         </div>
