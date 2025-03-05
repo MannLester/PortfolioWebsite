@@ -25,17 +25,17 @@ const HomePage = () => {
       <section className="flex w-full h-full z-10">
         {/* Left side - content */}
         <div className="flex-1 flex items-start justify-start px-16">
-          <div className="space-y-6 mt-36">
-            <div className="space-y-6">
+          <div className="space-y-6 mt-40">
+            <div className="space-y-8">
               <h1 className={`text-white text-4xl tracking-normal font-bold [text-shadow:0_0_7px_#9933ff,0_0_10px_#9933ff,0_0_21px_#9933ff,0_0_42px_#9933ff] ${anton.className}`}>H E L L O !</h1>
 
               <h2 className={`text-white text-8xl tracking-normal ${anton.className}`}>I<span className="text-white [text-shadow:0_0_7px_#9933ff,0_0_10px_#9933ff,0_0_21px_#9933ff,0_0_42px_#9933ff]">'</span>m <span className="text-white [text-shadow:0_0_7px_#9933ff,0_0_10px_#9933ff,0_0_21px_#9933ff,0_0_42px_#9933ff]">Mann Lester Magbuhos</span></h2>
 
               <p className="text-white text-3xl font-semibold tracking-wider ${anton.className}">Junior Full Stack Developer</p>
 
-              <div className="flex space-x-4 mt-6">
-                <button className="bg-blue-500 text-white px-4 py-2 rounded">Know More</button>
-                <button className="bg-green-500 text-white px-4 py-2 rounded">Contact Me</button>
+              <div className="flex space-x-6">
+                <button className="bg-blue-500 text-white px-6 py-3 rounded">Know More</button>
+                <button className="bg-green-500 text-white px-6 py-3 rounded">Contact Me</button>
               </div>
               {/*
               <p className="text-white text-lg tracking-wide leading-relaxed">
