@@ -89,7 +89,7 @@ const AboutPage = () => {
                     </p>
 
                     <br />    
-                    <p className="relative">
+                    <div className="relative">
                         {/* Sparkles */}
                         <Sparkle delay={0} className="top-[10%] left-[30%]" />
                         <Sparkle delay={0.3} className="top-[20%] left-[70%]" />
@@ -106,10 +106,10 @@ const AboutPage = () => {
                         <Sparkle delay={1.0} className="top-[33%] left-[20%]" />
                         <Sparkle delay={0.1} className="top-[12%] left-[85%]" />
                         <Sparkle delay={1.4} className="top-[22%] left-[15%]" />
-                        <span className="tracking-widest text-4xl [text-shadow:0_0_4px_#DAA520,0_0_8px_#DAA520,0_0_12px_#DAA520,0_0_20px_#DAA520]">
+                        <span className="tracking-widest text-4xl [text-shadow:0_0_4px_#DAA520,0_0_8px_#DAA520,0_0_12px_#DAA520,0_0_20px_#DAA520] block">
                             THERE IS NOTHING WE CAN'T CREATE!
                         </span>
-                    </p>
+                    </div>
                     
                     <br/>
                     <p>
