@@ -2,6 +2,9 @@
 
 import { Anton } from 'next/font/google';
 import { motion } from 'framer-motion';
+import Image from 'next/image';
+import personImage from '@/assets/images/home_page/person_design.png';
+import spadeImage from '@/assets/images/home_page/spade_design.png';
 
 const anton = Anton({
     weight: '400',
@@ -35,11 +38,124 @@ const Sparkle = ({ delay = 0, className = "" }: SparkleProps) => {
     );
 };
 
+const CardBack = () => (
+    <div 
+        className="absolute inset-0 w-full h-full [backface-visibility:hidden]"
+        style={{ transform: "rotateY(180deg)" }}
+    >
+        <div className="w-full h-full bg-white rounded-[20px] border-8 border-white shadow-[0_0_20px_rgba(255,255,255,0.3)]">
+            <div className="absolute inset-0 border-2 border-black rounded-[12px] bg-[#1a1a1a] overflow-hidden">
+                {/* Pattern Grid */}
+                <div className="absolute inset-0 grid grid-cols-8 gap-2 p-4">
+                    {[...Array(48)].map((_, i) => (
+                        <div key={i} className="aspect-square">
+                            <Image
+                                src={spadeImage}
+                                alt="Pattern"
+                                width={30}
+                                height={30}
+                                className="w-full h-full opacity-20"
+                            />
+                        </div>
+                    ))}
+                </div>
+                {/* Center Logo */}
+                <div className="absolute inset-0 flex items-center justify-center">
+                    <div className="relative w-24 h-24">
+                        <Image
+                            src={spadeImage}
+                            alt="Center Spade"
+                            fill
+                            className="opacity-50"
+                        />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+);
+
+const CardFront = () => (
+    <div 
+        className="absolute inset-0 w-full h-full [backface-visibility:hidden]"
+        style={{ transform: "rotateY(0deg)" }}
+    >
+        <div className="w-full h-full bg-white rounded-[20px] border-8 border-white shadow-[0_0_20px_rgba(255,255,255,0.3)]">
+            {/* Card Border */}
+            <div className="absolute inset-0 border-2 border-black rounded-[12px]" />
+            
+            {/* Card Corner Decorations - Top Left */}
+            <div className="absolute top-4 left-4 flex flex-col items-center">
+                <Image
+                    src={spadeImage}
+                    alt="Spade"
+                    width={30}
+                    height={30}
+                    className="mb-1"
+                />
+                <span className={`text-black text-2xl ${anton.className}`}>J</span>
+            </div>
+
+            {/* Card Corner Decorations - Bottom Right */}
+            <div className="absolute bottom-4 right-4 flex flex-col items-center rotate-180">
+                <Image
+                    src={spadeImage}
+                    alt="Spade"
+                    width={30}
+                    height={30}
+                    className="mb-1"
+                />
+                <span className={`text-black text-2xl ${anton.className}`}>J</span>
+            </div>
+
+            {/* Card Image */}
+            <div className="absolute inset-0 flex items-center justify-center p-16">
+                <div className="relative w-full h-full">
+                    <Image
+                        src={personImage}
+                        alt="Mann Lee"
+                        fill
+                        className="object-contain"
+                        priority
+                    />
+                </div>
+            </div>
+
+            {/* Card Title */}
+            <div className="absolute bottom-20 left-0 right-0 text-center">
+                <h3 className={`text-black text-2xl ${anton.className}`}>JACK OF ALL TRADES</h3>
+            </div>
+        </div>
+    </div>
+);
+
 const AboutPage = () => {
     return (
         <div id="about" className="h-screen flex bg-black text-white overflow-hidden">
-            {/* Left Section - Empty for now */}
-            <div className="flex-1"></div>
+            {/* Left Section - Playing Card */}
+            <div className="flex-1 relative flex items-center justify-center">
+                {/* Rotating Card Container */}
+                <div className="relative [perspective:2000px]">
+                    <motion.div
+                        className="relative w-[400px] h-[560px] [transform-style:preserve-3d]"
+                        initial={{ rotateY: 0 }}
+                        animate={{
+                            rotateY: 360
+                        }}
+                        transition={{
+                            duration: 20,
+                            repeat: Infinity,
+                            ease: "linear"
+                        }}
+                        style={{ transformStyle: "preserve-3d" }}
+                    >
+                        <div className="relative w-full h-full [transform-style:preserve-3d]">
+                            <CardFront />
+                            <CardBack />
+                        </div>
+                    </motion.div>
+                </div>
+            </div>
 
             {/* Right Section - Title and Content */}
             <div className="flex-1 flex flex-col justify-center pr-16">
