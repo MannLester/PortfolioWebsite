@@ -5,6 +5,9 @@ import { motion } from 'framer-motion';
 import Image from 'next/image';
 import personImage from '@/assets/images/home_page/person_design.png';
 import spadeImage from '@/assets/images/home_page/spade_design.png';
+import heartImage from '@/assets/images/home_page/heart_design.png';
+import diamondImage from '@/assets/images/home_page/diamond_design.png';
+import clubImage from '@/assets/images/home_page/club_design.png';
 
 const anton = Anton({
     weight: '400',
@@ -43,33 +46,60 @@ const CardBack = () => (
         className="absolute inset-0 w-full h-full [backface-visibility:hidden]"
         style={{ transform: "rotateY(180deg)" }}
     >
-        <div className="w-full h-full bg-white rounded-[20px] border-8 border-white shadow-[0_0_20px_rgba(255,255,255,0.3)]">
-            <div className="absolute inset-0 border-2 border-black rounded-[12px] bg-[#1a1a1a] overflow-hidden">
-                {/* Pattern Grid */}
-                <div className="absolute inset-0 grid grid-cols-8 gap-2 p-4">
-                    {[...Array(48)].map((_, i) => (
-                        <div key={i} className="aspect-square">
-                            <Image
-                                src={spadeImage}
-                                alt="Pattern"
-                                width={30}
-                                height={30}
-                                className="w-full h-full opacity-20"
-                            />
-                        </div>
-                    ))}
+        <div className="w-full h-full rounded-[20px] bg-black/20 backdrop-blur-sm border-2 border-white/50 shadow-[0_0_15px_rgba(255,105,180,0.5),0_0_30px_rgba(255,105,180,0.3),0_0_45px_rgba(255,105,180,0.2)] overflow-hidden">
+            {/* Outer Border Pattern */}
+            <div className="absolute inset-4 border border-white/20">
+                <div className="absolute inset-2 border border-white/20" />
+            </div>
+
+            {/* Corner Decorations */}
+            {[...Array(4)].map((_, i) => (
+                <div key={i} 
+                    className={`absolute w-16 h-16 ${
+                        i === 0 ? 'top-2 left-2' : 
+                        i === 1 ? 'top-2 right-2' : 
+                        i === 2 ? 'bottom-2 right-2' : 
+                        'bottom-2 left-2'
+                    }`}
+                >
+                    <div className="absolute inset-0 border-t-2 border-l-2 border-white/20 rounded-tl-lg" 
+                         style={{ transform: `rotate(${i * 90}deg)` }} 
+                    />
+                    <Image
+                        src={spadeImage}
+                        alt="Corner Spade"
+                        width={24}
+                        height={24}
+                        className="absolute top-2 left-2 [filter:drop-shadow(0_0_5px_#FF69B4)]"
+                        style={{ transform: `rotate(${i * 90}deg)` }}
+                    />
                 </div>
-                {/* Center Logo */}
-                <div className="absolute inset-0 flex items-center justify-center">
-                    <div className="relative w-24 h-24">
+            ))}
+
+            {/* Center Pattern */}
+            <div className="fixed top-1/2 left-[63%] -translate-x-1/2 -translate-y-1/2 w-[350px] h-[350px]">
+                <Image
+                    src={spadeImage}
+                    alt="Center Spade"
+                    fill
+                    priority
+                    className="object-contain [filter:drop-shadow(0_0_20px_#FF69B4)_drop-shadow(0_0_40px_#FF69B4)_drop-shadow(0_0_60px_#FF69B4)]"
+                />
+            </div>
+
+            {/* Background Grid Pattern */}
+            <div className="absolute inset-0 grid grid-cols-8 gap-2 p-4 opacity-5">
+                {[...Array(48)].map((_, i) => (
+                    <div key={i} className="aspect-square">
                         <Image
                             src={spadeImage}
-                            alt="Center Spade"
-                            fill
-                            className="opacity-50"
+                            alt="Pattern"
+                            width={30}
+                            height={30}
+                            className="w-full h-full [filter:drop-shadow(0_0_3px_#FF69B4)]"
                         />
                     </div>
-                </div>
+                ))}
             </div>
         </div>
     </div>
@@ -80,50 +110,85 @@ const CardFront = () => (
         className="absolute inset-0 w-full h-full [backface-visibility:hidden]"
         style={{ transform: "rotateY(0deg)" }}
     >
-        <div className="w-full h-full bg-white rounded-[20px] border-8 border-white shadow-[0_0_20px_rgba(255,255,255,0.3)]">
+        <div className="w-full h-full rounded-[20px] bg-black/20 backdrop-blur-sm border-2 border-white/50 shadow-[0_0_15px_rgba(255,105,180,0.5),0_0_30px_rgba(255,105,180,0.3),0_0_45px_rgba(255,105,180,0.2)]">
             {/* Card Border */}
-            <div className="absolute inset-0 border-2 border-black rounded-[12px]" />
+            <div className="absolute inset-0 border-2 border-white/70 rounded-[12px] [box-shadow:inset_0_0_15px_rgba(255,105,180,0.3)]" />
             
-            {/* Card Corner Decorations - Top Left */}
-            <div className="absolute top-4 left-4 flex flex-col items-center">
+            {/* Decorative Corner Patterns - Top Left */}
+            <div className="absolute top-4 left-4 w-24 h-24">
+                <div className="absolute inset-0 border-t-2 border-l-2 border-white/30 rounded-tl-lg" />
+                <div className="absolute top-2 left-2 w-4 h-4 border-2 border-white/30 rounded-full" />
                 <Image
                     src={spadeImage}
                     alt="Spade"
                     width={30}
                     height={30}
-                    className="mb-1"
+                    className="absolute top-4 left-4 mb-1 [filter:drop-shadow(0_0_5px_#FF69B4)_drop-shadow(0_0_10px_#FF69B4)]"
                 />
-                <span className={`text-black text-2xl ${anton.className}`}>J</span>
+                <span className={`absolute bottom-0 left-4 text-white text-2xl ${anton.className} [text-shadow:0_0_5px_#FF69B4,0_0_10px_#FF69B4,0_0_15px_#FF69B4]`}>J</span>
             </div>
 
-            {/* Card Corner Decorations - Bottom Right */}
-            <div className="absolute bottom-4 right-4 flex flex-col items-center rotate-180">
+            {/* Decorative Corner Patterns - Bottom Right */}
+            <div className="absolute bottom-4 right-4 w-24 h-24 rotate-180">
+                <div className="absolute inset-0 border-t-2 border-l-2 border-white/30 rounded-tl-lg" />
+                <div className="absolute top-2 left-2 w-4 h-4 border-2 border-white/30 rounded-full" />
                 <Image
                     src={spadeImage}
                     alt="Spade"
                     width={30}
                     height={30}
-                    className="mb-1"
+                    className="absolute top-4 left-4 mb-1 [filter:drop-shadow(0_0_5px_#FF69B4)_drop-shadow(0_0_10px_#FF69B4)]"
                 />
-                <span className={`text-black text-2xl ${anton.className}`}>J</span>
+                <span className={`absolute bottom-0 left-4 text-white text-2xl ${anton.className} [text-shadow:0_0_5px_#FF69B4,0_0_10px_#FF69B4,0_0_15px_#FF69B4]`}>J</span>
+            </div>
+
+            {/* Decorative Frame */}
+            <div className="absolute inset-12 border border-white/20 rounded-lg">
+                <div className="absolute -top-1 left-1/2 -translate-x-1/2 w-8 h-8">
+                    <Image
+                        src={spadeImage}
+                        alt="Top Spade"
+                        width={20}
+                        height={20}
+                        className="w-full h-full [filter:drop-shadow(0_0_5px_#FF69B4)]"
+                    />
+                </div>
+                <div className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-8 h-8 rotate-180">
+                    <Image
+                        src={spadeImage}
+                        alt="Bottom Spade"
+                        width={20}
+                        height={20}
+                        className="w-full h-full [filter:drop-shadow(0_0_5px_#FF69B4)]"
+                    />
+                </div>
             </div>
 
             {/* Card Image */}
-            <div className="absolute inset-0 flex items-center justify-center p-16">
-                <div className="relative w-full h-full">
+            <div className="absolute inset-0 flex items-center justify-center p-8">
+                <div className="relative w-[95%] h-[95%]">
                     <Image
                         src={personImage}
                         alt="Mann Lee"
                         fill
-                        className="object-contain"
+                        className="object-contain [filter:drop-shadow(0_0_10px_#FF69B4)_drop-shadow(0_0_20px_#FF69B4)]"
                         priority
                     />
                 </div>
             </div>
 
-            {/* Card Title */}
-            <div className="absolute bottom-20 left-0 right-0 text-center">
-                <h3 className={`text-black text-2xl ${anton.className}`}>JACK OF ALL TRADES</h3>
+            {/* Small Decorative Spades in Corners */}
+            <div className="absolute top-24 left-8 w-4 h-4 opacity-30">
+                <Image src={spadeImage} alt="Decorative" fill className="[filter:drop-shadow(0_0_3px_#FF69B4)]" />
+            </div>
+            <div className="absolute top-8 left-24 w-4 h-4 opacity-30">
+                <Image src={spadeImage} alt="Decorative" fill className="[filter:drop-shadow(0_0_3px_#FF69B4)]" />
+            </div>
+            <div className="absolute bottom-24 right-8 w-4 h-4 opacity-30 rotate-180">
+                <Image src={spadeImage} alt="Decorative" fill className="[filter:drop-shadow(0_0_3px_#FF69B4)]" />
+            </div>
+            <div className="absolute bottom-8 right-24 w-4 h-4 opacity-30 rotate-180">
+                <Image src={spadeImage} alt="Decorative" fill className="[filter:drop-shadow(0_0_3px_#FF69B4)]" />
             </div>
         </div>
     </div>
@@ -143,7 +208,7 @@ const AboutPage = () => {
                             rotateY: 360
                         }}
                         transition={{
-                            duration: 20,
+                            duration: 13,
                             repeat: Infinity,
                             ease: "linear"
                         }}
