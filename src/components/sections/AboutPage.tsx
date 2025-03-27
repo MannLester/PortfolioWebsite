@@ -199,7 +199,7 @@ const AboutPage = () => {
                 {/* Rotating Card Container */}
                 <div className="relative [perspective:2000px]">
                     <motion.div
-                        className="relative w-[400px] h-[560px] [transform-style:preserve-3d]"
+                        className="relative w-[300px] h-[420px] [transform-style:preserve-3d]"
                         initial={{ rotateY: 0 }}
                         animate={{
                             rotateY: 360
@@ -224,7 +224,7 @@ const AboutPage = () => {
                 {/* About Me Title */}
                 <div className="flex justify-end w-full mb-16 pr-20">
                     <motion.h2 
-                        className={`text-8xl ${anton.className} tracking-wider [text-shadow:0_0_7px_#00BFFF,0_0_10px_#00BFFF,0_0_21px_#00BFFF,0_0_42px_#00BFFF]`}
+                        className={`text-4xl ${anton.className} tracking-wider [text-shadow:0_0_7px_#00BFFF,0_0_10px_#00BFFF,0_0_21px_#00BFFF,0_0_42px_#00BFFF]`}
                         initial={{ opacity: 1, color: "#000000" }}
                         animate={{
                             color: ["#000000", "#fff", "#fff", "#fff", "#fff", "#fff", "#000000", "#fff"],
