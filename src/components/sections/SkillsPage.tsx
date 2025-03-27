@@ -23,6 +23,21 @@ const SkillsPage = () => (
         
         {/* Content Container */}
         <div className={`relative z-10 flex flex-col h-full ${anton.className}`}>
+            <style jsx global>{`
+                @keyframes glowPulse {
+                    0%, 100% {
+                        text-shadow: 0 0 5px currentColor, 0 0 10px currentColor;
+                        transform: scale(1);
+                    }
+                    50% {
+                        text-shadow: 0 0 10px currentColor, 0 0 20px currentColor, 0 0 30px currentColor;
+                        transform: scale(1.1);
+                    }
+                }
+                .glow-bullet::before {
+                    animation: glowPulse 2s infinite;
+                }
+            `}</style>
             {/* Main Skills Heading */}
             <motion.h1 
                 className="tracking-widest text-6xl font-bold mb-16 text-white text-center [text-shadow:0_0_7px_#FFD700,0_0_10px_#FFD700,0_0_21px_#FFD700,0_0_42px_#FFD700]"
@@ -46,22 +61,22 @@ const SkillsPage = () => (
                         Technical Skills
                     </motion.h2>
                     <ul className="space-y-6 text-white text-2xl">
-                        <li className="flex items-center before:content-['•'] before:mr-4 before:text-[#00ffff] before:[text-shadow:0_0_5px_#00ffff,0_0_10px_#00ffff] before:text-2xl">
+                        <li className="flex items-center glow-bullet before:content-['•'] before:mr-4 before:text-[#00ffff] before:[text-shadow:0_0_5px_#00ffff,0_0_10px_#00ffff] before:text-2xl">
                             HTML, CSS, JavaScript, React.js, Vite
                         </li>
-                        <li className="flex items-center before:content-['•'] before:mr-4 before:text-[#00ffff] before:[text-shadow:0_0_5px_#00ffff,0_0_10px_#00ffff] before:text-2xl">
+                        <li className="flex items-center glow-bullet before:content-['•'] before:mr-4 before:text-[#00ffff] before:[text-shadow:0_0_5px_#00ffff,0_0_10px_#00ffff] before:text-2xl">
                             Python, Java, C++, C#, C
                         </li>
-                        <li className="flex items-center before:content-['•'] before:mr-4 before:text-[#00ffff] before:[text-shadow:0_0_5px_#00ffff,0_0_10px_#00ffff] before:text-2xl">
+                        <li className="flex items-center glow-bullet before:content-['•'] before:mr-4 before:text-[#00ffff] before:[text-shadow:0_0_5px_#00ffff,0_0_10px_#00ffff] before:text-2xl">
                             Frameworks (Blazor, Java Swing)
                         </li>
-                        <li className="flex items-center before:content-['•'] before:mr-4 before:text-[#00ffff] before:[text-shadow:0_0_5px_#00ffff,0_0_10px_#00ffff] before:text-2xl">
+                        <li className="flex items-center glow-bullet before:content-['•'] before:mr-4 before:text-[#00ffff] before:[text-shadow:0_0_5px_#00ffff,0_0_10px_#00ffff] before:text-2xl">
                             Database Management (Firebase, MySQL)
                         </li>
-                        <li className="flex items-center before:content-['•'] before:mr-4 before:text-[#00ffff] before:[text-shadow:0_0_5px_#00ffff,0_0_10px_#00ffff] before:text-2xl">
+                        <li className="flex items-center glow-bullet before:content-['•'] before:mr-4 before:text-[#00ffff] before:[text-shadow:0_0_5px_#00ffff,0_0_10px_#00ffff] before:text-2xl">
                             GitHub Repository Management
                         </li>
-                        <li className="flex items-center before:content-['•'] before:mr-4 before:text-[#00ffff] before:[text-shadow:0_0_5px_#00ffff,0_0_10px_#00ffff] before:text-2xl">
+                        <li className="flex items-center glow-bullet before:content-['•'] before:mr-4 before:text-[#00ffff] before:[text-shadow:0_0_5px_#00ffff,0_0_10px_#00ffff] before:text-2xl">
                             Development (Godot, Unity, Flutter, Android Studio)
                         </li>
                     </ul>
@@ -78,22 +93,22 @@ const SkillsPage = () => (
                         Soft Skills
                     </motion.h2>
                     <ul className="space-y-6 text-white text-2xl">
-                        <li className="flex items-center before:content-['•'] before:mr-4 before:text-[#b300ff] before:[text-shadow:0_0_5px_#b300ff,0_0_10px_#b300ff] before:text-2xl">
+                        <li className="flex items-center glow-bullet before:content-['•'] before:mr-4 before:text-[#b300ff] before:[text-shadow:0_0_5px_#b300ff,0_0_10px_#b300ff] before:text-2xl">
                             Fluent English Communicator
                         </li>
-                        <li className="flex items-center before:content-['•'] before:mr-4 before:text-[#b300ff] before:[text-shadow:0_0_5px_#b300ff,0_0_10px_#b300ff] before:text-2xl">
+                        <li className="flex items-center glow-bullet before:content-['•'] before:mr-4 before:text-[#b300ff] before:[text-shadow:0_0_5px_#b300ff,0_0_10px_#b300ff] before:text-2xl">
                             Project Management
                         </li>
-                        <li className="flex items-center before:content-['•'] before:mr-4 before:text-[#b300ff] before:[text-shadow:0_0_5px_#b300ff,0_0_10px_#b300ff] before:text-2xl">
+                        <li className="flex items-center glow-bullet before:content-['•'] before:mr-4 before:text-[#b300ff] before:[text-shadow:0_0_5px_#b300ff,0_0_10px_#b300ff] before:text-2xl">
                             Collaborator and Team Player
                         </li>
-                        <li className="flex items-center before:content-['•'] before:mr-4 before:text-[#b300ff] before:[text-shadow:0_0_5px_#b300ff,0_0_10px_#b300ff] before:text-2xl">
+                        <li className="flex items-center glow-bullet before:content-['•'] before:mr-4 before:text-[#b300ff] before:[text-shadow:0_0_5px_#b300ff,0_0_10px_#b300ff] before:text-2xl">
                             Harmonious Blend of Logic and Creativity
                         </li>
-                        <li className="flex items-center before:content-['•'] before:mr-4 before:text-[#b300ff] before:[text-shadow:0_0_5px_#b300ff,0_0_10px_#b300ff] before:text-2xl">
+                        <li className="flex items-center glow-bullet before:content-['•'] before:mr-4 before:text-[#b300ff] before:[text-shadow:0_0_5px_#b300ff,0_0_10px_#b300ff] before:text-2xl">
                             Innovative and Resourceful
                         </li>
-                        <li className="flex items-center before:content-['•'] before:mr-4 before:text-[#b300ff] before:[text-shadow:0_0_5px_#b300ff,0_0_10px_#b300ff] before:text-2xl">
+                        <li className="flex items-center glow-bullet before:content-['•'] before:mr-4 before:text-[#b300ff] before:[text-shadow:0_0_5px_#b300ff,0_0_10px_#b300ff] before:text-2xl">
                             Self-Sufficient and Adaptable
                         </li>
                     </ul>
