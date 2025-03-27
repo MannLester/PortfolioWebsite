@@ -5,9 +5,6 @@ import { motion } from 'framer-motion';
 import Image from 'next/image';
 import personImage from '@/assets/images/home_page/person_design.png';
 import spadeImage from '@/assets/images/home_page/spade_design.png';
-import heartImage from '@/assets/images/home_page/heart_design.png';
-import diamondImage from '@/assets/images/home_page/diamond_design.png';
-import clubImage from '@/assets/images/home_page/club_design.png';
 
 const anton = Anton({
     weight: '400',

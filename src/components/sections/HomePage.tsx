@@ -34,7 +34,7 @@ const HomePage = () => {
               <p className="text-white text-3xl font-semibold tracking-wider ${anton.className}">Junior Full Stack Developer</p>
 
               <div className="flex space-x-6">
-                <button className="bg-blue-500 text-white px-6 py-3 rounded">Know More</button>
+                <button className="bg-blue-500 text-white px-6 py-3 rounded">See Resume</button>
                 <button className="bg-green-500 text-white px-6 py-3 rounded">Contact Me</button>
               </div>
             </div>

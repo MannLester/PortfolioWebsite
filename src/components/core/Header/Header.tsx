@@ -22,11 +22,11 @@ const Header = () => {
           <Link href="#about" className="hover:text-primary transition-colors">
             About
           </Link>
-          <Link href="#projects" className="hover:text-primary transition-colors">
-            Projects
-          </Link>
           <Link href="#skills" className="hover:text-primary transition-colors">
             Skills
+          </Link>
+          <Link href="#projects" className="hover:text-primary transition-colors">
+            Projects
           </Link>
           <Link href="#experience" className="hover:text-primary transition-colors">
             Experience
