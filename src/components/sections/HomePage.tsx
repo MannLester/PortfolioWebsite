@@ -29,7 +29,7 @@ const HomePage = () => {
             <div className="space-y-8">
               <h1 className={`text-white text-4xl tracking-normal font-bold [text-shadow:0_0_7px_#9933ff,0_0_10px_#9933ff,0_0_21px_#9933ff,0_0_42px_#9933ff] ${anton.className}`}>H E L L O !</h1>
 
-              <h2 className={`text-white text-8xl tracking-normal ${anton.className}`}>I<span className="text-white [text-shadow:0_0_7px_#9933ff,0_0_10px_#9933ff,0_0_21px_#9933ff,0_0_42px_#9933ff]">'</span>m <span className="text-white [text-shadow:0_0_7px_#9933ff,0_0_10px_#9933ff,0_0_21px_#9933ff,0_0_42px_#9933ff]">Mann Lester Magbuhos</span></h2>
+              <h2 className={`text-white text-8xl tracking-normal ${anton.className}`}>I&apos;m <span className="text-white [text-shadow:0_0_7px_#9933ff,0_0_10px_#9933ff,0_0_21px_#9933ff,0_0_42px_#9933ff]">Mann Lester Magbuhos</span></h2>
 
               <p className="text-white text-3xl font-semibold tracking-wider ${anton.className}">Junior Full Stack Developer</p>
 

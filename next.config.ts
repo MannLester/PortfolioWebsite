@@ -7,7 +7,6 @@ const nextConfig: NextConfig = {
         domains: [], // Add any external image domains here if needed
     },
     reactStrictMode: true,
-    swcMinify: true,
 };
 
 export default nextConfig;

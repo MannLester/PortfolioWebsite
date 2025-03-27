@@ -123,7 +123,7 @@ const NavigationButton: React.FC<{
     </button>
 );
 
-const ProjectCard: React.FC<{ project: Project; index: number }> = ({ project, index }) => {
+const ProjectCard: React.FC<{ project: Project }> = ({ project }) => {
     return (
         <motion.div
             initial={{ opacity: 0, x: 50 }}
@@ -300,8 +300,8 @@ const ProjectPage = () => {
                                 custom={direction}
                                 transition={{ duration: 0.5 }}
                             >
-                                {currentProjects.map((project, index) => (
-                                    <ProjectCard key={project.title} project={project} index={index} />
+                                {currentProjects.map((project) => (
+                                    <ProjectCard key={project.title} project={project} />
                                 ))}
                             </motion.div>
                         </AnimatePresence>

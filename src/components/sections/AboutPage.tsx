@@ -253,7 +253,7 @@ const AboutPage = () => {
 
                 {/* Content */}
                 <div className={`tracking-wider text-2xl space-y-4 text-right ${anton.className}`}>
-                    <p>Hi, I'm Lester, The Jack of All Trades Junior Developer.</p>
+                    <p>Hi, I&apos;m Lester, The Jack of All Trades Junior Developer.</p>
                     
                     <div className="space-y-1">
                         <p>From idea generation to product creation.</p>
@@ -285,7 +285,7 @@ const AboutPage = () => {
                         <Sparkle delay={0.1} className="top-[12%] left-[85%]" />
                         <Sparkle delay={1.4} className="top-[22%] left-[15%]" />
                         <span className="tracking-widest text-4xl [text-shadow:0_0_4px_#DAA520,0_0_8px_#DAA520,0_0_12px_#DAA520,0_0_20px_#DAA520] block">
-                            THERE IS NOTHING WE CAN'T CREATE!
+                            THERE IS NOTHING WE CAN&apos;T CREATE!
                         </span>
                     </div>
                     

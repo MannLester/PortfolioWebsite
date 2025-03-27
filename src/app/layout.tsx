@@ -33,10 +33,7 @@ export default function RootLayout({
     >
       <body className={`${inter.className} antialiased`}>
         <ThemeProvider
-          attribute="class"
           defaultTheme="dark"
-          enableSystem
-          disableTransitionOnChange
           storageKey="theme"
         >
           <div className="relative flex min-h-screen flex-col">
