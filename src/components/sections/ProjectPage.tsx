@@ -178,6 +178,7 @@ const ProjectPage = () => {
     const [currentPage, setCurrentPage] = useState(0);
     const [selectedGenre, setSelectedGenre] = useState<string | null>(null);
     const [selectedLanguage, setSelectedLanguage] = useState<string | null>(null);
+    const [direction, setDirection] = useState(0);
 
     const filteredProjects = projects.filter(project => {
         const matchesGenre = !selectedGenre || project.genre === selectedGenre;
@@ -191,6 +192,31 @@ const ProjectPage = () => {
         currentPage * projectsPerPage,
         (currentPage + 1) * projectsPerPage
     );
+
+    const handlePrevPage = () => {
+        setDirection(-1);
+        setCurrentPage(prev => Math.max(0, prev - 1));
+    };
+
+    const handleNextPage = () => {
+        setDirection(1);
+        setCurrentPage(prev => Math.min(totalPages - 1, prev + 1));
+    };
+
+    const variants = {
+        enter: (direction: number) => ({
+            x: direction > 0 ? 300 : -300,
+            opacity: 0
+        }),
+        center: {
+            x: 0,
+            opacity: 1
+        },
+        exit: (direction: number) => ({
+            x: direction < 0 ? 300 : -300,
+            opacity: 0
+        })
+    };
 
     return (
         <div id="projects" className="relative min-h-screen bg-black p-8 pt-24 overflow-hidden">
@@ -230,28 +256,35 @@ const ProjectPage = () => {
                 {/* Projects Grid with Navigation */}
                 <div className="relative mx-auto max-w-7xl">
                     <div className="overflow-hidden px-4">
-                        <motion.div 
-                            key={currentPage}
-                            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 justify-items-center"
-                            initial={{ opacity: 0, x: 50 }}
-                            animate={{ opacity: 1, x: 0 }}
-                            exit={{ opacity: 0, x: -50 }}
-                            transition={{ duration: 0.5 }}
-                        >
-                            {currentProjects.map((project) => (
-                                <ProjectCard key={project.title} project={project} />
-                            ))}
-                        </motion.div>
+                        <AnimatePresence mode="wait" custom={direction}>
+                            <motion.div 
+                                key={currentPage}
+                                className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 justify-items-center"
+                                custom={direction}
+                                variants={variants}
+                                initial="enter"
+                                animate="center"
+                                exit="exit"
+                                transition={{ 
+                                    duration: 0.7,
+                                    ease: "easeInOut"
+                                }}
+                            >
+                                {currentProjects.map((project) => (
+                                    <ProjectCard key={project.title} project={project} />
+                                ))}
+                            </motion.div>
+                        </AnimatePresence>
                     </div>
 
                     <NavigationButton
                         direction="prev"
-                        onClick={() => setCurrentPage(prev => Math.max(0, prev - 1))}
+                        onClick={handlePrevPage}
                         disabled={currentPage === 0}
                     />
                     <NavigationButton
                         direction="next"
-                        onClick={() => setCurrentPage(prev => Math.min(totalPages - 1, prev + 1))}
+                        onClick={handleNextPage}
                         disabled={currentPage >= totalPages - 1}
                     />
                 </div>
