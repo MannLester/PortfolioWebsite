@@ -1,9 +1,7 @@
 "use client";
 
 import { motion, AnimatePresence } from 'framer-motion';
-import Image from 'next/image';
 import { Anton } from 'next/font/google';
-import brickBg from '@/assets/images/home_page/brick_bg.jpg';
 import { useState } from 'react';
 
 const anton = Anton({
@@ -17,7 +15,6 @@ interface Project {
     technologies: string[];
     genre: string;
     language: string;
-    imageUrl?: string;
     githubUrl?: string;
     liveUrl?: string;
 }
@@ -80,7 +77,7 @@ const SelectFilter: React.FC<{
             value={value || ""}
             onChange={(e) => onChange(e.target.value || null)}
             className="appearance-none bg-zinc-900/70 text-zinc-300 px-4 py-2 pr-8 rounded-lg border border-zinc-800/50 
-                     hover:border-zinc-700/50 focus:border-[#FFD700] focus:outline-none focus:ring-1 focus:ring-[#FFD700]
+                     hover:border-[#00FF00] focus:border-[#00FF00] focus:outline-none focus:ring-1 focus:ring-[#00FF00]
                      transition-all duration-300 cursor-pointer backdrop-blur-sm w-[200px] [-webkit-appearance:none] [-moz-appearance:none]"
         >
             <option value="">{`All ${label}`}</option>
@@ -99,26 +96,25 @@ const SelectFilter: React.FC<{
 );
 
 const NavigationButton: React.FC<{
+    direction: 'prev' | 'next';
     onClick: () => void;
     disabled: boolean;
-    direction: 'prev' | 'next';
-}> = ({ onClick, disabled, direction }) => (
+}> = ({ direction, onClick, disabled }) => (
     <button
         onClick={onClick}
         disabled={disabled}
-        className={`absolute top-1/2 -translate-y-1/2 ${direction === 'prev' ? '-left-4' : '-right-4'}
-                   p-3 rounded-full bg-zinc-900/80 backdrop-blur-sm border border-zinc-800/50
-                   hover:bg-zinc-800/90 hover:border-[#FFD700] disabled:opacity-50 disabled:cursor-not-allowed
-                   transition-all duration-300 z-20 group shadow-lg hover:shadow-[#FFD700]/20
-                   ${disabled ? '' : 'hover:scale-110'}`}
+        className={`fixed top-1/2 -translate-y-1/2 ${direction === 'prev' ? 'left-8' : 'right-8'}
+            bg-zinc-900/70 text-zinc-300 p-2 rounded-full border border-zinc-800/50
+            hover:border-[#00FF00] hover:text-[#00FF00] disabled:opacity-50 disabled:cursor-not-allowed
+            transition-all duration-300 z-20 backdrop-blur-sm`}
     >
-        <svg 
-            className={`h-6 w-6 text-zinc-400 group-hover:text-[#FFD700] transition-colors ${direction === 'prev' ? 'rotate-180' : ''}`}
-            fill="none" 
-            stroke="currentColor" 
+        <svg
+            className={`h-6 w-6 ${direction === 'next' && 'rotate-180'}`}
+            fill="none"
+            stroke="currentColor"
             viewBox="0 0 24 24"
         >
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
         </svg>
     </button>
 );
@@ -130,44 +126,35 @@ const ProjectCard: React.FC<{ project: Project }> = ({ project }) => {
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: -50 }}
             transition={{ duration: 0.5 }}
-            className="bg-zinc-900/50 backdrop-blur-sm rounded-xl p-6 hover:bg-zinc-800/50 transition-all duration-300 border border-zinc-800/50 hover:border-zinc-700/50 group"
+            className="bg-zinc-900/50 backdrop-blur-sm rounded-xl p-6 hover:bg-zinc-800/50 transition-all duration-300 
+                       border border-zinc-800/50 hover:border-zinc-700/50 group w-[360px] h-[280px] flex flex-col"
         >
-            {project.imageUrl && (
-                <div className="relative h-48 mb-4 overflow-hidden rounded-lg">
-                    <Image
-                        src={project.imageUrl}
-                        alt={project.title}
-                        fill
-                        className="object-cover transition-transform duration-300 group-hover:scale-110"
-                    />
-                </div>
-            )}
             <div className="flex justify-between items-start mb-2">
-                <h3 className={`${anton.className} text-2xl text-white [text-shadow:0_0_7px_#FFD700,0_0_10px_#FFD700]`}>
+                <h3 className={`${anton.className} text-2xl text-white [text-shadow:0_0_7px_#00FF00,0_0_10px_#00FF00]`}>
                     {project.title}
                 </h3>
-                <span className="text-sm px-2 py-1 rounded-full bg-zinc-800/70 text-zinc-300">
+                <span className="text-sm px-2 py-1 rounded-full bg-zinc-800/70 text-[#00FF00]">
                     {project.language}
                 </span>
             </div>
-            <p className="text-zinc-300 mb-4">{project.description}</p>
+            <p className="text-zinc-300 mb-4 line-clamp-2">{project.description}</p>
             <div className="flex flex-wrap gap-2 mb-4">
                 {project.technologies.map((tech, i) => (
                     <span
                         key={i}
-                        className="px-3 py-1 text-sm bg-zinc-800/50 rounded-full text-zinc-300 hover:bg-zinc-700/50 transition-colors"
+                        className="px-3 py-1 text-sm bg-zinc-800/50 rounded-full text-[#00FF00] hover:bg-zinc-700/50 transition-colors"
                     >
                         {tech}
                     </span>
                 ))}
             </div>
-            <div className="flex gap-4">
+            <div className="flex gap-4 mt-auto">
                 {project.githubUrl && (
                     <a
                         href={project.githubUrl}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="text-zinc-300 hover:text-white transition-colors"
+                        className="text-zinc-300 hover:text-[#00FF00] transition-colors"
                     >
                         GitHub →
                     </a>
@@ -177,7 +164,7 @@ const ProjectCard: React.FC<{ project: Project }> = ({ project }) => {
                         href={project.liveUrl}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="text-zinc-300 hover:text-white transition-colors"
+                        className="text-zinc-300 hover:text-[#00FF00] transition-colors"
                     >
                         Live Demo →
                     </a>
@@ -188,11 +175,9 @@ const ProjectCard: React.FC<{ project: Project }> = ({ project }) => {
 };
 
 const ProjectPage = () => {
+    const [currentPage, setCurrentPage] = useState(0);
     const [selectedGenre, setSelectedGenre] = useState<string | null>(null);
     const [selectedLanguage, setSelectedLanguage] = useState<string | null>(null);
-    const [currentPage, setCurrentPage] = useState(0);
-    const [direction, setDirection] = useState(0); // -1 for prev, 1 for next
-    const projectsPerPage = 3;
 
     const filteredProjects = projects.filter(project => {
         const matchesGenre = !selectedGenre || project.genre === selectedGenre;
@@ -200,57 +185,19 @@ const ProjectPage = () => {
         return matchesGenre && matchesLanguage;
     });
 
+    const projectsPerPage = 3;
     const totalPages = Math.ceil(filteredProjects.length / projectsPerPage);
     const currentProjects = filteredProjects.slice(
         currentPage * projectsPerPage,
         (currentPage + 1) * projectsPerPage
     );
 
-    const goToNextPage = () => {
-        if (currentPage < totalPages - 1) {
-            setDirection(1);
-            setCurrentPage(prev => prev + 1);
-        }
-    };
-
-    const goToPrevPage = () => {
-        if (currentPage > 0) {
-            setDirection(-1);
-            setCurrentPage(prev => prev - 1);
-        }
-    };
-
-    const variants = {
-        enter: (direction: number) => ({
-            x: direction > 0 ? 100 : -100,
-            opacity: 0
-        }),
-        center: {
-            x: 0,
-            opacity: 1
-        },
-        exit: (direction: number) => ({
-            x: direction > 0 ? -100 : 100,
-            opacity: 0
-        })
-    };
-
     return (
         <div id="projects" className="relative min-h-screen bg-black p-8 pt-24 overflow-hidden">
-            {/* Background Image */}
-            <Image
-                src={brickBg}
-                alt="Brick Background"
-                fill
-                className="object-cover opacity-50"
-                priority
-            />
-            
             {/* Content Container */}
             <div className="relative z-10 container mx-auto">
-                {/* Main Projects Heading */}
                 <motion.h1 
-                    className={`${anton.className} tracking-widest text-6xl font-bold mb-16 text-white text-center [text-shadow:0_0_7px_#FFD700,0_0_10px_#FFD700,0_0_21px_#FFD700,0_0_42px_#FFD700]`}
+                    className={`${anton.className} tracking-widest text-6xl font-bold mb-16 text-white text-center [text-shadow:0_0_7px_#00FF00,0_0_10px_#00FF00,0_0_21px_#00FF00,0_0_42px_#00FF00]`}
                     initial={{ opacity: 0 }} 
                     animate={{ opacity: 1 }} 
                     transition={{ duration: 1 }}
@@ -262,54 +209,49 @@ const ProjectPage = () => {
                 <div className="mb-12 flex flex-wrap gap-4 justify-center items-center">
                     <SelectFilter
                         value={selectedGenre}
+                        options={genres}
                         onChange={(value) => {
                             setSelectedGenre(value);
                             setCurrentPage(0);
                         }}
-                        options={genres}
                         label="Genres"
                     />
                     <SelectFilter
                         value={selectedLanguage}
+                        options={languages}
                         onChange={(value) => {
                             setSelectedLanguage(value);
                             setCurrentPage(0);
                         }}
-                        options={languages}
                         label="Languages"
                     />
                 </div>
 
                 {/* Projects Grid with Navigation */}
-                <div className="relative px-4">
-                    <NavigationButton
-                        direction="prev"
-                        onClick={goToPrevPage}
-                        disabled={currentPage === 0}
-                    />
-                    
-                    <div className="overflow-hidden">
-                        <AnimatePresence mode="wait" custom={direction}>
-                            <motion.div 
-                                key={currentPage}
-                                className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
-                                variants={variants}
-                                initial="enter"
-                                animate="center"
-                                exit="exit"
-                                custom={direction}
-                                transition={{ duration: 0.5 }}
-                            >
-                                {currentProjects.map((project) => (
-                                    <ProjectCard key={project.title} project={project} />
-                                ))}
-                            </motion.div>
-                        </AnimatePresence>
+                <div className="relative mx-auto max-w-7xl">
+                    <div className="overflow-hidden px-4">
+                        <motion.div 
+                            key={currentPage}
+                            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 justify-items-center"
+                            initial={{ opacity: 0, x: 50 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            exit={{ opacity: 0, x: -50 }}
+                            transition={{ duration: 0.5 }}
+                        >
+                            {currentProjects.map((project) => (
+                                <ProjectCard key={project.title} project={project} />
+                            ))}
+                        </motion.div>
                     </div>
 
                     <NavigationButton
+                        direction="prev"
+                        onClick={() => setCurrentPage(prev => Math.max(0, prev - 1))}
+                        disabled={currentPage === 0}
+                    />
+                    <NavigationButton
                         direction="next"
-                        onClick={goToNextPage}
+                        onClick={() => setCurrentPage(prev => Math.min(totalPages - 1, prev + 1))}
                         disabled={currentPage >= totalPages - 1}
                     />
                 </div>
@@ -322,7 +264,7 @@ const ProjectPage = () => {
                             onClick={() => setCurrentPage(i)}
                             className={`w-2 h-2 rounded-full transition-all duration-300 ${
                                 i === currentPage 
-                                    ? 'bg-[#FFD700] w-6'
+                                    ? 'bg-[#00FF00] w-6'
                                     : 'bg-zinc-600 hover:bg-zinc-500'
                             }`}
                             aria-label={`Go to page ${i + 1}`}
