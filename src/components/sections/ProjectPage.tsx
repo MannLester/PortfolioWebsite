@@ -103,7 +103,7 @@ const NavigationButton: React.FC<{
     <button
         onClick={onClick}
         disabled={disabled}
-        className={`fixed top-1/2 -translate-y-1/2 ${direction === 'prev' ? 'left-8' : 'right-8'}
+        className={`absolute top-1/2 -translate-y-1/2 ${direction === 'prev' ? '-left-16' : '-right-16'}
             bg-zinc-900/70 text-zinc-300 p-2 rounded-full border border-zinc-800/50
             hover:border-[#00FF00] hover:text-[#00FF00] disabled:opacity-50 disabled:cursor-not-allowed
             transition-all duration-300 z-20 backdrop-blur-sm`}
@@ -254,8 +254,8 @@ const ProjectPage = () => {
                 </div>
 
                 {/* Projects Grid with Navigation */}
-                <div className="relative mx-auto max-w-7xl">
-                    <div className="overflow-hidden px-4">
+                <div className="relative mx-auto max-w-7xl px-20">
+                    <div className="overflow-hidden">
                         <AnimatePresence mode="wait" custom={direction}>
                             <motion.div 
                                 key={currentPage}
