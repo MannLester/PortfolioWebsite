@@ -26,12 +26,29 @@ const ContactPage = () => {
     setSubmitStatus('idle');
 
     try {
+      const formData = new FormData(form.current);
+      const emailValue = formData.get('email');
+
       await emailjs.sendForm(
-        'service_5iz9rug', // Replace with your EmailJS service ID
-        'template_qkwe5td', // Replace with your EmailJS template ID
+        'service_5iz9rug',
+        'template_qkwe5td',
         form.current,
-        'y4HBxB8Dlt4vhA0xw' // Replace with your EmailJS public key
+        'y4HBxB8Dlt4vhA0xw'
       );
+      
+      // Send a copy to the sender
+      await emailjs.send(
+        'service_5iz9rug',
+        'template_qkwe5td',
+        {
+          name: formData.get('name'),
+          email: emailValue,
+          message: formData.get('message'),
+          reply_to: emailValue
+        },
+        'y4HBxB8Dlt4vhA0xw'
+      );
+
       setSubmitStatus('success');
       form.current.reset();
     } catch (error) {
@@ -144,19 +161,19 @@ const ContactPage = () => {
                 <div>
                   <input
                     type="text"
-                    name="from_name"
+                    name="name"
                     placeholder="Your Name"
                     required
-                    className="w-full p-3 rounded bg-background border border-border focus:border-primary focus:outline-none transition-colors"
+                    className="w-full p-3 rounded bg-background border border-border focus:border-primary focus:outline-none focus:[box-shadow:0_0_7px_#3366ff] transition-all"
                   />
                 </div>
                 <div>
                   <input
                     type="email"
-                    name="from_email"
+                    name="email"
                     placeholder="Your Email"
                     required
-                    className="w-full p-3 rounded bg-background border border-border focus:border-primary focus:outline-none transition-colors"
+                    className="w-full p-3 rounded bg-background border border-border focus:border-primary focus:outline-none focus:[box-shadow:0_0_7px_#3366ff] transition-all"
                   />
                 </div>
                 <div>
@@ -165,13 +182,13 @@ const ContactPage = () => {
                     placeholder="Your Message"
                     required
                     rows={5}
-                    className="w-full p-3 rounded bg-background border border-border focus:border-primary focus:outline-none transition-colors resize-none"
+                    className="w-full p-3 rounded bg-background border border-border focus:border-primary focus:outline-none focus:[box-shadow:0_0_7px_#3366ff] transition-all resize-none"
                   ></textarea>
                 </div>
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className={`w-full bg-primary text-primary-foreground py-3 rounded hover:bg-primary/90 transition-colors relative ${
+                  className={`w-full bg-primary text-primary-foreground py-3 rounded hover:bg-primary/90 hover:[box-shadow:0_0_7px_#3366ff] transition-all ${
                     isSubmitting ? 'opacity-70 cursor-not-allowed' : ''
                   }`}
                 >
