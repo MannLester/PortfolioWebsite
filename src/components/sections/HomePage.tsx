@@ -19,7 +19,7 @@ const anton = Anton({
 
 const HomePage = () => {
   return (
-    <div className="h-screen flex bg-black overflow-hidden backdrop-blur-lg" style={{ backgroundImage: `url(${brickBackground.src})`, backgroundSize: 'cover', backgroundPosition: 'center' }}>
+    <div id="home" className="h-screen flex bg-black overflow-hidden backdrop-blur-lg" style={{ backgroundImage: `url(${brickBackground.src})`, backgroundSize: 'cover', backgroundPosition: 'center' }}>
       <div className="absolute inset-0 bg-black opacity-50" />
       {/* Hero Section */}
       <section className="flex w-full h-full z-10">

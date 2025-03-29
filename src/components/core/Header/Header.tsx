@@ -14,11 +14,14 @@ const Header = () => {
       transition={{ duration: 0.5 }}
     >
       <div className="container mx-auto px-4 h-16 flex items-center justify-between">
-        <Link href="/" className="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary to-primary/70">
+        <Link href="#home" className="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary to-primary/70">
           ML
         </Link>
         
         <nav className="hidden md:flex items-center space-x-8">
+        <Link href="#home" className="hover:text-primary transition-colors">
+            Home
+          </Link>
           <Link href="#about" className="hover:text-primary transition-colors">
             About
           </Link>
