@@ -34,8 +34,23 @@ const HomePage = () => {
               <p className="text-white text-3xl font-semibold tracking-wider ${anton.className}">Junior Full Stack Developer</p>
 
               <div className="flex space-x-6">
-                <button className="bg-blue-500 text-white px-6 py-3 rounded">See Resume</button>
-                <button className="bg-green-500 text-white px-6 py-3 rounded">Contact Me</button>
+                <motion.button
+                  whileHover={{ scale: 1.05 }}
+                  className={`${anton.className} bg-[#9933ff] text-white px-8 py-3 rounded-lg text-lg tracking-wide [text-shadow:0_0_7px_#9933ff] [box-shadow:0_0_7px_#9933ff,0_0_10px_#9933ff] hover:bg-[#ad5fff] hover:[text-shadow:0_0_7px_#9933ff,0_0_10px_#9933ff,0_0_21px_#9933ff] hover:[box-shadow:0_0_7px_#9933ff,0_0_10px_#9933ff,0_0_21px_#9933ff] transition-all`}
+                  onClick={() => window.open('/resume.pdf', '_blank')}
+                >
+                  See Resume
+                </motion.button>
+                <motion.button
+                  whileHover={{ scale: 1.05 }}
+                  className={`${anton.className} bg-[#3366ff] text-white px-8 py-3 rounded-lg text-lg tracking-wide [text-shadow:0_0_7px_#3366ff] [box-shadow:0_0_7px_#3366ff,0_0_10px_#3366ff] hover:bg-[#4d7fff] hover:[text-shadow:0_0_7px_#3366ff,0_0_10px_#3366ff,0_0_21px_#3366ff] hover:[box-shadow:0_0_7px_#3366ff,0_0_10px_#3366ff,0_0_21px_#3366ff] transition-all`}
+                  onClick={() => {
+                    const contactSection = document.getElementById('contact');
+                    contactSection?.scrollIntoView({ behavior: 'smooth' });
+                  }}
+                >
+                  Contact Me
+                </motion.button>
               </div>
             </div>
           </div>
@@ -206,10 +221,10 @@ const HomePage = () => {
 
           {/* Red glow effects */}
           <div className="absolute inset-0 -z-10 overflow-hidden pointer-events-none">
-            <div className="absolute top-1/4 right-1/4 w-96 h-96 bg-red-500/10 rounded-full blur-[100px]" />
-            <div className="absolute bottom-1/4 left-1/4 w-96 h-96 bg-red-500/5 rounded-full blur-[100px]" />
-            <div className="absolute top-1/4 right-1/4 w-96 h-96 bg-red-500/20 rounded-full blur-[150px]" />
-            <div className="absolute bottom-1/4 left-1/4 w-96 h-96 bg-red-500/10 rounded-full blur-[150px]" />
+            <div className="absolute top-1/4 right-1/4 w-96 h-96 bg-[#9933ff]/10 rounded-full blur-[100px]" />
+            <div className="absolute bottom-1/4 left-1/4 w-96 h-96 bg-[#9933ff]/5 rounded-full blur-[100px]" />
+            <div className="absolute top-1/4 right-1/4 w-96 h-96 bg-[#9933ff]/20 rounded-full blur-[150px]" />
+            <div className="absolute bottom-1/4 left-1/4 w-96 h-96 bg-[#9933ff]/10 rounded-full blur-[150px]" />
           </div>
         </div>
       </section>
