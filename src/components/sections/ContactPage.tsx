@@ -5,7 +5,7 @@ import { motion } from 'framer-motion';
 import { FaGithub, FaLinkedin, FaEnvelope } from 'react-icons/fa';
 import brickBackground from '@/assets/images/home_page/brick_bg.jpg';
 import emailjs from '@emailjs/browser';
-import { FormEvent, useRef, useState } from 'react';
+import { FormEvent, useRef, useState, useEffect } from 'react';
 
 const anton = Anton({
   weight: '400',
@@ -16,6 +16,17 @@ const ContactPage = () => {
   const form = useRef<HTMLFormElement>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
+
+  // Reset status after 5 seconds
+  useEffect(() => {
+    if (submitStatus === 'success' || submitStatus === 'error') {
+      const timer = setTimeout(() => {
+        setSubmitStatus('idle');
+      }, 5000);
+
+      return () => clearTimeout(timer);
+    }
+  }, [submitStatus]);
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -195,10 +206,24 @@ const ContactPage = () => {
                   {isSubmitting ? 'Sending...' : 'Send Message'}
                 </button>
                 {submitStatus === 'success' && (
-                  <p className="text-green-500 text-center">Message sent successfully!</p>
+                  <motion.p
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    className="text-green-500 text-center"
+                  >
+                    Message sent successfully!
+                  </motion.p>
                 )}
                 {submitStatus === 'error' && (
-                  <p className="text-red-500 text-center">Failed to send message. Please try again.</p>
+                  <motion.p
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    className="text-red-500 text-center"
+                  >
+                    Failed to send message. Please try again.
+                  </motion.p>
                 )}
               </form>
             </motion.div>
