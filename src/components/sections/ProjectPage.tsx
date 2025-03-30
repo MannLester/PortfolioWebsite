@@ -26,15 +26,81 @@ const projects: Project[] = [
         title: "StayEase",
         description: "StayEase description",
         technologies: ["TypeScript", "JavaScript","HTML","CSS","React","Vite","Tailwind CSS", "MongoDB", "Firebase"],
-        genre: "Web Development",
+        genre: "Website Development",
         language: "TypeScript",
         deployed: true,
+        liveUrl: "https://stayease-main.vercel.app",
         githubUrl: "https://github.com/clarenzmauro/StayEase",
     },
     {
+        title: "Cards of Power",
+        description: "Cards of Power is a turn-based trading card game that revolutionizes strategy and trading. With over 100+ unique cards, each equipped with custom mechanics, players can craft their playstyle to dominate the battlefield. Featuring non-fungible cards with unique IDs, every card gains a real-world and in-game market value, fostering a dynamic trading ecosystem. The game also integrates data visualization to help players improve their strategies and allows users to submit custom card ideas via the Workshop station for approval by developers. Whether you’re battling opponents, investing in your card deck, or strategizing with stats, Cards of Power delivers a thrilling and competitive gaming experience.",
+        technologies: ["JavaScript","HTML","CSS","React", "Vite","Tailwind CSS", "Firebase", "Game Design", "Game Development"],
+        genre: "Game Development",
+        language: "JavaScript",
+        deployed: false,
+        githubUrl: "https://github.com/MannLester/CardsofPower",
+    },
+    {
+        title: "GoCery!",
+        description: "Go-Cery is a cutting-edge Android application that enhances the efficiency of traditional grocery shopping by leveraging modern technology. With Go-Cery, customers enjoy a faster, more streamlined experience, while store owners efficiently manage their inventory and operations.",
+        technologies: ["Java", "Android Studio", "Firebase", "Glide QR"],
+        genre: "App Development",
+        language: "Java",
+        deployed: false,
+        githubUrl: "https://github.com/MannLester/GoCery",
+    },
+    {
+        title: "Reforge",
+        description: "Reforge: Rise of the Seventeen Cities is an RPG game created using the Java language whilst implementing Java Swing modules. It showcases 25 items, 8 pets, 20 bosses, 18 cities, and a compelling storyline. The program allows the user to travel to those 18 cities and learn more about the problem they’re facing, and is equipped with 4 items to beat 3 bosses of each city. After defeating a boss, a loot will be dropped containing resources such as: gold, iron, herb, biscuit, and diamond. This can be used to buy new items or fund programs to help the city progress.",
+        technologies: ["Java", "Java Swing", "SQL", "Game Design", "Game Development"],
+        genre: "Game Development",
+        language: "Java",
+        deployed: false,
+        githubUrl: "https://github.com/MannLester/reforge",
+    },
+    {
+        title: "EduHub",
+        description: "EduHub is a Blazor.NET-powered information platform designed to revolutionize career education through interactive module-based learning, community engagement, and simulation-driven experiences. By integrating these elements, EduHub provides a dynamic and immersive approach to skill development and professional growth.",
+        technologies: ["C#","Blazor.NET", "Game Development", "Website Development"],
+        genre: "Website Development",
+        language: "Blazor.NET",
+        deployed: false,
+        githubUrl: "https://github.com/MannLester/EduHub",
+    },
+    {
+        title: "Knapsack Program",
+        description: "A C programming implementation of the Knapsack Algorithm, designed with a cleaner and more scalable code structure. This project demonstrates efficient data handling for solving the 0/1 Knapsack problem.",
+        technologies: ["C"],
+        genre: "Data Structure and Algorithm",
+        language: "C",
+        deployed: false,
+        githubUrl: "https://github.com/MannLester/KnapsackProgram",
+    }, 
+    {
+        title: "Automatic File Organizer",
+        description: "This scripting project automates the organization of downloaded files by categorizing them into separate folders for images, videos, and PDFs. Additionally, files are sorted based on their download date, ensuring a structured and easily accessible directory.",
+        technologies: ["Python"],
+        genre: "Automation",
+        language: "Python",
+        deployed: false,
+        githubUrl: "https://github.com/MannLester/FileOrganizer",
+    }, 
+    {
+        title: "The Green Light Project",
+        description: "The Green Light Project is a volunteer-driven initiative, and its website is being redesigned to enhance functionality and user experience. This project is an opportunity to contribute as a volunteer web designer while gaining valuable experience in web development.",
+        technologies: ["HTML", "CSS", "JavaScript"],
+        genre: "Website Development",
+        language: "HTML, CSS, JavaScript",
+        deployed: true,
+        liveUrl: "https://mannlester.github.io/TheGreenLightProject/HomePage.html",
+        githubUrl: "https://github.com/MannLester/TheGreenLightProject",
+    },
+    
+    {
         title: "Versus",
         description: "Versus is a 2-player C++ console game wherein the players can choose to battle from three different games: 1v1 Fighting Game, Password Game, and Tic-Tac-Toe Game. Not only does it provide entertainment it also educates the players by incorporating learning materials across the different games.",
-        technologies: ["C++", "Game Design","Game Development"],
+        technologies: ["C++", "Game Design","Game Development","Console Application"],
         genre: "Game Development",
         language: "C++",
         deployed: false,
@@ -57,24 +123,6 @@ const projects: Project[] = [
         language: "C++",
         deployed: false,
         githubUrl: "https://github.com/MannLester/Poker-Game",
-    },
-    {
-        title: "GoCery!",
-        description: "Go-Cery is a cutting-edge Android application that enhances the efficiency of traditional grocery shopping by leveraging modern technology. With Go-Cery, customers enjoy a faster, more streamlined experience, while store owners efficiently manage their inventory and operations.",
-        technologies: ["Java", "Android Studio", "Firebase", "Glide QR"],
-        genre: "App Development",
-        language: "Java",
-        deployed: false,
-        githubUrl: "https://github.com/MannLester/GoCery",
-    },
-    {
-        title: "Reforge",
-        description: "Reforge: Rise of the Seventeen Cities is an RPG game created using the Java language whilst implementing Java Swing modules. It showcases 25 items, 8 pets, 20 bosses, 18 cities, and a compelling storyline. The program allows the user to travel to those 18 cities and learn more about the problem they’re facing, and is equipped with 4 items to beat 3 bosses of each city. After defeating a boss, a loot will be dropped containing resources such as: gold, iron, herb, biscuit, and diamond. This can be used to buy new items or fund programs to help the city progress.",
-        technologies: ["Java", "Java Swing", "SQL", "Game Design", "Game Development"],
-        genre: "Game Development",
-        language: "Java",
-        deployed: false,
-        githubUrl: "https://github.com/MannLester/reforge",
     },
     // Add more projects as needed
 ];
@@ -264,17 +312,19 @@ const ProjectCard: React.FC<{ project: Project }> = ({ project }) => {
                                     <div className="flex flex-col gap-2 mb-6 text-sm">
                                         <div className="flex items-center gap-2">
                                             <span className="text-zinc-400">Github:</span>
-                                            <a href={selectedProject.githubUrl} target="_blank" rel="noopener noreferrer" 
-                                               className="text-zinc-300">
-                                                {selectedProject.githubUrl}
-                                            </a>
+                                            {selectedProject.githubUrl && (
+                                                <a href={selectedProject.githubUrl} target="_blank" rel="noopener noreferrer" 
+                                                   className="text-zinc-300 truncate">
+                                                    {selectedProject.githubUrl.replace('https://github.com/', '')}
+                                                </a>
+                                            )}
                                         </div>
                                         <div className="flex items-center gap-2">
                                             <span className="text-zinc-400">Deployment Link:</span>
                                             {selectedProject.deployed && selectedProject.liveUrl ? (
                                                 <a href={selectedProject.liveUrl} target="_blank" rel="noopener noreferrer" 
-                                                   className="text-zinc-300">
-                                                    {selectedProject.liveUrl}
+                                                   className="text-zinc-300 truncate">
+                                                    {selectedProject.liveUrl.replace('https://', '')}
                                                 </a>
                                             ) : (
                                                 <span className="text-zinc-500">N/A</span>
@@ -368,9 +418,9 @@ const ProjectPage = () => {
     };
 
     return (
-        <div id="projects" className="relative min-h-screen bg-black p-6 overflow-hidden">
+        <div id="projects" className="min-h-screen bg-black pt-28">
             {/* Content Container */}
-            <div className="relative z-10 container mx-auto">
+            <div className="relative z-10 container mx-auto px-4">
                 <motion.h1 
                     className={`${anton.className} tracking-widest text-6xl font-bold mb-16 text-white text-center [text-shadow:0_0_7px_#00FF00,0_0_10px_#00FF00,0_0_21px_#00FF00,0_0_42px_#00FF00]`}
                     initial={{ opacity: 0 }} 
@@ -403,7 +453,7 @@ const ProjectPage = () => {
                 </div>
 
                 {/* Projects Grid with Navigation */}
-                <div className="relative mx-auto max-w-7xl px-20">
+                <div className="relative mx-auto max-w-7xl px-4 lg:px-20">
                     <div className="overflow-hidden">
                         <AnimatePresence mode="wait" custom={direction}>
                             <motion.div 
