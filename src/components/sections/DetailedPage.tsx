@@ -4,7 +4,6 @@ import { Anton } from 'next/font/google';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 import Link from 'next/link';
-import { useRouter } from 'next/router';
 
 const anton = Anton({
     weight: '400',
@@ -221,7 +220,7 @@ const DetailedPage: React.FC<DetailedPageProps> = ({ project }) => {
                     className="mt-20 mb-12 text-center"
                 >
                     <h2 className={`${anton.className} text-3xl text-white mb-4`}>Want to collaborate?</h2>
-                    <p className="text-zinc-300 mb-6">I'm always open to discussing new projects and opportunities.</p>
+                    <p className="text-zinc-300 mb-6">I&apos;m always open to discussing new projects and opportunities.</p>
                     <Link
                         href="/contact"
                         className="inline-block px-8 py-3 bg-[#00FF00] text-black font-semibold rounded-lg hover:bg-[#00CC00] transition-colors"

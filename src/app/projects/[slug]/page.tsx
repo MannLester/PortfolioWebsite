@@ -19,7 +19,7 @@ export default function ProjectDetailPage() {
             <div className="min-h-screen bg-black pt-28 text-white">
                 <div className="max-w-4xl mx-auto px-4">
                     <h1 className="text-4xl mb-4">Project Not Found</h1>
-                    <p className="mb-8">The project you're looking for doesn't exist.</p>
+                    <p className="mb-8">The project you&apos;re looking for doesn&apos;t exist.</p>
                     <Link 
                         href="/#projects" 
                         className="text-[#00FF00] hover:underline"

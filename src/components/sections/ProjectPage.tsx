@@ -4,9 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Anton } from 'next/font/google';
 import { useState, useEffect } from 'react';
 import { useModal } from '@/context/ModalContext';
-import { useRouter } from 'next/router';
 import Link from 'next/link';
-import DetailedPage from './DetailedPage';
 
 const anton = Anton({
     weight: '400',
