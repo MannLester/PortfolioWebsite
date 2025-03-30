@@ -4,6 +4,9 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Anton } from 'next/font/google';
 import { useState, useEffect } from 'react';
 import { useModal } from '@/context/ModalContext';
+import { useRouter } from 'next/router';
+import Link from 'next/link';
+import DetailedPage from './DetailedPage';
 
 const anton = Anton({
     weight: '400',
@@ -17,20 +20,41 @@ interface Project {
     genre: string;
     language: string;
     deployed: boolean;
-    githubUrl?: string;
+    githubUrl: string;
     liveUrl?: string;
+    history?: string;
+    role?: string;
+    collaborators?: {
+        name: string;
+        role: string;
+        link?: string;
+    }[];
+    images?: {
+        src: string;
+        alt: string;
+        caption?: string;
+    }[];
 }
 
-const projects: Project[] = [
+export const projects: Project[] = [
     {
         title: "StayEase",
-        description: "StayEase description",
+        description: "StayEase is a dedicated platform designed to simplify the process of finding and listing student accommodations. Tailored for college students seeking dorms and dorm owners looking to rent out their properties, StayEase connects both parties seamlessly. With an intuitive interface, detailed listings, and essential filters, finding the perfect student housing has never been easier.",
         technologies: ["TypeScript", "JavaScript","HTML","CSS","React","Vite","Tailwind CSS", "MongoDB", "Firebase"],
         genre: "Website Development",
         language: "TypeScript",
         deployed: true,
         liveUrl: "https://stayease-main.vercel.app",
         githubUrl: "https://github.com/clarenzmauro/StayEase",
+        history: "StayEase history",
+        role: "Frontend Developer",
+        collaborators: [
+            {
+                name: "Clarenz Mauro",
+                role: "Backend Developer",
+                link: "https://github.com/clarenzmauro"
+            }
+        ]
     },
     {
         title: "Cards of Power",
@@ -190,18 +214,21 @@ const ProjectCard: React.FC<{ project: Project }> = ({ project }) => {
     const handleOpenModal = () => {
         setSelectedProject(project);
         setIsModalOpen(true);
+        document.body.style.overflow = 'hidden';
     };
 
     const handleCloseModal = () => {
         setIsModalOpen(false);
-        setTimeout(() => setSelectedProject(null), 200); // Clear selection after animation
+        setSelectedProject(null);
+        document.body.style.overflow = 'unset';
     };
 
     useEffect(() => {
-        if (!isModalOpen) {
-            setTimeout(() => setSelectedProject(null), 200);
-        }
-    }, [isModalOpen]);
+        return () => {
+            // Cleanup when component unmounts
+            document.body.style.overflow = 'unset';
+        };
+    }, []);
 
     useEffect(() => {
         if (isModalOpen) {
@@ -359,10 +386,12 @@ const ProjectCard: React.FC<{ project: Project }> = ({ project }) => {
                                         </div>
                                     </div>
 
-                                    <a href={selectedProject.githubUrl} target="_blank" rel="noopener noreferrer" 
-                                       className="text-[#00FF00] hover:underline text-sm mt-auto">
+                                    <Link 
+                                        href={`/projects/${selectedProject.title.toLowerCase().replace(/\s+/g, '-')}`}
+                                        className="text-[#00FF00] hover:underline text-sm mt-auto inline-block"
+                                    >
                                         See Detailed Page
-                                    </a>
+                                    </Link>
                                 </div>
                             </div>
                         </motion.div>
