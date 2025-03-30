@@ -15,6 +15,7 @@ interface Project {
     technologies: string[];
     genre: string;
     language: string;
+    deployed: boolean;
     githubUrl?: string;
     liveUrl?: string;
 }
@@ -26,6 +27,7 @@ const projects: Project[] = [
         technologies: ["Next.js", "TypeScript", "Tailwind CSS", "Framer Motion"],
         genre: "Web Development",
         language: "TypeScript",
+        deployed: true,
         githubUrl: "https://github.com/yourusername/portfolio",
     },
     {
@@ -34,6 +36,7 @@ const projects: Project[] = [
         technologies: ["Unity", "C#", "Game Design"],
         genre: "Game Development",
         language: "C#",
+        deployed: false,
         githubUrl: "https://github.com/yourusername/space-shooter",
     },
     {
@@ -42,6 +45,7 @@ const projects: Project[] = [
         technologies: ["WPF", "C#", "SQL Server"],
         genre: "Desktop App",
         language: "C#",
+        deployed: false,
         githubUrl: "https://github.com/yourusername/inventory-system",
     },
     {
@@ -50,6 +54,7 @@ const projects: Project[] = [
         technologies: ["React", "Node.js", "MongoDB"],
         genre: "Web Development",
         language: "JavaScript",
+        deployed: false,
         githubUrl: "https://github.com/yourusername/project4",
     },
     {
@@ -58,6 +63,7 @@ const projects: Project[] = [
         technologies: ["Python", "Django", "PostgreSQL"],
         genre: "Web Development",
         language: "Python",
+        deployed: false,
         githubUrl: "https://github.com/yourusername/project5",
     },
     // Add more projects as needed
@@ -133,9 +139,11 @@ const ProjectCard: React.FC<{ project: Project }> = ({ project }) => {
                 <h3 className={`${anton.className} text-2xl text-white [text-shadow:0_0_7px_#00FF00,0_0_10px_#00FF00]`}>
                     {project.title}
                 </h3>
-                <span className="text-sm px-2 py-1 rounded-full bg-zinc-800/70 text-[#00FF00]">
-                    {project.language}
-                </span>
+                <div className="flex items-center">
+                    <span className={`text-sm px-2 py-1 rounded-full ${project.deployed ? 'bg-green-900/70 text-green-400' : 'bg-red-900/70 text-red-400'}`}>
+                        {project.deployed ? 'Deployed' : 'Undeployed'}
+                    </span>
+                </div>
             </div>
             <p className="text-zinc-300 mb-4 line-clamp-2">{project.description}</p>
             <div className="flex flex-wrap gap-2 mb-4">
