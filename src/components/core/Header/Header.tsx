@@ -4,8 +4,15 @@ import { motion } from 'framer-motion';
 import Link from 'next/link';
 import { MobileNav } from '../Navigation/MobileNav';
 import { ThemeToggle } from '@/components/theme/ThemeToggle';
+import { useModal } from '@/context/ModalContext';
 
 const Header = () => {
+  const { setIsModalOpen } = useModal();
+
+  const handleNavClick = () => {
+    setIsModalOpen(false);
+  };
+
   return (
     <motion.header 
       className="fixed top-0 w-full z-50 bg-background/80 backdrop-blur-sm border-b"
@@ -19,25 +26,25 @@ const Header = () => {
         </Link>
         
         <nav className="hidden md:flex items-center space-x-8">
-        <Link href="#home" className="hover:text-primary transition-colors">
+          <Link href="#home" className="hover:text-primary transition-colors" onClick={handleNavClick}>
             Home
           </Link>
-          <Link href="#about" className="hover:text-primary transition-colors">
+          <Link href="#about" className="hover:text-primary transition-colors" onClick={handleNavClick}>
             About
           </Link>
-          <Link href="#skills" className="hover:text-primary transition-colors">
+          <Link href="#skills" className="hover:text-primary transition-colors" onClick={handleNavClick}>
             Skills
           </Link>
-          <Link href="#projects" className="hover:text-primary transition-colors">
+          <Link href="#projects" className="hover:text-primary transition-colors" onClick={handleNavClick}>
             Projects
           </Link>
-          <Link href="#experience" className="hover:text-primary transition-colors">
+          <Link href="#experience" className="hover:text-primary transition-colors" onClick={handleNavClick}>
             Experience
           </Link>
-          <Link href="#recognitions" className="hover:text-primary transition-colors">
+          <Link href="#recognitions" className="hover:text-primary transition-colors" onClick={handleNavClick}>
             Recognitions
           </Link>
-          <Link href="#contact" className="hover:text-primary transition-colors">
+          <Link href="#contact" className="hover:text-primary transition-colors" onClick={handleNavClick}>
             Contact
           </Link>
           <ThemeToggle />

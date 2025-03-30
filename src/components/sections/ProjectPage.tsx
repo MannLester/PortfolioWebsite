@@ -2,7 +2,8 @@
 
 import { motion, AnimatePresence } from 'framer-motion';
 import { Anton } from 'next/font/google';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useModal } from '@/context/ModalContext';
 
 const anton = Anton({
     weight: '400',
@@ -126,59 +127,163 @@ const NavigationButton: React.FC<{
 );
 
 const ProjectCard: React.FC<{ project: Project }> = ({ project }) => {
+    const { isModalOpen, setIsModalOpen } = useModal();
+
+    useEffect(() => {
+        if (isModalOpen) {
+            document.body.style.overflow = 'hidden';
+        } else {
+            document.body.style.overflow = 'unset';
+        }
+        return () => {
+            document.body.style.overflow = 'unset';
+        };
+    }, [isModalOpen]);
+
     return (
-        <motion.div
-            initial={{ opacity: 0, x: 50 }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: -50 }}
-            transition={{ duration: 0.5 }}
-            className="bg-zinc-900/50 backdrop-blur-sm rounded-xl p-6 hover:bg-zinc-800/50 transition-all duration-300 
-                       border border-zinc-800/50 hover:border-zinc-700/50 group w-[360px] h-[280px] flex flex-col"
-        >
-            <div className="flex justify-between items-start mb-2">
-                <h3 className={`${anton.className} text-2xl text-white [text-shadow:0_0_7px_#00FF00,0_0_10px_#00FF00]`}>
-                    {project.title}
-                </h3>
-                <div className="flex items-center">
-                    <span className={`text-sm px-2 py-1 rounded-full ${project.deployed ? 'bg-green-900/70 text-green-400' : 'bg-red-900/70 text-red-400'}`}>
-                        {project.deployed ? 'Deployed' : 'Undeployed'}
-                    </span>
+        <>
+            <motion.div
+                initial={{ opacity: 0, x: 50 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: -50 }}
+                transition={{ duration: 0.5 }}
+                onClick={() => setIsModalOpen(true)}
+                className="bg-zinc-900/50 backdrop-blur-sm rounded-xl p-6 hover:bg-zinc-800/50 transition-all duration-300 
+                           border border-zinc-800/50 hover:border-zinc-700/50 group w-[360px] h-[280px] flex flex-col cursor-pointer"
+            >
+                <div className="flex justify-between items-start mb-2">
+                    <h3 className={`${anton.className} text-2xl text-white [text-shadow:0_0_7px_#00FF00,0_0_10px_#00FF00]`}>
+                        {project.title}
+                    </h3>
+                    <div className="flex items-center">
+                        <span className={`text-sm px-2 py-1 rounded-full ${project.deployed ? 'bg-green-900/70 text-green-400' : 'bg-red-900/70 text-red-400'}`}>
+                            {project.deployed ? 'Deployed' : 'Undeployed'}
+                        </span>
+                    </div>
                 </div>
-            </div>
-            <p className="text-zinc-300 mb-4 line-clamp-2">{project.description}</p>
-            <div className="flex flex-wrap gap-2 mb-4">
-                {project.technologies.map((tech, i) => (
-                    <span
-                        key={i}
-                        className="px-3 py-1 text-sm bg-zinc-800/50 rounded-full text-[#00FF00] hover:bg-zinc-700/50 transition-colors"
-                    >
-                        {tech}
-                    </span>
-                ))}
-            </div>
-            <div className="flex gap-4 mt-auto">
-                {project.githubUrl && (
-                    <a
-                        href={project.githubUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="text-zinc-300 hover:text-[#00FF00] transition-colors"
-                    >
-                        GitHub →
-                    </a>
+                <p className="text-zinc-300 mb-4 line-clamp-2">{project.description}</p>
+                <div className="flex flex-wrap gap-2 mb-4">
+                    {project.technologies.map((tech, i) => (
+                        <span
+                            key={i}
+                            className="px-3 py-1 text-sm bg-zinc-800/50 rounded-full text-[#00FF00] hover:bg-zinc-700/50 transition-colors"
+                        >
+                            {tech}
+                        </span>
+                    ))}
+                </div>
+                <div className="flex gap-4 mt-auto">
+                    {project.githubUrl && (
+                        <a
+                            href={project.githubUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-zinc-300 hover:text-[#00FF00] transition-colors"
+                            onClick={(e) => e.stopPropagation()}
+                        >
+                            GitHub →
+                        </a>
+                    )}
+                    {project.liveUrl && (
+                        <a
+                            href={project.liveUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-zinc-300 hover:text-[#00FF00] transition-colors"
+                            onClick={(e) => e.stopPropagation()}
+                        >
+                            Live Demo →
+                        </a>
+                    )}
+                </div>
+            </motion.div>
+
+            <AnimatePresence>
+                {isModalOpen && (
+                    <>
+                        <motion.div
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            exit={{ opacity: 0 }}
+                            className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50"
+                            onClick={() => setIsModalOpen(false)}
+                        />
+                        <motion.div
+                            initial={{ opacity: 0, scale: 0.9 }}
+                            animate={{ opacity: 1, scale: 1 }}
+                            exit={{ opacity: 0, scale: 0.9 }}
+                            transition={{ type: "spring", damping: 25, stiffness: 400 }}
+                            className="fixed inset-0 flex items-center justify-center z-50"
+                        >
+                            <div className="w-[420px] h-[570px] bg-zinc-900/95 backdrop-blur-sm rounded-xl p-4 border border-zinc-800/50">
+                                <div className="flex flex-col h-full">
+                                    <div className="flex justify-between items-start mb-3">
+                                        <h2 className={`${anton.className} text-lg text-white [text-shadow:0_0_7px_#00FF00,0_0_10px_#00FF00]`}>
+                                            {project.title}
+                                        </h2>
+                                        <button
+                                            onClick={() => setIsModalOpen(false)}
+                                            className="text-zinc-400 hover:text-white transition-colors"
+                                        >
+                                            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                                            </svg>
+                                        </button>
+                                    </div>
+                                    <div className="flex flex-col gap-2 mb-3">
+                                        <span className={`text-xs px-2 py-0.5 rounded-full ${project.deployed ? 'bg-green-900/70 text-green-400' : 'bg-red-900/70 text-red-400'} w-fit`}>
+                                            {project.deployed ? 'Deployed' : 'Undeployed'}
+                                        </span>
+                                        <span className="text-xs px-2 py-0.5 rounded-full bg-zinc-800/70 text-zinc-300 w-fit">
+                                            {project.genre}
+                                        </span>
+                                    </div>
+                                    <p className="text-zinc-300 text-xs leading-relaxed mb-4">{project.description}</p>
+                                    <div className="flex flex-wrap gap-1 mb-4">
+                                        {project.technologies.map((tech, i) => (
+                                            <span
+                                                key={i}
+                                                className="px-1.5 py-0.5 text-[10px] bg-zinc-800/50 rounded-full text-[#00FF00] hover:bg-zinc-700/50 transition-colors"
+                                            >
+                                                {tech}
+                                            </span>
+                                        ))}
+                                    </div>
+                                    <div className="flex flex-col gap-2 mt-auto">
+                                        {project.githubUrl && (
+                                            <a
+                                                href={project.githubUrl}
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                className="flex items-center gap-1.5 text-zinc-300 hover:text-[#00FF00] transition-colors text-xs"
+                                            >
+                                                <svg className="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24">
+                                                    <path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 21.795 24 17.295 24 12c0-6.63-5.37-12-12-12" />
+                                                </svg>
+                                                View on GitHub
+                                            </a>
+                                        )}
+                                        {project.liveUrl && (
+                                            <a
+                                                href={project.liveUrl}
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                className="flex items-center gap-1.5 text-zinc-300 hover:text-[#00FF00] transition-colors text-xs"
+                                            >
+                                                <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                                                </svg>
+                                                View Live Demo
+                                            </a>
+                                        )}
+                                    </div>
+                                </div>
+                            </div>
+                        </motion.div>
+                    </>
                 )}
-                {project.liveUrl && (
-                    <a
-                        href={project.liveUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="text-zinc-300 hover:text-[#00FF00] transition-colors"
-                    >
-                        Live Demo →
-                    </a>
-                )}
-            </div>
-        </motion.div>
+            </AnimatePresence>
+        </>
     );
 };
 
