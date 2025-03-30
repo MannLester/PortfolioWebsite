@@ -23,49 +23,58 @@ interface Project {
 
 const projects: Project[] = [
     {
-        title: "Portfolio Website",
-        description: "A modern, responsive portfolio website built with Next.js and Tailwind CSS, featuring smooth animations and dark mode.",
-        technologies: ["Next.js", "TypeScript", "Tailwind CSS", "Framer Motion"],
+        title: "StayEase",
+        description: "StayEase description",
+        technologies: ["TypeScript", "JavaScript","HTML","CSS","React","Vite","Tailwind CSS", "MongoDB", "Firebase"],
         genre: "Web Development",
         language: "TypeScript",
         deployed: true,
-        githubUrl: "https://github.com/yourusername/portfolio",
+        githubUrl: "https://github.com/clarenzmauro/StayEase",
     },
     {
-        title: "Space Shooter Game",
-        description: "An exciting 2D space shooter game with power-ups, multiple enemy types, and high score system.",
-        technologies: ["Unity", "C#", "Game Design"],
+        title: "Versus",
+        description: "Versus is a 2-player C++ console game wherein the players can choose to battle from three different games: 1v1 Fighting Game, Password Game, and Tic-Tac-Toe Game. Not only does it provide entertainment it also educates the players by incorporating learning materials across the different games.",
+        technologies: ["C++", "Game Design","Game Development"],
         genre: "Game Development",
-        language: "C#",
+        language: "C++",
         deployed: false,
-        githubUrl: "https://github.com/yourusername/space-shooter",
+        githubUrl: "https://github.com/MannLester/Versus",
     },
     {
-        title: "Inventory Management System",
-        description: "A robust desktop application for managing inventory, sales, and generating reports.",
-        technologies: ["WPF", "C#", "SQL Server"],
-        genre: "Desktop App",
-        language: "C#",
-        deployed: false,
-        githubUrl: "https://github.com/yourusername/inventory-system",
-    },
-    {
-        title: "Project 4",
-        description: "Description for project 4.",
-        technologies: ["React", "Node.js", "MongoDB"],
-        genre: "Web Development",
-        language: "JavaScript",
-        deployed: false,
-        githubUrl: "https://github.com/yourusername/project4",
-    },
-    {
-        title: "Project 5",
-        description: "Description for project 5.",
-        technologies: ["Python", "Django", "PostgreSQL"],
-        genre: "Web Development",
+        title: "Quantum Chase",
+        description: "In Quantum Chase: Hunt For Victory In The Quantum Realm, the users will embark on a journey through the quantum realm, where they will be challenged with questions related to the 17 SDGs. The program incorporates the basic quiz-based game setup which includes a dictionary of questions from different SDGs. It also incorporates passive and skill features that can be used by player to aid them in their game. However, it is of assurance that the passive and skills will not hinder the main purpose of the program, which is to raise awareness.",
+        technologies: ["Python", "Flask", "Game Design", "Game Development"],
+        genre: "Game Development",
         language: "Python",
         deployed: false,
-        githubUrl: "https://github.com/yourusername/project5",
+        githubUrl: "https://github.com/MannLester/Quantum-Chase-WebGame",
+    },
+    {
+        title: "Poker Game",
+        description: "Welcome to the C++ console-based poker game. This game allows you to play against three computer opponents and test your poker skills. The game follows the rules of Texas Hold'em, and at the end of each match, the card hands are analyzed to determine the winner.",
+        technologies: ["C++", "Game Design", "Game Development"],
+        genre: "Game Development",
+        language: "C++",
+        deployed: false,
+        githubUrl: "https://github.com/MannLester/Poker-Game",
+    },
+    {
+        title: "GoCery!",
+        description: "Go-Cery is a cutting-edge Android application that enhances the efficiency of traditional grocery shopping by leveraging modern technology. With Go-Cery, customers enjoy a faster, more streamlined experience, while store owners efficiently manage their inventory and operations.",
+        technologies: ["Java", "Android Studio", "Firebase", "Glide QR"],
+        genre: "App Development",
+        language: "Java",
+        deployed: false,
+        githubUrl: "https://github.com/MannLester/GoCery",
+    },
+    {
+        title: "Reforge",
+        description: "Reforge: Rise of the Seventeen Cities is an RPG game created using the Java language whilst implementing Java Swing modules. It showcases 25 items, 8 pets, 20 bosses, 18 cities, and a compelling storyline. The program allows the user to travel to those 18 cities and learn more about the problem they’re facing, and is equipped with 4 items to beat 3 bosses of each city. After defeating a boss, a loot will be dropped containing resources such as: gold, iron, herb, biscuit, and diamond. This can be used to buy new items or fund programs to help the city progress.",
+        technologies: ["Java", "Java Swing", "SQL", "Game Design", "Game Development"],
+        genre: "Game Development",
+        language: "Java",
+        deployed: false,
+        githubUrl: "https://github.com/MannLester/reforge",
     },
     // Add more projects as needed
 ];
@@ -144,6 +153,17 @@ const ProjectCard: React.FC<{ project: Project }> = ({ project }) => {
         if (!isModalOpen) {
             setTimeout(() => setSelectedProject(null), 200);
         }
+    }, [isModalOpen]);
+
+    useEffect(() => {
+        if (isModalOpen) {
+            document.body.style.overflow = 'hidden';
+        } else {
+            document.body.style.overflow = 'unset';
+        }
+        return () => {
+            document.body.style.overflow = 'unset';
+        };
     }, [isModalOpen]);
 
     return (
@@ -263,7 +283,9 @@ const ProjectCard: React.FC<{ project: Project }> = ({ project }) => {
                                     </div>
 
                                     <div className="mb-6">
-                                        <p className="text-zinc-300 text-sm leading-relaxed">{selectedProject.description}</p>
+                                        <p className="text-zinc-300 text-sm leading-relaxed max-h-[120px] overflow-y-auto pr-2 scrollbar-thin scrollbar-track-zinc-800 scrollbar-thumb-zinc-600">
+                                            {selectedProject.description}
+                                        </p>
                                     </div>
 
                                     <div className="mb-6">
