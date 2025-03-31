@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import { Header} from "@/components/core";
@@ -15,6 +15,9 @@ export const metadata: Metadata = {
   applicationName: 'Mann Lee Portfolio',
   authors: [{ name: 'Mann Lee' }],
   keywords: ['Full Stack Developer', 'Backend Developer', 'Web Development', 'Portfolio'],
+};
+
+export const viewport: Viewport = {
   themeColor: [
     { media: '(prefers-color-scheme: light)', color: 'white' },
     { media: '(prefers-color-scheme: dark)', color: '#000' },

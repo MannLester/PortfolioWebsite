@@ -222,7 +222,7 @@ const DetailedPage: React.FC<DetailedPageProps> = ({ project }) => {
                     <h2 className={`${anton.className} text-3xl text-white mb-4`}>Want to collaborate?</h2>
                     <p className="text-zinc-300 mb-6">I&apos;m always open to discussing new projects and opportunities.</p>
                     <Link
-                        href="/contact"
+                        href="/#contact"
                         className="inline-block px-8 py-3 bg-[#00FF00] text-black font-semibold rounded-lg hover:bg-[#00CC00] transition-colors"
                     >
                         Send me a message
