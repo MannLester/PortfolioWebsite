@@ -3,6 +3,7 @@
 import { Anton } from 'next/font/google';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
+import { useTheme } from '@/components/theme/ThemeProvider';
 
 // Import images
 import personImage from '@/assets/images/home_page/person_design.png';
@@ -18,8 +19,18 @@ const anton = Anton({
 });
 
 const HomePage = () => {
+  const { theme: currentTheme } = useTheme();
+
   return (
-    <div id="home" className="h-screen flex bg-black overflow-hidden backdrop-blur-lg" style={{ backgroundImage: `url(${brickBackground.src})`, backgroundSize: 'cover', backgroundPosition: 'center' }}>
+    <div 
+      id="home" 
+      className={`h-screen flex overflow-hidden backdrop-blur-lg transition-colors duration-300 bg-black`} 
+      style={{ 
+        backgroundImage: `url(${brickBackground.src})`,
+        backgroundSize: 'cover', 
+        backgroundPosition: 'center' 
+      }}
+    >
       <div className="absolute inset-0 bg-black opacity-50" />
       {/* Hero Section */}
       <section className="flex w-full h-full z-10">
@@ -27,23 +38,29 @@ const HomePage = () => {
         <div className="flex-1 flex items-start justify-start px-16">
           <div className="space-y-6 mt-40">
             <div className="space-y-8">
-              <h1 className={`text-white text-4xl tracking-normal font-bold [text-shadow:0_0_7px_#9933ff,0_0_10px_#9933ff,0_0_21px_#9933ff,0_0_42px_#9933ff] ${anton.className}`}>H E L L O !</h1>
+              <h1 className={`text-white [text-shadow:0_0_7px_#9933ff,0_0_10px_#9933ff,0_0_21px_#9933ff,0_0_42px_#9933ff] text-4xl tracking-normal font-bold ${anton.className}`}>
+                H E L L O !
+              </h1>
 
-              <h2 className={`text-white text-8xl tracking-normal ${anton.className}`}>I&apos;m <span className="text-white [text-shadow:0_0_7px_#9933ff,0_0_10px_#9933ff,0_0_21px_#9933ff,0_0_42px_#9933ff]">Mann Lester Magbuhos</span></h2>
+              <h2 className={`text-white text-8xl tracking-normal ${anton.className}`}>
+                I&apos;m <span className="text-white">Mann Lester Magbuhos</span>
+              </h2>
 
-              <p className="text-white text-3xl font-semibold tracking-wider ${anton.className}">Junior Full Stack Developer</p>
+              <p className="text-white text-3xl font-semibold tracking-wider ${anton.className}">
+                Junior Full Stack Developer
+              </p>
 
               <div className="flex space-x-6">
                 <motion.button
                   whileHover={{ scale: 1.05 }}
-                  className={`${anton.className} bg-[#9933ff] text-white px-8 py-3 rounded-lg text-lg tracking-wide [text-shadow:0_0_7px_#9933ff] [box-shadow:0_0_7px_#9933ff,0_0_10px_#9933ff] hover:bg-[#ad5fff] hover:[text-shadow:0_0_7px_#9933ff,0_0_10px_#9933ff,0_0_21px_#9933ff] hover:[box-shadow:0_0_7px_#9933ff,0_0_10px_#9933ff,0_0_21px_#9933ff] transition-all`}
+                  className={`${anton.className} bg-[#9933ff] text-white [text-shadow:0_0_7px_#9933ff] [box-shadow:0_0_7px_#9933ff,0_0_10px_#9933ff] hover:bg-[#ad5fff] hover:[text-shadow:0_0_7px_#9933ff,0_0_10px_#9933ff,0_0_21px_#9933ff] hover:[box-shadow:0_0_7px_#9933ff,0_0_10px_#9933ff,0_0_21px_#9933ff] px-8 py-3 rounded-lg text-lg tracking-wide transition-all`}
                   onClick={() => window.open('/resume.pdf', '_blank')}
                 >
                   See Resume
                 </motion.button>
                 <motion.button
                   whileHover={{ scale: 1.05 }}
-                  className={`${anton.className} bg-[#3366ff] text-white px-8 py-3 rounded-lg text-lg tracking-wide [text-shadow:0_0_7px_#3366ff] [box-shadow:0_0_7px_#3366ff,0_0_10px_#3366ff] hover:bg-[#4d7fff] hover:[text-shadow:0_0_7px_#3366ff,0_0_10px_#3366ff,0_0_21px_#3366ff] hover:[box-shadow:0_0_7px_#3366ff,0_0_10px_#3366ff,0_0_21px_#3366ff] transition-all`}
+                  className={`${anton.className} bg-[#3366ff] text-white [text-shadow:0_0_7px_#3366ff] [box-shadow:0_0_7px_#3366ff,0_0_10px_#3366ff] hover:bg-[#4d7fff] hover:[text-shadow:0_0_7px_#3366ff,0_0_10px_#3366ff,0_0_21px_#3366ff] hover:[box-shadow:0_0_7px_#3366ff,0_0_10px_#3366ff,0_0_21px_#3366ff] px-8 py-3 rounded-lg text-lg tracking-wide transition-all`}
                   onClick={() => {
                     const contactSection = document.getElementById('contact');
                     contactSection?.scrollIntoView({ behavior: 'smooth' });
@@ -64,8 +81,8 @@ const HomePage = () => {
               {/* Top text overlapping with image */}
               <div className={`absolute top-6 right-0 z-10 text-[98px] leading-none whitespace-nowrap flex gap-5 ${anton.className}`}>
                 <motion.span
-                  className="[text-shadow:unset]"
-                  initial={{ opacity: 1, color: "#000000" }}
+                  className="text-white"
+                  initial={false}
                   animate={{
                     color: ["#000000", "#fff", "#fff", "#fff", "#fff", "#fff", "#000000", "#fff"],
                     textShadow: [
@@ -91,8 +108,8 @@ const HomePage = () => {
                   JACK
                 </motion.span>
                 <motion.span
-                  className="[text-shadow:unset]"
-                  initial={{ opacity: 1, color: "#000000" }}
+                  className="text-white"
+                  initial={false}
                   animate={{
                     color: ["#000000", "#fff", "#fff", "#fff", "#fff", "#fff", "#000000", "#fff"],
                     textShadow: [
@@ -118,8 +135,8 @@ const HomePage = () => {
                   OF
                 </motion.span>
                 <motion.span
-                  className="[text-shadow:unset]"
-                  initial={{ opacity: 1, color: "#000000" }}
+                  className="text-white"
+                  initial={false}
                   animate={{
                     color: ["#000000", "#fff", "#fff", "#fff", "#fff", "#fff", "#000000", "#fff"],
                     textShadow: [
@@ -178,8 +195,8 @@ const HomePage = () => {
                 />
                 {/* Bottom text overlapping with image */}
                 <motion.div
-                  className={`absolute -bottom-4 -right-8 z-30 text-[112px] tracking-[25px] leading-none whitespace-nowrap [text-shadow:unset] ${anton.className}`}
-                  initial={{ opacity: 1, color: "#000000" }}
+                  className={`absolute -bottom-4 -right-8 z-30 text-[112px] tracking-[25px] leading-none whitespace-nowrap ${anton.className}`}
+                  initial={false}
                   animate={{
                     color: ["#000000", "#fff", "#fff", "#fff", "#fff", "#fff", "#000000", "#fff"],
                     textShadow: [
@@ -205,17 +222,6 @@ const HomePage = () => {
                   TRADES
                 </motion.div>
               </motion.div>
-            </div>
-          </div>
-
-          {/* Background pattern */}
-          <div className="absolute inset-0 opacity-20">
-            <div className="absolute -rotate-12 left-0 top-0 w-full h-full flex flex-wrap gap-8 overflow-hidden">
-              {[...Array(20)].map((_, i) => (
-                <div key={i} className="text-4xl text-white/10">
-                  ♠♥♣♦
-                </div>
-              ))}
             </div>
           </div>
 

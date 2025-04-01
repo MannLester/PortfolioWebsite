@@ -386,7 +386,7 @@ const ProjectCard: React.FC<{ project: Project }> = ({ project }) => {
 
                                     <Link 
                                         href={`/projects/${selectedProject.title.toLowerCase().replace(/\s+/g, '-')}`}
-                                        className="text-[#00FF00] hover:underline text-sm mt-auto inline-block"
+                                        className="text-[#00FF00] underline text-sm mt-auto inline-block"
                                     >
                                         See Detailed Page
                                     </Link>

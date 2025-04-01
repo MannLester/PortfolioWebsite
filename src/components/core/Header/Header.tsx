@@ -3,7 +3,6 @@
 import { motion } from 'framer-motion';
 import Link from 'next/link';
 import { MobileNav } from '../Navigation/MobileNav';
-import { ThemeToggle } from '@/components/theme/ThemeToggle';
 import { useModal } from '@/context/ModalContext';
 import { usePathname } from 'next/navigation';
 
@@ -28,33 +27,30 @@ const Header = () => {
           ML
         </Link>
         
-        <nav className="hidden md:flex items-center space-x-8">
-          <Link href={isHomePage ? "#home" : "/#home"} className="hover:text-primary transition-colors" onClick={handleNavClick}>
-            Home
-          </Link>
-          <Link href={isHomePage ? "#about" : "/#about"} className="hover:text-primary transition-colors" onClick={handleNavClick}>
-            About
-          </Link>
-          <Link href={isHomePage ? "#skills" : "/#skills"} className="hover:text-primary transition-colors" onClick={handleNavClick}>
-            Skills
-          </Link>
-          <Link href={isHomePage ? "#projects" : "/#projects"} className="hover:text-primary transition-colors" onClick={handleNavClick}>
-            Projects
-          </Link>
-          <Link href={isHomePage ? "#experience" : "/#experience"} className="hover:text-primary transition-colors" onClick={handleNavClick}>
-            Experience
-          </Link>
-          <Link href={isHomePage ? "#recognitions" : "/#recognitions"} className="hover:text-primary transition-colors" onClick={handleNavClick}>
-            Recognitions
-          </Link>
-          <Link href={isHomePage ? "#contact" : "/#contact"} className="hover:text-primary transition-colors" onClick={handleNavClick}>
-            Contact
-          </Link>
-          <ThemeToggle />
-        </nav>
-
-        <div className="md:hidden flex items-center space-x-4">
-          <ThemeToggle />
+        <div className="flex items-center space-x-4">
+          <nav className="hidden md:flex items-center space-x-8">
+            <Link href={isHomePage ? "#home" : "/#home"} className="hover:text-primary transition-colors" onClick={handleNavClick}>
+              Home
+            </Link>
+            <Link href={isHomePage ? "#about" : "/#about"} className="hover:text-primary transition-colors" onClick={handleNavClick}>
+              About
+            </Link>
+            <Link href={isHomePage ? "#skills" : "/#skills"} className="hover:text-primary transition-colors" onClick={handleNavClick}>
+              Skills
+            </Link>
+            <Link href={isHomePage ? "#projects" : "/#projects"} className="hover:text-primary transition-colors" onClick={handleNavClick}>
+              Projects
+            </Link>
+            <Link href={isHomePage ? "#experience" : "/#experience"} className="hover:text-primary transition-colors" onClick={handleNavClick}>
+              Experience
+            </Link>
+            <Link href={isHomePage ? "#recognitions" : "/#recognitions"} className="hover:text-primary transition-colors" onClick={handleNavClick}>
+              Recognitions
+            </Link>
+            <Link href={isHomePage ? "#contact" : "/#contact"} className="hover:text-primary transition-colors" onClick={handleNavClick}>
+              Contact
+            </Link>
+          </nav>
           <MobileNav />
         </div>
       </div>
