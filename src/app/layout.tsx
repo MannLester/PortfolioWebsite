@@ -36,10 +36,7 @@ export default function RootLayout({
       className="dark scroll-smooth"
     >
       <body className={`${inter.className} antialiased`}>
-        <ThemeProvider
-          defaultTheme="dark"
-          storageKey="theme"
-        >
+        <ThemeProvider>
           <ModalProvider>
             <div className="relative flex min-h-screen flex-col">
               <Header />
