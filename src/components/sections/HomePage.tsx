@@ -79,7 +79,10 @@ const HomePage = () => {
               <div className={`absolute top-6 right-0 z-10 text-[98px] leading-none whitespace-nowrap flex gap-5 ${anton.className}`}>
                 <motion.span
                   className="text-white"
-                  initial={false}
+                  initial={{
+                    color: "#000000",
+                    textShadow: "unset"
+                  }}
                   animate={{
                     color: ["#000000", "#fff", "#fff", "#fff", "#fff", "#fff", "#000000", "#fff"],
                     textShadow: [
@@ -99,14 +102,18 @@ const HomePage = () => {
                     times: [0, 0.1, 0.2, 0.4, 0.6, 0.7, 0.8, 1],
                     ease: "easeInOut",
                     delay: 0.3,
-                    repeat: Infinity
+                    repeat: Infinity,
+                    repeatType: "loop"
                   }}
                 >
                   JACK
                 </motion.span>
                 <motion.span
                   className="text-white"
-                  initial={false}
+                  initial={{
+                    color: "#000000",
+                    textShadow: "unset"
+                  }}
                   animate={{
                     color: ["#000000", "#fff", "#fff", "#fff", "#fff", "#fff", "#000000", "#fff"],
                     textShadow: [
@@ -126,14 +133,18 @@ const HomePage = () => {
                     times: [0, 0.1, 0.2, 0.4, 0.6, 0.7, 0.8, 1],
                     ease: "easeInOut",
                     delay: 0.6,
-                    repeat: Infinity
+                    repeat: Infinity,
+                    repeatType: "loop"
                   }}
                 >
                   OF
                 </motion.span>
                 <motion.span
                   className="text-white"
-                  initial={false}
+                  initial={{
+                    color: "#000000",
+                    textShadow: "unset"
+                  }}
                   animate={{
                     color: ["#000000", "#fff", "#fff", "#fff", "#fff", "#fff", "#000000", "#fff"],
                     textShadow: [
@@ -153,7 +164,8 @@ const HomePage = () => {
                     times: [0, 0.1, 0.2, 0.4, 0.6, 0.7, 0.8, 1],
                     ease: "easeInOut",
                     delay: 0.9,
-                    repeat: Infinity
+                    repeat: Infinity,
+                    repeatType: "loop"
                   }}
                 >
                   ALL
@@ -193,7 +205,10 @@ const HomePage = () => {
                 {/* Bottom text overlapping with image */}
                 <motion.div
                   className={`absolute -bottom-4 -right-8 z-30 text-[112px] tracking-[25px] leading-none whitespace-nowrap ${anton.className}`}
-                  initial={false}
+                  initial={{
+                    color: "#000000",
+                    textShadow: "unset"
+                  }}
                   animate={{
                     color: ["#000000", "#fff", "#fff", "#fff", "#fff", "#fff", "#000000", "#fff"],
                     textShadow: [
@@ -213,7 +228,8 @@ const HomePage = () => {
                     times: [0, 0.1, 0.2, 0.4, 0.6, 0.7, 0.8, 1],
                     ease: "easeInOut",
                     delay: 1.2,
-                    repeat: Infinity
+                    repeat: Infinity,
+                    repeatType: "loop"
                   }}
                 >
                   TRADES
