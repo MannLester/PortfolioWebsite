@@ -3,7 +3,6 @@
 import { Anton } from 'next/font/google';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
-import { useTheme } from '@/components/theme/ThemeProvider';
 
 // Import images
 import personImage from '@/assets/images/home_page/person_design.png';
@@ -19,8 +18,6 @@ const anton = Anton({
 });
 
 const HomePage = () => {
-  const { theme: currentTheme } = useTheme();
-
   return (
     <div 
       id="home" 
