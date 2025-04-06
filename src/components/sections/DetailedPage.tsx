@@ -19,10 +19,10 @@ interface DetailedPageProps {
         githubUrl: string;
         liveUrl?: string;
         history?: string;
-        role?: string;
+        role?: string[];
         collaborators?: {
             name: string;
-            role: string;
+            role: string[];
             link?: string;
         }[];
         images?: {
@@ -59,8 +59,17 @@ const DetailedPage: React.FC<DetailedPageProps> = ({ project }) => {
                     <h1 className={`${anton.className} text-5xl text-white mb-4 [text-shadow:0_0_7px_#00FF00,0_0_10px_#00FF00]`}>
                         {project.title}
                     </h1>
-                    <div className="flex items-center gap-4 text-zinc-400">
+                    <div className="flex flex-wrap items-center gap-4 text-zinc-400">
                         <span className="px-3 py-1 rounded-full bg-zinc-800/70">{project.genre}</span>
+                        {project.role && (
+                            <div className="flex flex-wrap gap-2">
+                                {project.role.map((role, index) => (
+                                    <span key={index} className="px-3 py-1 text-sm rounded-full bg-[#00FF00]/10 text-[#00FF00] border border-[#00FF00]/20">
+                                        {role}
+                                    </span>
+                                ))}
+                            </div>
+                        )}
                     </div>
                 </motion.div>
 
@@ -150,7 +159,13 @@ const DetailedPage: React.FC<DetailedPageProps> = ({ project }) => {
                         className="mb-12"
                     >
                         <h2 className={`${anton.className} text-2xl text-white mb-4`}>My Role</h2>
-                        <p className="text-zinc-300 leading-relaxed whitespace-pre-line">{project.role}</p>
+                        <div className="flex flex-wrap gap-3">
+                            {project.role.map((role, index) => (
+                                <div key={index} className="px-4 py-2 rounded-lg bg-[#00FF00]/10 border border-[#00FF00]/20">
+                                    <span className="text-[#00FF00] font-medium">{role}</span>
+                                </div>
+                            ))}
+                        </div>
                     </motion.div>
                 )}
 
@@ -166,8 +181,14 @@ const DetailedPage: React.FC<DetailedPageProps> = ({ project }) => {
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                             {project.collaborators.map((collaborator, index) => (
                                 <div key={index} className="p-4 bg-zinc-800/30 rounded-lg">
-                                    <h3 className="text-white font-semibold mb-1">{collaborator.name}</h3>
-                                    <p className="text-zinc-400 text-sm mb-2">{collaborator.role}</p>
+                                    <h3 className="text-white font-semibold mb-2">{collaborator.name}</h3>
+                                    <div className="flex flex-wrap gap-2 mb-3">
+                                        {collaborator.role.map((role, index) => (
+                                            <span key={index} className="px-2 py-0.5 text-xs rounded-full bg-zinc-700/50 text-zinc-300 border border-zinc-600/30">
+                                                {role}
+                                            </span>
+                                        ))}
+                                    </div>
                                     {collaborator.link && (
                                         <a
                                             href={collaborator.link}

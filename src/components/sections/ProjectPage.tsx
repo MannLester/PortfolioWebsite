@@ -21,10 +21,10 @@ interface Project {
     githubUrl: string;
     liveUrl?: string;
     history?: string;
-    role?: string;
+    role?: string[];
     collaborators?: {
         name: string;
-        role: string;
+        role: string[];
         link?: string;
     }[];
     images?: {
@@ -45,12 +45,22 @@ export const projects: Project[] = [
         liveUrl: "https://stayease-main.vercel.app",
         githubUrl: "https://github.com/clarenzmauro/StayEase",
         history: "StayEase history",
-        role: "Frontend Developer",
+        role: ["Full Stack Developer", "Project Manager", "Database Administrator"],
         collaborators: [
             {
                 name: "Clarenz Mauro",
-                role: "Backend Developer",
+                role: ["Backend Developer", "Database Administrator"],
                 link: "https://github.com/clarenzmauro"
+            },
+            {
+                name: "Edrian Hernandez",
+                role: ["Frontend Developer"],
+                link: "https://github.com/EdrianHernandez"
+            },
+            {
+                name: "Jett Mark Manalo",
+                role: ["Frontend Developer"],
+                link: "https://github.com/jettmanalo"
             }
         ]
     },
