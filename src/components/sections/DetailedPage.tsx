@@ -5,12 +5,6 @@ import { motion } from 'framer-motion';
 import Image from 'next/image';
 import Link from 'next/link';
 
-// StayEase Project Images
-import stayeasePic1 from '@/assets/images/stayease_pics/stayease_pic1.png';
-import stayeasePic2 from '@/assets/images/stayease_pics/stayease_pic2.png';
-import stayeasePic3 from '@/assets/images/stayease_pics/stayease_pic3.png';
-import stayeasePic4 from '@/assets/images/stayease_pics/stayease_pic4.png';
-import stayeasePic5 from '@/assets/images/stayease_pics/stayease_pic5.png';
 
 const anton = Anton({
     weight: '400',
