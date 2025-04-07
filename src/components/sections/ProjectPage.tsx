@@ -6,6 +6,13 @@ import { useState, useEffect } from 'react';
 import { useModal } from '@/context/ModalContext';
 import Link from 'next/link';
 
+// StayEase Project Images
+import stayeasePic1 from '@/assets/images/stayease_pics/stayease_pic1.png';
+import stayeasePic2 from '@/assets/images/stayease_pics/stayease_pic2.png';
+import stayeasePic3 from '@/assets/images/stayease_pics/stayease_pic3.png';
+import stayeasePic4 from '@/assets/images/stayease_pics/stayease_pic4.png';
+import stayeasePic5 from '@/assets/images/stayease_pics/stayease_pic5.png';
+
 const anton = Anton({
     weight: '400',
     subsets: ['latin'],
@@ -19,8 +26,7 @@ interface Project {
     language: string;
     deployed: boolean;
     githubUrl: string;
-    liveUrl?: string;
-    history?: string;
+    liveUrl?: string;   
     role?: string[];
     collaborators?: {
         name: string;
@@ -42,10 +48,36 @@ export const projects: Project[] = [
         genre: "Website Development",
         language: "TypeScript",
         deployed: true,
-        liveUrl: "https://stayease-main.vercel.app",
+        liveUrl: "https://stayease-frontend.vercel.app",
         githubUrl: "https://github.com/clarenzmauro/StayEase",
-        history: "StayEase history",
         role: ["Full Stack Developer", "Project Manager", "Database Administrator"],
+        images: [
+            {
+                src: stayeasePic1.src,
+                alt: "StayEase Homepage",
+                caption: "Modern and intuitive homepage design"
+            },
+            {
+                src: stayeasePic2.src,
+                alt: "StayEase Search",
+                caption: "Property Page"
+            },
+            {
+                src: stayeasePic3.src,
+                alt: "StayEase Booking",
+                caption: "Streamlined booking process"
+            },
+            {
+                src: stayeasePic4.src,
+                alt: "StayEase Details",
+                caption: "Detailed property information"
+            },
+            {
+                src: stayeasePic5.src,
+                alt: "StayEase Reviews",
+                caption: "User accounts and details"
+            }
+        ],
         collaborators: [
             {
                 name: "Clarenz Mauro",
@@ -54,12 +86,12 @@ export const projects: Project[] = [
             },
             {
                 name: "Edrian Hernandez",
-                role: ["Frontend Developer"],
+                role: ["Frontend Developer", "UI/UX Designer"],
                 link: "https://github.com/EdrianHernandez"
             },
             {
                 name: "Jett Mark Manalo",
-                role: ["Frontend Developer"],
+                role: ["Frontend Developer", "UI/UX Designer"],
                 link: "https://github.com/jettmanalo"
             }
         ]
@@ -72,6 +104,24 @@ export const projects: Project[] = [
         language: "JavaScript",
         deployed: false,
         githubUrl: "https://github.com/MannLester/CardsofPower",
+        role: ["Full Stack Developer", "Project Manager", "Database Administrator", "Assets Designer"],
+        collaborators: [
+            {
+                name: "Clarenz Mauro",
+                role: ["Backend Developer", "Database Administrator"],
+                link: "https://github.com/clarenzmauro"
+            },
+            {
+                name: "Jett Mark Manalo",
+                role: ["Frontend Developer", "UI/UX Designer"],
+                link: "https://github.com/jettmanalo"
+            },
+            {
+                name: "Vince Jericho Abella",
+                role: ["Backend Developer"],
+                link: "https://github.com/VinceAbella"
+            }
+        ]
     },
     {
         title: "GoCery!",
@@ -80,7 +130,20 @@ export const projects: Project[] = [
         genre: "App Development",
         language: "Java",
         deployed: false,
-        githubUrl: "https://github.com/MannLester/GoCery",
+        githubUrl: "https://github.com/MannLester/Go-cery",
+        role: ["Backend Developer", "Project Manager", "Database Administrator"],
+        collaborators: [
+            {
+                name: "Gerard Malapote",
+                role: ["Frontend Developer", "Assets Designer"],
+                link: "https://github.com/Gerard-M"
+            },
+            {
+                name: "Marc Linus Rosales",
+                role: ["Backend Developer", "Database Administrator"],
+                link: "https://github.com/MarcLinus"
+            }
+        ]
     },
     {
         title: "Reforge",
@@ -90,6 +153,29 @@ export const projects: Project[] = [
         language: "Java",
         deployed: false,
         githubUrl: "https://github.com/MannLester/reforge",
+        role: ["Full Stack Developer", "Project Manager", "Assets Designer", "UI/UX Designer"],
+        collaborators: [
+            {
+                name: "Gerard Malapote",
+                role: ["Frontend Developer", "Assets Designer", "UI/UX Designer"],
+                link: "https://github.com/Gerard-M"
+            },
+            {
+                name: "Marc Linus Rosales",
+                role: ["Backend Developer", "Database Administrator"],
+                link: "https://github.com/MarcLinus"
+            },
+            {
+                name: "Kristhian Pinili",
+                role: ["Backend Developer", "Quality Assurance"],
+                link: "https://github.com/MarcLinus"
+            },
+            {
+                name: "Jett Mark Manalo",
+                role: ["Frontend Developer", "UI/UX Designer"],
+                link: "https://github.com/jettmanalo"
+            }
+        ]
     },
     {
         title: "EduHub",

@@ -5,6 +5,13 @@ import { motion } from 'framer-motion';
 import Image from 'next/image';
 import Link from 'next/link';
 
+// StayEase Project Images
+import stayeasePic1 from '@/assets/images/stayease_pics/stayease_pic1.png';
+import stayeasePic2 from '@/assets/images/stayease_pics/stayease_pic2.png';
+import stayeasePic3 from '@/assets/images/stayease_pics/stayease_pic3.png';
+import stayeasePic4 from '@/assets/images/stayease_pics/stayease_pic4.png';
+import stayeasePic5 from '@/assets/images/stayease_pics/stayease_pic5.png';
+
 const anton = Anton({
     weight: '400',
     subsets: ['latin'],
@@ -18,7 +25,6 @@ interface DetailedPageProps {
         description: string;
         githubUrl: string;
         liveUrl?: string;
-        history?: string;
         role?: string[];
         collaborators?: {
             name: string;
@@ -136,19 +142,6 @@ const DetailedPage: React.FC<DetailedPageProps> = ({ project }) => {
                     <h2 className={`${anton.className} text-2xl text-white mb-4`}>About the Project</h2>
                     <p className="text-zinc-300 leading-relaxed whitespace-pre-line">{project.description}</p>
                 </motion.div>
-
-                {/* History Section */}
-                {project.history && (
-                    <motion.div
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: 0.4 }}
-                        className="mb-12"
-                    >
-                        <h2 className={`${anton.className} text-2xl text-white mb-4`}>Project History</h2>
-                        <p className="text-zinc-300 leading-relaxed whitespace-pre-line">{project.history}</p>
-                    </motion.div>
-                )}
 
                 {/* Role Section */}
                 {project.role && (
