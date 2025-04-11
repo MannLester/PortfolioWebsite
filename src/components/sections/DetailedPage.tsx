@@ -204,13 +204,14 @@ const DetailedPage: React.FC<DetailedPageProps> = ({ project }) => {
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                             {project.images.map((image, index) => (
                                 <div key={index} className="relative">
-                                    <Image
-                                        src={image.src}
-                                        alt={image.alt}
-                                        width={600}
-                                        height={400}
-                                        className="rounded-lg"
-                                    />
+                                    <div className="relative aspect-[4/3] w-full overflow-hidden rounded-lg">
+                                        <Image
+                                            src={image.src}
+                                            alt={image.alt}
+                                            fill
+                                            className="object-contain rounded-lg hover:scale-105 transition-transform duration-300"
+                                        />
+                                    </div>
                                     {image.caption && (
                                         <p className="text-zinc-400 text-sm mt-2">{image.caption}</p>
                                     )}

@@ -13,6 +13,19 @@ import stayeasePic3 from '@/assets/images/stayease_pics/stayease_pic3.png';
 import stayeasePic4 from '@/assets/images/stayease_pics/stayease_pic4.png';
 import stayeasePic5 from '@/assets/images/stayease_pics/stayease_pic5.png';
 
+// Gocery Project Images
+import goceryPic1 from '@/assets/images/gocery_pics/gocery_pic1.jpg';
+import goceryPic2 from '@/assets/images/gocery_pics/gocery_pic2.jpg';
+import goceryPic3 from '@/assets/images/gocery_pics/gocery_pic3.jpg';
+import goceryPic4 from '@/assets/images/gocery_pics/gocery_pic4.jpg';
+import goceryPic5 from '@/assets/images/gocery_pics/gocery_pic5.jpg';
+import goceryPic6 from '@/assets/images/gocery_pics/gocery_pic6.jpg';
+import goceryPic7 from '@/assets/images/gocery_pics/gocery_pic7.jpg';
+import goceryPic8 from '@/assets/images/gocery_pics/gocery_pic8.jpg';
+import goceryPic9 from '@/assets/images/gocery_pics/gocery_pic9.jpg';
+import goceryPic10 from '@/assets/images/gocery_pics/gocery_pic10.jpg';
+
+
 const anton = Anton({
     weight: '400',
     subsets: ['latin'],
@@ -143,7 +156,59 @@ export const projects: Project[] = [
                 role: ["Backend Developer", "Database Administrator"],
                 link: "https://github.com/MarcLinus"
             }
-        ]
+        ],
+        images: [
+            {
+                src: goceryPic1.src,
+                alt: "StayEase Homepage",
+                caption: "Landing Page with Logo Design"
+            },
+            {
+                src: goceryPic2.src,
+                alt: "StayEase Search",
+                caption: "Intuitive User Cart"
+            },
+            {
+                src: goceryPic3.src,
+                alt: "StayEase Booking",
+                caption: "Admin Dashboard"
+            },
+            {
+                src: goceryPic4.src,
+                alt: "StayEase Details",
+                caption: "Add Store Feature"
+            },
+            {
+                src: goceryPic5.src,
+                alt: "StayEase Reviews",
+                caption: "Add Product Feature"
+            },
+            {
+                src: goceryPic6.src,
+                alt: "StayEase Reviews",
+                caption: "QR Generation Feature"
+            },
+            {
+                src: goceryPic7.src,
+                alt: "StayEase Reviews",
+                caption: "Inventory Management Feature"
+            },
+            {
+                src: goceryPic8.src,
+                alt: "StayEase Reviews",
+                caption: "QR Scanner Feature"
+            },
+            {
+                src: goceryPic9.src,
+                alt: "StayEase Reviews",
+                caption: "Receipt Details"
+            },
+            {
+                src: goceryPic10.src,
+                alt: "StayEase Reviews",
+                caption: "Store History"
+            },
+        ],
     },
     {
         title: "Reforge",
@@ -168,13 +233,13 @@ export const projects: Project[] = [
             {
                 name: "Kristhian Pinili",
                 role: ["Backend Developer", "Quality Assurance"],
-                link: "https://github.com/MarcLinus"
+                link: "https://github.com/Kristhian-ai"
             },
             {
                 name: "Jett Mark Manalo",
                 role: ["Frontend Developer", "UI/UX Designer"],
                 link: "https://github.com/jettmanalo"
-            }
+            } 
         ]
     },
     {
@@ -185,6 +250,13 @@ export const projects: Project[] = [
         language: "Blazor.NET",
         deployed: false,
         githubUrl: "https://github.com/MannLester/EduHub",
+        collaborators: [
+            {
+                name: "Jett Mark Manalo",
+                role: ["Frontend Developer", "UI/UX Designer"],
+                link: "https://github.com/jettmanalo"
+            }
+        ]
     },
     {
         title: "Knapsack Program",
