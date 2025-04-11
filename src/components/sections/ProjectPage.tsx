@@ -249,12 +249,28 @@ export const projects: Project[] = [
         genre: "Website Development",
         language: "Blazor.NET",
         deployed: false,
+        role: ["Full Stack Developer", "Project Manager", "Database Administrator", "Assets Designer", "UI/UX Designer"],
         githubUrl: "https://github.com/MannLester/EduHub",
         collaborators: [
             {
-                name: "Jett Mark Manalo",
+                name: "Marc Linus Rosales",
+                role: ["Backend Developer", "Database Administrator"],
+                link: "https://github.com/MarcLinus"
+            },
+            {
+                name: "Edrian Hernandez",
                 role: ["Frontend Developer", "UI/UX Designer"],
-                link: "https://github.com/jettmanalo"
+                link: "https://github.com/EdrianHernandez"
+            },
+            {
+                name: "Diomael Francis Lecaroz",
+                role: ["Quality Assurance"],
+                link: "https://github.com/DiomaelLecaroz"
+            },
+            {
+                name: "Gerard Andrei Malapote",
+                role: ["Frontend Developer", "Assets Designer", "UI/UX Designer"],
+                link: "https://github.com/Gerard-M"
             }
         ]
     },
@@ -265,6 +281,7 @@ export const projects: Project[] = [
         genre: "Data Structure and Algorithm",
         language: "C",
         deployed: false,
+        role: ["Backend Developer"],
         githubUrl: "https://github.com/MannLester/KnapsackProgram",
     }, 
     {
@@ -273,6 +290,7 @@ export const projects: Project[] = [
         technologies: ["Python"],
         genre: "Automation",
         language: "Python",
+        role: ["Backend Developer"],
         deployed: false,
         githubUrl: "https://github.com/MannLester/FileOrganizer",
     }, 
