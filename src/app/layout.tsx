@@ -4,7 +4,6 @@ import "./globals.css";
 import { Header} from "@/components/core";
 import { ThemeProvider } from "@/components/theme/ThemeProvider";
 import { ModalProvider } from '@/context/ModalContext';
-import { MobileNav } from '@/components/core/Navigation/MobileNav';
 
 const inter = Inter({ 
   subsets: ["latin"],
