@@ -17,12 +17,12 @@ const Header = () => {
 
   return (
     <motion.header 
-      className="fixed top-0 w-full z-50 bg-background/80 backdrop-blur-sm border-b"
+      className="fixed top-0 w-full z-50 bg-background/80 backdrop-blur-sm border-b overflow-x-hidden"
       initial={{ y: -100 }}
       animate={{ y: 0 }}
       transition={{ duration: 0.5 }}
     >
-      <div className="container mx-auto px-4 h-16 flex items-center justify-between">
+      <div className="w-[100vw] h-16 flex items-center justify-between px-8 sm:px-16">
         <Link href={isHomePage ? "#home" : "/#home"} className="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary to-primary/70">
           ML
         </Link>
