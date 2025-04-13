@@ -2,21 +2,41 @@
 
 import { motion, AnimatePresence } from 'framer-motion';
 import Link from 'next/link';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { createPortal } from 'react-dom';
 
 const MobileNav = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [mounted, setMounted] = useState(false);
 
-  const menuVariants = {
+  useEffect(() => {
+    setMounted(true);
+    return () => setMounted(false);
+  }, []);
+
+  const overlayVariants = {
     closed: {
       opacity: 0,
-      x: "100%",
       transition: {
         duration: 0.2
       }
     },
     open: {
       opacity: 1,
+      transition: {
+        duration: 0.3
+      }
+    }
+  };
+
+  const menuVariants = {
+    closed: {
+      x: "100vw",
+      transition: {
+        duration: 0.2
+      }
+    },
+    open: {
       x: 0,
       transition: {
         duration: 0.3
@@ -59,64 +79,76 @@ const MobileNav = () => {
         </svg>
       </button>
 
-      <AnimatePresence>
-        {isOpen && (
-          <motion.div
-            className="fixed inset-0 bg-background/80 backdrop-blur-sm z-50"
-            initial="closed"
-            animate="open"
-            exit="closed"
-            variants={menuVariants}
-          >
-            <nav className="fixed inset-y-0 right-0 w-3/4 bg-background shadow-xl p-6">
-              <div className="flex flex-col space-y-6">
+      {mounted && createPortal(
+        <AnimatePresence>
+          {isOpen && (
+          <>
+            <motion.div 
+              className="fixed inset-0 bg-black/80 backdrop-blur-sm z-[99999999] overflow-y-auto cursor-pointer"
+              onClick={() => setIsOpen(false)}
+              initial="closed"
+              animate="open"
+              exit="closed"
+              variants={overlayVariants}
+            />
+            <motion.nav
+              className="fixed top-0 right-0 w-3/4 h-[100vh] bg-background shadow-xl p-6 z-[999999999]"
+              onClick={(e) => e.stopPropagation()}
+              initial="closed"
+              animate="open"
+              exit="closed"
+              variants={menuVariants}
+            >
+              <div className="flex flex-col space-y-6 relative pt-4">
                 <Link 
                   href="#about" 
-                  className="text-lg hover:text-primary transition-colors"
+                  className="text-lg hover:text-primary transition-colors block py-2"
                   onClick={() => setIsOpen(false)}
                 >
                   About
                 </Link>
                 <Link 
                   href="#projects" 
-                  className="text-lg hover:text-primary transition-colors"
+                  className="text-lg hover:text-primary transition-colors block py-2"
                   onClick={() => setIsOpen(false)}
                 >
                   Projects
                 </Link>
                 <Link 
                   href="#skills" 
-                  className="text-lg hover:text-primary transition-colors"
+                  className="text-lg hover:text-primary transition-colors block py-2"
                   onClick={() => setIsOpen(false)}
                 >
                   Skills
                 </Link>
                 <Link 
                   href="#experience" 
-                  className="text-lg hover:text-primary transition-colors"
+                  className="text-lg hover:text-primary transition-colors block py-2"
                   onClick={() => setIsOpen(false)}
                 >
                   Experience
                 </Link>
                 <Link 
                   href="#recognitions" 
-                  className="text-lg hover:text-primary transition-colors"
+                  className="text-lg hover:text-primary transition-colors block py-2"
                   onClick={() => setIsOpen(false)}
                 >
                   Recognitions
                 </Link>
                 <Link 
                   href="#contact" 
-                  className="text-lg hover:text-primary transition-colors"
+                  className="text-lg hover:text-primary transition-colors block py-2"
                   onClick={() => setIsOpen(false)}
                 >
                   Contact
                 </Link>
               </div>
-            </nav>
-          </motion.div>
-        )}
-      </AnimatePresence>
+            </motion.nav>
+          </>
+          )}
+        </AnimatePresence>,
+        document.body
+      )}
     </div>
   );
 };
