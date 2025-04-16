@@ -193,9 +193,10 @@ const CardFront = () => (
 
 const AboutPage = () => {
     return (
-        <div id="about" className="min-h-screen pt-20 flex bg-black text-white overflow-hidden">
-            {/* Left Section - Playing Card */}
-            <div className="flex-1 relative flex items-center justify-center">
+        <>
+            <div id="about" className="min-h-screen pt-10 flex flex-col md:flex-row bg-black text-white overflow-hidden">
+            {/* Left Section - Playing Card - Hidden on Mobile */}
+            <div className="flex-1 relative hidden md:flex items-center justify-center">
                 {/* Rotating Card Container */}
                 <div className="relative [perspective:2000px]">
                     <motion.div
@@ -220,11 +221,11 @@ const AboutPage = () => {
             </div>
 
             {/* Right Section - Title and Content */}
-            <div className="flex-1 flex flex-col justify-center pr-16">
+            <div className="flex-1 flex flex-col justify-center px-6 sm:px-8 md:px-0 md:pr-16">
                 {/* About Me Title */}
-                <div className="flex justify-end w-full mb-16 pr-20">
+                <div className="flex justify-center md:justify-end w-full -mt-3 mb-6 md:mb-16 pr-0 md:pr-20">
                     <motion.h2 
-                        className={`text-6xl ${anton.className} tracking-wider [text-shadow:0_0_7px_#00BFFF,0_0_10px_#00BFFF,0_0_21px_#00BFFF,0_0_42px_#00BFFF]`}
+                        className={`text-5xl md:text-6xl ${anton.className} tracking-wider [text-shadow:0_0_7px_#00BFFF,0_0_10px_#00BFFF,0_0_21px_#00BFFF,0_0_42px_#00BFFF]`}
                         initial={{ opacity: 1, color: "#000000" }}
                         animate={{
                             color: ["#000000", "#fff", "#fff", "#fff", "#fff", "#fff", "#000000", "#fff"],
@@ -252,21 +253,20 @@ const AboutPage = () => {
                 </div>
 
                 {/* Content */}
-                <div className={`tracking-wider text-2xl space-y-4 text-right ${anton.className}`}>
+                <div className={`tracking-wider text-base md:text-2xl space-y-0 md:space-y-4 text-center md:text-right ${anton.className}`}>
                     <p>Hi, I&apos;m Lester, The Jack of All Trades Junior Developer.</p>
                     
-                    <div className="space-y-1">
+                    <div className="space-y-0 md:space-y-1 text-base md:text-2xl">
                         <p>From idea generation to product creation.</p>
                         <p>From deployment to marketing and maintenance.</p>
                         <p>I can execute and be a part of it all.</p>
                     </div>
 
-                    <p>
-                        With my technical and soft skills, alongside my innate <br /> programming capabilities
-                        enhanced with my expertise <br /> of taking AI tools to the next level.
+                    <p className="text-base md:text-sm md:whitespace-nowrap">
+                        With my technical and soft skills, alongside my innate programming capabilities enhanced with my expertise of taking AI tools to the next level.
                     </p>
 
-                    <br />    
+                    <div className="h-4 md:h-4"></div>
                     <div className="relative">
                         {/* Sparkles */}
                         <Sparkle delay={0} className="top-[10%] left-[30%]" />
@@ -284,19 +284,21 @@ const AboutPage = () => {
                         <Sparkle delay={1.0} className="top-[33%] left-[20%]" />
                         <Sparkle delay={0.1} className="top-[12%] left-[85%]" />
                         <Sparkle delay={1.4} className="top-[22%] left-[15%]" />
-                        <span className="tracking-widest text-4xl [text-shadow:0_0_4px_#DAA520,0_0_8px_#DAA520,0_0_12px_#DAA520,0_0_20px_#DAA520] block">
+                        <span className="tracking-widest text-2xl md:text-4xl [text-shadow:0_0_4px_#DAA520,0_0_8px_#DAA520,0_0_12px_#DAA520,0_0_20px_#DAA520] block">
                             THERE IS NOTHING WE CAN&apos;T CREATE!
                         </span>
                     </div>
                     
-                    <br/>
-                    <p>
-                        I may be a <span className="[text-shadow:0_0_4px_#DC143C,0_0_8px_#DC143C,0_0_12px_#DC143C,0_0_20px_#DC143C,0_0_40px_#DC143C]">MASTER OF NONE</span>, 
-                        But I will always <span className="[text-shadow:0_0_7px_#00cc66,0_0_14px_#00cc66,0_0_21px_#00cc66,0_0_42px_#00cc66,0_0_82px_#00cc66]">GET IT DONE</span>.
+                    <div className="h-4 md:h-4"></div>
+                    <p className="text-xl md:text-sm">
+                        I may be a <span className="[text-shadow:0_0_4px_#DC143C,0_0_8px_#DC143C,0_0_12px_#DC143C,0_0_20px_#DC143C,0_0_40px_#DC143C]">MASTER OF NONE</span>, But I will always <span className="[text-shadow:0_0_7px_#00cc66,0_0_14px_#00cc66,0_0_21px_#00cc66,0_0_42px_#00cc66,0_0_82px_#00cc66]">GET IT DONE</span>.
                     </p>
                 </div>
             </div>
-        </div>
+            </div>
+
+            {/* Mobile card completely removed */}
+        </>
     );
 }
 
