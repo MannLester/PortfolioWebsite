@@ -21,7 +21,7 @@ const HomePage = () => {
   return (
     <div 
       id="home" 
-      className={`h-screen flex overflow-hidden backdrop-blur-lg transition-colors duration-300 bg-black`} 
+      className={`h-screen flex flex-col md:flex-row overflow-hidden backdrop-blur-lg transition-colors duration-300 bg-black`} 
       style={{ 
         backgroundImage: `url(${brickBackground.src})`,
         backgroundSize: 'cover', 
@@ -30,34 +30,34 @@ const HomePage = () => {
     >
       <div className="absolute inset-0 bg-black opacity-50" />
       {/* Hero Section */}
-      <section className="flex w-full h-full z-10">
+      <section className="flex flex-col md:flex-row w-full h-full z-10">
         {/* Left side - content */}
-        <div className="flex-1 flex items-start justify-start px-16">
-          <div className="space-y-6 mt-40">
+        <div className="flex-1 flex items-start justify-start px-6 sm:px-8 md:px-16 pt-24 md:pt-0">
+          <div className="space-y-4 md:space-y-6 mt-10 md:mt-40">
             <div className="space-y-8">
-              <h1 className={`text-white [text-shadow:0_0_7px_#9933ff,0_0_10px_#9933ff,0_0_21px_#9933ff,0_0_42px_#9933ff] text-4xl tracking-normal font-bold ${anton.className}`}>
+              <h1 className={`text-white [text-shadow:0_0_7px_#9933ff,0_0_10px_#9933ff,0_0_21px_#9933ff,0_0_42px_#9933ff] text-3xl md:text-4xl tracking-normal font-bold ${anton.className}`}>
                 H E L L O !
               </h1>
 
-              <h2 className={`text-white text-8xl tracking-normal ${anton.className}`}>
+              <h2 className={`text-white text-5xl sm:text-6xl md:text-8xl tracking-normal ${anton.className}`}>
                 I&apos;m <span className="text-white">Mann Lester Magbuhos</span>
               </h2>
 
-              <p className="text-white text-3xl font-semibold tracking-wider ${anton.className}">
+              <p className="text-white text-xl md:text-3xl font-semibold tracking-wider ${anton.className}">
                 Junior Full Stack Developer
               </p>
 
-              <div className="flex space-x-6">
+              <div className="flex flex-col sm:flex-row space-y-3 sm:space-y-0 sm:space-x-6">
                 <motion.button
                   whileHover={{ scale: 1.05 }}
-                  className={`${anton.className} bg-[#9933ff] text-white [text-shadow:0_0_7px_#9933ff] [box-shadow:0_0_7px_#9933ff,0_0_10px_#9933ff] hover:bg-[#ad5fff] hover:[text-shadow:0_0_7px_#9933ff,0_0_10px_#9933ff,0_0_21px_#9933ff] hover:[box-shadow:0_0_7px_#9933ff,0_0_10px_#9933ff,0_0_21px_#9933ff] px-8 py-3 rounded-lg text-lg tracking-wide transition-all`}
+                  className={`${anton.className} bg-[#9933ff] text-white [text-shadow:0_0_7px_#9933ff] [box-shadow:0_0_7px_#9933ff,0_0_10px_#9933ff] hover:bg-[#ad5fff] hover:[text-shadow:0_0_7px_#9933ff,0_0_10px_#9933ff,0_0_21px_#9933ff] hover:[box-shadow:0_0_7px_#9933ff,0_0_10px_#9933ff,0_0_21px_#9933ff] px-8 py-3 rounded-lg text-base md:text-lg tracking-wide transition-all w-full sm:w-auto text-center`}
                   onClick={() => window.open('/resume.pdf', '_blank')}
                 >
                   See Resume
                 </motion.button>
                 <motion.button
                   whileHover={{ scale: 1.05 }}
-                  className={`${anton.className} bg-[#3366ff] text-white [text-shadow:0_0_7px_#3366ff] [box-shadow:0_0_7px_#3366ff,0_0_10px_#3366ff] hover:bg-[#4d7fff] hover:[text-shadow:0_0_7px_#3366ff,0_0_10px_#3366ff,0_0_21px_#3366ff] hover:[box-shadow:0_0_7px_#3366ff,0_0_10px_#3366ff,0_0_21px_#3366ff] px-8 py-3 rounded-lg text-lg tracking-wide transition-all`}
+                  className={`${anton.className} bg-[#3366ff] text-white [text-shadow:0_0_7px_#3366ff] [box-shadow:0_0_7px_#3366ff,0_0_10px_#3366ff] hover:bg-[#4d7fff] hover:[text-shadow:0_0_7px_#3366ff,0_0_10px_#3366ff,0_0_21px_#3366ff] hover:[box-shadow:0_0_7px_#3366ff,0_0_10px_#3366ff,0_0_21px_#3366ff] px-8 py-3 rounded-lg text-base md:text-lg tracking-wide transition-all w-full sm:w-auto text-center`}
                   onClick={() => {
                     const contactSection = document.getElementById('contact');
                     contactSection?.scrollIntoView({ behavior: 'smooth' });
@@ -71,12 +71,12 @@ const HomePage = () => {
         </div>
 
         {/* Right side - contains image and text */}
-        <div className="w-[50%] relative">
+        <div className="w-full md:w-[50%] relative mt-8 md:mt-0 hidden md:block">
           {/* Title and Image Container */}
-          <div className="absolute right-[10%] top-[20%] text-right pr-8 flex flex-col items-end">
-            <div className="relative w-[350px]">
+          <div className="absolute right-[5%] sm:right-[10%] top-[5%] md:top-[20%] text-right pr-4 md:pr-8 flex flex-col items-end">
+            <div className="relative w-[250px] sm:w-[300px] md:w-[350px]">
               {/* Top text overlapping with image */}
-              <div className={`absolute top-6 right-0 z-10 text-[98px] leading-none whitespace-nowrap flex gap-5 ${anton.className}`}>
+              <div className={`absolute top-2 md:top-6 right-0 z-10 text-[60px] sm:text-[80px] md:text-[98px] leading-none whitespace-nowrap flex gap-2 sm:gap-5 ${anton.className}`}>
                 <motion.span
                   className="text-white"
                   initial={{
@@ -174,22 +174,22 @@ const HomePage = () => {
 
               <motion.div className="relative">
                 {/* Background Spade */}
-                <div className="absolute -left-20 top-32 z-5 scale-[1.8]">
+                <div className="absolute -left-10 sm:-left-20 top-20 sm:top-32 z-5 scale-[1.2] sm:scale-[1.5] md:scale-[1.8]">
                   <Image src={spadeImage} alt="Spade" width={600} height={600} className="opacity-100" />
                 </div>
 
                 {/* Background Diamond */}
-                <div className="absolute left-[-5vw] top-32 z-5 scale-[2]">
+                <div className="absolute left-[-5vw] top-20 sm:top-32 z-5 scale-[1.3] sm:scale-[1.7] md:scale-[2]">
                   <Image src={diamondImage} alt="Diamond" width={600} height={600} className="opacity-100" />
                 </div>
 
                 {/* Background Club */}
-                <div className="absolute left-[-5vw] top-32 z-5 scale-[1.8]">
+                <div className="absolute left-[-5vw] top-20 sm:top-32 z-5 scale-[1.2] sm:scale-[1.5] md:scale-[1.8]">
                   <Image src={clubImage} alt="Club" width={600} height={600} className="opacity-100" />
                 </div>
 
                 {/* Background Heart */}
-                <div className="absolute left-[-5vw] top-32 z-5 scale-[1.9]">
+                <div className="absolute left-[-5vw] top-20 sm:top-32 z-5 scale-[1.3] sm:scale-[1.6] md:scale-[1.9]">
                   <Image src={heartImage} alt="Heart" width={600} height={600} className="opacity-100" />
                 </div>
 
@@ -199,12 +199,12 @@ const HomePage = () => {
                   alt="Mann Lee"
                   width={350}
                   height={437}
-                  className="relative z-20 -translate-x-16 -translate-y-3"
+                  className="relative z-20 -translate-x-8 sm:-translate-x-12 md:-translate-x-16 -translate-y-3 w-[220px] sm:w-[280px] md:w-[350px] h-auto"
                   priority
                 />
                 {/* Bottom text overlapping with image */}
                 <motion.div
-                  className={`absolute -bottom-4 -right-8 z-30 text-[112px] tracking-[25px] leading-none whitespace-nowrap ${anton.className}`}
+                  className={`absolute -bottom-2 sm:-bottom-4 -right-4 sm:-right-8 z-30 text-[70px] sm:text-[90px] md:text-[112px] tracking-[15px] sm:tracking-[20px] md:tracking-[25px] leading-none whitespace-nowrap ${anton.className}`}
                   initial={{
                     color: "#000000",
                     textShadow: "unset"
@@ -247,6 +247,14 @@ const HomePage = () => {
           </div>
         </div>
       </section>
+      
+      {/* Mobile-only red glow effects */}
+      <div className="absolute inset-0 -z-10 overflow-hidden pointer-events-none md:hidden">
+        <div className="absolute top-1/3 right-1/3 w-64 h-64 bg-red-500/10 rounded-full blur-[80px]" />
+        <div className="absolute bottom-1/3 left-1/3 w-64 h-64 bg-red-500/5 rounded-full blur-[80px]" />
+        <div className="absolute top-2/3 right-1/2 w-64 h-64 bg-red-500/20 rounded-full blur-[100px]" />
+        <div className="absolute bottom-1/2 left-1/2 w-64 h-64 bg-red-500/10 rounded-full blur-[100px]" />
+      </div>
     </div>
   );
 };
