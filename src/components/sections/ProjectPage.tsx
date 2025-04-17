@@ -2,7 +2,7 @@
 
 import { motion, AnimatePresence } from 'framer-motion';
 import { Anton } from 'next/font/google';
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useModal } from '@/context/ModalContext';
 import Link from 'next/link';
 
@@ -433,8 +433,8 @@ const ProjectCard: React.FC<{ project: Project }> = ({ project }) => {
                 exit={{ opacity: 0, x: -50 }}
                 transition={{ duration: 0.5 }}
                 onClick={handleOpenModal}
-                className="bg-zinc-900/50 backdrop-blur-sm rounded-xl p-6 hover:bg-zinc-800/50 transition-all duration-300 
-                           border border-zinc-800/50 hover:border-zinc-700/50 group w-[360px] h-[280px] flex flex-col cursor-pointer"
+                className="bg-zinc-900/50 backdrop-blur-sm rounded-xl p-4 md:p-6 hover:bg-zinc-800/50 transition-all duration-300 
+                           border border-zinc-800/50 hover:border-zinc-700/50 group w-full h-[280px] flex flex-col cursor-pointer"
             >
                 <div className="flex justify-between items-start mb-2">
                     <h3 className={`${anton.className} text-2xl text-white [text-shadow:0_0_7px_#00FF00,0_0_10px_#00FF00]`}>
@@ -446,7 +446,7 @@ const ProjectCard: React.FC<{ project: Project }> = ({ project }) => {
                         </span>
                     </div>
                 </div>
-                <p className="text-zinc-300 mb-4 line-clamp-2">{project.description}</p>
+                <p className="text-zinc-300 text-sm md:text-base mb-3 md:mb-4 line-clamp-2">{project.description}</p>
                 <div className="flex flex-wrap gap-2 mb-4">
                     {project.technologies.map((tech, i) => (
                         <span
@@ -500,7 +500,7 @@ const ProjectCard: React.FC<{ project: Project }> = ({ project }) => {
                             transition={{ type: "spring", damping: 25, stiffness: 400 }}
                             className="fixed inset-0 flex items-center justify-center z-50"
                         >
-                            <div className="w-[420px] h-[570px] bg-zinc-900/95 backdrop-blur-sm rounded-xl p-6 border border-zinc-800/50">
+                            <div className="w-[90vw] max-w-[420px] h-[90vh] max-h-[570px] overflow-y-auto bg-zinc-900/95 backdrop-blur-sm rounded-xl p-4 md:p-6 border border-zinc-800/50">
                                 <div className="flex flex-col h-full">
                                     <div className="flex justify-between items-start mb-4">
                                         <h2 className={`${anton.className} text-xl text-white [text-shadow:0_0_7px_#00FF00,0_0_10px_#00FF00]`}>
@@ -591,19 +591,85 @@ const ProjectPage = () => {
     const [selectedGenre, setSelectedGenre] = useState<string | null>(null);
     const [selectedLanguage, setSelectedLanguage] = useState<string | null>(null);
     const [direction, setDirection] = useState(0);
-
+    const [isMobile, setIsMobile] = useState(false);
+    const [currentMobileProject, setCurrentMobileProject] = useState(1);
+    
+    // Reference to the scroll container
+    const scrollContainerRef = useRef<HTMLDivElement>(null);
+    
+    // Filter projects based on selected filters
     const filteredProjects = projects.filter(project => {
         const matchesGenre = !selectedGenre || project.genre === selectedGenre;
         const matchesLanguage = !selectedLanguage || project.language === selectedLanguage;
         return matchesGenre && matchesLanguage;
     });
-
+    
     const projectsPerPage = 3;
     const totalPages = Math.ceil(filteredProjects.length / projectsPerPage);
     const currentProjects = filteredProjects.slice(
         currentPage * projectsPerPage,
         (currentPage + 1) * projectsPerPage
     );
+    
+    // Handle responsive layout detection
+    useEffect(() => {
+        const checkMobile = () => {
+            setIsMobile(window.innerWidth < 768);
+        };
+        
+        // Check on initial render
+        checkMobile();
+        
+        // Add event listener for window resize
+        window.addEventListener('resize', checkMobile);
+        
+        // Cleanup
+        return () => window.removeEventListener('resize', checkMobile);
+    }, []);
+    
+    // Track which project is currently visible in mobile view
+    useEffect(() => {
+        if (!isMobile || !scrollContainerRef.current) return;
+        
+        const scrollContainer = scrollContainerRef.current;
+        let scrollTimeout: NodeJS.Timeout;
+        
+        const handleScroll = () => {
+            if (!scrollContainer) return;
+            
+            // Clear any existing timeout to debounce the scroll event
+            clearTimeout(scrollTimeout);
+            
+            // Set a timeout to update the counter after scrolling stops
+            scrollTimeout = setTimeout(() => {
+                const scrollPosition = scrollContainer.scrollLeft;
+                const cardWidth = 300; // Width of each card including margin
+                
+                // Calculate which project is currently most visible
+                const projectIndex = Math.floor(scrollPosition / cardWidth);
+                
+                // Add 1 for human-readable index (1-based instead of 0-based)
+                // and ensure it doesn't exceed the number of projects
+                const newIndex = Math.min(Math.max(projectIndex + 1, 1), filteredProjects.length || 1);
+                setCurrentMobileProject(newIndex);
+            }, 50); // Small delay to ensure accurate position after scroll momentum
+        };
+        
+        // Add event listeners for both scroll and touch events
+        scrollContainer.addEventListener('scroll', handleScroll, { passive: true });
+        scrollContainer.addEventListener('touchend', handleScroll, { passive: true });
+        window.addEventListener('resize', handleScroll, { passive: true });
+        
+        // Force an update when the component mounts
+        setTimeout(handleScroll, 100);
+        
+        return () => {
+            clearTimeout(scrollTimeout);
+            scrollContainer.removeEventListener('scroll', handleScroll);
+            scrollContainer.removeEventListener('touchend', handleScroll);
+            window.removeEventListener('resize', handleScroll);
+        };
+    }, [isMobile, filteredProjects.length]);
 
     const handlePrevPage = () => {
         setDirection(-1);
@@ -635,7 +701,7 @@ const ProjectPage = () => {
             {/* Content Container */}
             <div className="relative z-10 container mx-auto px-4">
                 <motion.h1 
-                    className={`${anton.className} tracking-widest text-6xl font-bold mb-16 text-white text-center [text-shadow:0_0_7px_#00FF00,0_0_10px_#00FF00,0_0_21px_#00FF00,0_0_42px_#00FF00]`}
+                    className={`${anton.className} tracking-widest text-4xl md:text-6xl font-bold mb-8 md:mb-16 text-white text-center [text-shadow:0_0_7px_#00FF00,0_0_10px_#00FF00,0_0_21px_#00FF00,0_0_42px_#00FF00]`}
                     initial={{ opacity: 0 }} 
                     animate={{ opacity: 1 }} 
                     transition={{ duration: 1 }}
@@ -644,7 +710,7 @@ const ProjectPage = () => {
                 </motion.h1>
 
                 {/* Filters */}
-                <div className="mb-12 flex flex-wrap gap-4 justify-center items-center">
+                <div className="mb-6 md:mb-12 flex flex-wrap gap-3 md:gap-4 justify-center items-center">
                     <SelectFilter
                         value={selectedGenre}
                         options={genres}
@@ -666,43 +732,91 @@ const ProjectPage = () => {
                 </div>
 
                 {/* Projects Grid with Navigation */}
-                <div className="relative mx-auto max-w-7xl px-4 lg:px-20">
+                <div className="relative mx-auto max-w-7xl px-2 md:px-4 lg:px-20">
                     <div className="overflow-hidden">
                         <AnimatePresence mode="wait" custom={direction}>
-                            <motion.div 
-                                key={currentPage}
-                                className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 justify-items-center"
-                                custom={direction}
-                                variants={variants}
-                                initial="enter"
-                                animate="center"
-                                exit="exit"
-                                transition={{ 
-                                    duration: 0.7,
-                                    ease: "easeInOut"
-                                }}
-                            >
-                                {currentProjects.map((project) => (
-                                    <ProjectCard key={project.title} project={project} />
-                                ))}
-                            </motion.div>
+                            {!isMobile ? (
+                                /* Desktop View - Grid Layout */
+                                <motion.div 
+                                    key={`desktop-view-${currentPage}`}
+                                    className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 justify-items-center"
+                                    custom={direction}
+                                    variants={variants}
+                                    initial="enter"
+                                    animate="center"
+                                    exit="exit"
+                                    transition={{ 
+                                        duration: 0.7,
+                                        ease: "easeInOut"
+                                    }}
+                                >
+                                    {currentProjects.map((project) => (
+                                        <ProjectCard key={`desktop-${project.title}`} project={project} />
+                                    ))}
+                                </motion.div>
+                            ) : (
+                                /* Mobile View - Horizontal Scroll */
+                                <motion.div 
+                                    key="mobile-view"
+                                    initial={{ opacity: 0 }}
+                                    animate={{ opacity: 1 }}
+                                    exit={{ opacity: 0 }}
+                                    className="w-full"
+                                >
+                                    <div 
+                                        ref={scrollContainerRef}
+                                        className="overflow-x-auto pb-6 -mx-4 px-4 scrollbar-hide scroll-smooth" 
+                                        style={{ scrollSnapType: 'x mandatory' }}
+                                        onScroll={(e) => {
+                                            // Direct event handler for immediate feedback
+                                            const container = e.currentTarget;
+                                            const scrollPosition = container.scrollLeft;
+                                            const cardWidth = 300; // Width of each card
+                                            const projectIndex = Math.floor(scrollPosition / cardWidth);
+                                            const newIndex = Math.min(Math.max(projectIndex + 1, 1), filteredProjects.length);
+                                            if (newIndex !== currentMobileProject) {
+                                                setCurrentMobileProject(newIndex);
+                                            }
+                                        }}
+                                    >
+                                        <div className="flex space-x-4 w-max">
+                                            {filteredProjects.map((project, index) => (
+                                                <div 
+                                                    key={`mobile-${project.title}`} 
+                                                    className="w-[300px] flex-shrink-0" 
+                                                    style={{ scrollSnapAlign: 'center' }}
+                                                    id={`project-card-${index}`}
+                                                >
+                                                    <ProjectCard key={`mobile-card-${project.title}`} project={project} />
+                                                </div>
+                                            ))}
+                                        </div>
+                                    </div>
+                                    <div className="text-center text-xs text-zinc-500 mt-2">
+                                        <span>{filteredProjects.length > 0 ? `${currentMobileProject}/${filteredProjects.length} Projects` : 'No projects found'}</span>
+                                    </div>
+                                </motion.div>
+                            )}
                         </AnimatePresence>
                     </div>
 
-                    <NavigationButton
-                        direction="prev"
-                        onClick={handlePrevPage}
-                        disabled={currentPage === 0}
-                    />
-                    <NavigationButton
-                        direction="next"
-                        onClick={handleNextPage}
-                        disabled={currentPage >= totalPages - 1}
-                    />
+                    {/* Navigation buttons only shown on desktop */}
+                    <div className="hidden md:block">
+                        <NavigationButton
+                            direction="prev"
+                            onClick={handlePrevPage}
+                            disabled={currentPage === 0}
+                        />
+                        <NavigationButton
+                            direction="next"
+                            onClick={handleNextPage}
+                            disabled={currentPage >= totalPages - 1}
+                        />
+                    </div>
                 </div>
 
                 {/* Page Indicator */}
-                <div className="flex justify-center gap-2 mt-8">
+                <div className="hidden md:flex justify-center gap-2 mt-8">
                     {Array.from({ length: totalPages }, (_, i) => (
                         <button
                             key={i}
