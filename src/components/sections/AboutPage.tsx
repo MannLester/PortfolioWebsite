@@ -262,8 +262,9 @@ const AboutPage = () => {
                         <p>I can execute and be a part of it all.</p>
                     </div>
 
-                    <p className="text-base md:text-sm md:whitespace-nowrap">
-                        With my technical and soft skills, alongside my innate programming capabilities enhanced with my expertise of taking AI tools to the next level.
+                    <p className="text-base md:text-2xl">
+                        With my technical and soft skills, alongside my innate <br className="hidden md:block" /> programming capabilities
+                        enhanced with my expertise <br className="hidden md:block" /> of taking AI tools to the next level.
                     </p>
 
                     <div className="h-4 md:h-4"></div>
