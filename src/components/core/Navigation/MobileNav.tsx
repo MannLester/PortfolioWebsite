@@ -108,18 +108,18 @@ const MobileNav = () => {
                   About
                 </Link>
                 <Link 
-                  href="#projects" 
-                  className="text-lg hover:text-primary transition-colors block py-2"
-                  onClick={() => setIsOpen(false)}
-                >
-                  Projects
-                </Link>
-                <Link 
                   href="#skills" 
                   className="text-lg hover:text-primary transition-colors block py-2"
                   onClick={() => setIsOpen(false)}
                 >
                   Skills
+                </Link>
+                <Link 
+                  href="#projects" 
+                  className="text-lg hover:text-primary transition-colors block py-2"
+                  onClick={() => setIsOpen(false)}
+                >
+                  Projects
                 </Link>
                 <Link 
                   href="#experience" 
