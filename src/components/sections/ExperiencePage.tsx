@@ -2,6 +2,7 @@
 
 import { Anton } from 'next/font/google';
 import { motion } from 'framer-motion';
+import { useState, useEffect, useRef } from 'react';
 import brickBackground from '@/assets/images/home_page/brick_bg.jpg';
 
 const anton = Anton({
@@ -86,6 +87,62 @@ const ExperienceCard: React.FC<{ experience: Experience; index: number }> = ({ e
 };
 
 const ExperiencePage = () => {
+    const [isMobile, setIsMobile] = useState(false);
+    const [currentExperience, setCurrentExperience] = useState(1);
+    const scrollContainerRef = useRef<HTMLDivElement>(null);
+    
+    // Handle responsive layout detection
+    useEffect(() => {
+        const checkMobile = () => {
+            setIsMobile(window.innerWidth < 768);
+        };
+        
+        // Check on initial render
+        checkMobile();
+        
+        // Add event listener for window resize
+        window.addEventListener('resize', checkMobile);
+        
+        // Cleanup
+        return () => window.removeEventListener('resize', checkMobile);
+    }, []);
+    
+    // Track which experience card is currently visible in mobile view
+    useEffect(() => {
+        if (!isMobile || !scrollContainerRef.current) return;
+        
+        const scrollContainer = scrollContainerRef.current;
+        let scrollTimeout: NodeJS.Timeout;
+        
+        const handleScroll = () => {
+            if (!scrollContainer) return;
+            
+            clearTimeout(scrollTimeout);
+            
+            scrollTimeout = setTimeout(() => {
+                const scrollPosition = scrollContainer.scrollLeft;
+                const cardWidth = 300; // Width of each card including margin
+                
+                // Calculate which experience card is currently most visible
+                const expIndex = Math.floor(scrollPosition / cardWidth);
+                
+                // Add 1 for human-readable index (1-based instead of 0-based)
+                const newIndex = Math.min(Math.max(expIndex + 1, 1), experiences.length);
+                setCurrentExperience(newIndex);
+            }, 50);
+        };
+        
+        scrollContainer.addEventListener('scroll', handleScroll, { passive: true });
+        
+        // Initialize with first experience
+        setTimeout(handleScroll, 100);
+        
+        return () => {
+            clearTimeout(scrollTimeout);
+            scrollContainer.removeEventListener('scroll', handleScroll);
+        };
+    }, [isMobile]);
+    
     return (
         <div id="experience" className="min-h-screen pt-32 flex flex-col items-center overflow-hidden relative" 
             style={{ backgroundImage: `url(${brickBackground.src})`, backgroundSize: 'cover', backgroundPosition: 'center' }}>
@@ -93,7 +150,7 @@ const ExperiencePage = () => {
             <div className="absolute inset-0 bg-black/70" />
             
             <motion.h2 
-                className={`text-6xl ${anton.className} tracking-wider mb-24 relative z-10 text-white
+                className={`text-4xl md:text-6xl ${anton.className} tracking-wider mb-12 md:mb-24 relative z-10 text-white
                     [text-shadow:0_0_7px_#00BFFF,0_0_10px_#00BFFF,0_0_21px_#00BFFF,0_0_42px_#00BFFF,0_0_82px_#00BFFF]
                     before:content-[''] before:absolute before:-inset-4 before:bg-[#00BFFF]/10 before:blur-xl before:-z-10
                     after:content-[''] after:absolute after:-inset-8 after:bg-[#00BFFF]/5 after:blur-2xl after:-z-20`}
@@ -122,10 +179,45 @@ const ExperiencePage = () => {
             </motion.h2>
             
             <div className="container mx-auto px-4 relative z-10">
-                <div className="flex justify-center gap-12 flex-nowrap">
+                {/* Desktop View */}
+                <div className="hidden md:flex justify-center gap-12 flex-nowrap">
                     {experiences.map((exp, index) => (
                         <ExperienceCard key={exp.title} experience={exp} index={index} />
                     ))}
+                </div>
+                
+                {/* Mobile View - Horizontal Scrolling */}
+                <div className="md:hidden w-full">
+                    <div 
+                        ref={scrollContainerRef}
+                        className="overflow-x-auto pb-6 -mx-4 px-4 scrollbar-hide scroll-smooth" 
+                        style={{ scrollSnapType: 'x mandatory' }}
+                        onScroll={(e) => {
+                            const container = e.currentTarget;
+                            const scrollPosition = container.scrollLeft;
+                            const cardWidth = 300; // Width of each card
+                            const expIndex = Math.floor(scrollPosition / cardWidth);
+                            const newIndex = Math.min(Math.max(expIndex + 1, 1), experiences.length);
+                            if (newIndex !== currentExperience) {
+                                setCurrentExperience(newIndex);
+                            }
+                        }}
+                    >
+                        <div className="flex space-x-6 w-max">
+                            {experiences.map((exp, index) => (
+                                <div 
+                                    key={`mobile-${exp.title}`} 
+                                    className="w-[300px] flex-shrink-0" 
+                                    style={{ scrollSnapAlign: 'center' }}
+                                >
+                                    <ExperienceCard key={`mobile-card-${exp.title}`} experience={exp} index={index} />
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                    <div className="text-center text-xs text-[#00BFFF]/70 mt-4">
+                        <span>{`${currentExperience}/${experiences.length} Experiences`}</span>
+                    </div>
                 </div>
             </div>
         </div>
