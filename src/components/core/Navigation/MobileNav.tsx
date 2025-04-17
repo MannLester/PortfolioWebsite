@@ -100,6 +100,13 @@ const MobileNav = () => {
               variants={menuVariants}
             >
               <div className="flex flex-col space-y-6 relative pt-4">
+              <Link 
+                  href="#home" 
+                  className="text-lg hover:text-primary transition-colors block py-2"
+                  onClick={() => setIsOpen(false)}
+                >
+                  Home
+                </Link>
                 <Link 
                   href="#about" 
                   className="text-lg hover:text-primary transition-colors block py-2"
