@@ -226,19 +226,22 @@ const ContactPage = () => {
                   </motion.p>
                 )}
               </form>
+              {/* Mobile Credits: directly below form */}
+              <div className="block sm:hidden mt-1 mb-2 text-center text-xs text-muted-foreground">
+                <p>&copy; {new Date().getFullYear()} Mann Lester Magbuhos. All rights reserved.</p>
+              </div>
             </motion.div>
           </div>
         </div>
       </div>
 
-      {/* Footer */}
-      <footer className="py-6 relative z-10 border-t border-primary/20">
-        <div className="container mx-auto px-4">
-          <div className="text-center text-sm text-muted-foreground">
-            <p>&copy; {new Date().getFullYear()} Mann Lester Magbuhos. All rights reserved.</p>
-          </div>
-        </div>
-      </footer>
+      <footer className="hidden sm:block py-6 relative z-10 border-t border-primary/20">
+  <div className="container mx-auto px-4">
+    <div className="text-center text-sm text-muted-foreground">
+      <p>&copy; {new Date().getFullYear()} Mann Lester Magbuhos. All rights reserved.</p>
+    </div>
+  </div>
+</footer>
     </section>
   );
 };
