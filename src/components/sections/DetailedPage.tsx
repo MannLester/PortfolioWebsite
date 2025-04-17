@@ -35,6 +35,8 @@ interface DetailedPageProps {
 }
 
 const DetailedPage: React.FC<DetailedPageProps> = ({ project }) => {
+    // State for mobile Show More/Less
+    const [showAllImages, setShowAllImages] = React.useState(false);
     return (
         <div className="min-h-screen bg-black pt-28">
             <div className="max-w-4xl mx-auto px-4">
@@ -204,39 +206,31 @@ const DetailedPage: React.FC<DetailedPageProps> = ({ project }) => {
         <h2 className={`${anton.className} text-lg sm:text-2xl text-white mb-2 sm:mb-4`}>Project Gallery</h2>
         {/* Mobile: Show only first 2 images, with Show More/Show Less button */}
         <div className="sm:hidden">
-            {(() => {
-                const [showAllImages, setShowAllImages] = React.useState(false);
-                const imagesToShow = showAllImages ? project.images : project.images.slice(0, 2);
-                return (
-                    <>
-                        <div className="grid grid-cols-1 gap-2">
-                            {imagesToShow.map((image, index) => (
-                                <div key={index} className="relative">
-                                    <div className="relative aspect-[4/3] w-full overflow-hidden rounded-lg max-h-48">
-                                        <Image
-                                            src={image.src}
-                                            alt={image.alt}
-                                            fill
-                                            className="object-contain rounded-lg hover:scale-105 transition-transform duration-300"
-                                        />
-                                    </div>
-                                    {image.caption && (
-                                        <p className="text-zinc-400 text-xs mt-1">{image.caption}</p>
-                                    )}
-                                </div>
-                            ))}
+            <div className="grid grid-cols-1 gap-2">
+                {(showAllImages ? project.images : project.images.slice(0, 2)).map((image, index) => (
+                    <div key={index} className="relative">
+                        <div className="relative aspect-[4/3] w-full overflow-hidden rounded-lg max-h-48">
+                            <Image
+                                src={image.src}
+                                alt={image.alt}
+                                fill
+                                className="object-contain rounded-lg hover:scale-105 transition-transform duration-300"
+                            />
                         </div>
-                        {project.images.length > 2 && (
-                            <button
-                                className="mt-2 mx-auto block px-4 py-1 text-xs rounded bg-zinc-800/70 text-white border border-zinc-600 hover:bg-zinc-700 transition-colors"
-                                onClick={() => setShowAllImages((prev) => !prev)}
-                            >
-                                {showAllImages ? 'Show Less' : 'Show More'}
-                            </button>
+                        {image.caption && (
+                            <p className="text-zinc-400 text-xs mt-1">{image.caption}</p>
                         )}
-                    </>
-                );
-            })()}
+                    </div>
+                ))}
+            </div>
+            {project.images.length > 2 && (
+                <button
+                    className="mt-2 mx-auto block px-4 py-1 text-xs rounded bg-zinc-800/70 text-white border border-zinc-600 hover:bg-zinc-700 transition-colors"
+                    onClick={() => setShowAllImages((prev) => !prev)}
+                >
+                    {showAllImages ? 'Show Less' : 'Show More'}
+                </button>
+            )}
         </div>
         {/* Desktop: Show all images */}
         <div className="hidden sm:grid grid-cols-1 md:grid-cols-2 gap-6">
