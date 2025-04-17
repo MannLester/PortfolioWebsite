@@ -24,7 +24,9 @@ const recognitions: Recognition[] = [
     { title: "Top 7: Sustainability Expo 2024 Hackathon x Circular Innovation Challenge (International)", year: "2024" },
     { title: "CSE Sub-Professional Passer", year: "2024" },
     { title: "TOPCIT Software Competency Exam Taker", year: "2024" },
-    { title: "Head of SCRIPT Organization - Game Development Branch", year: "2024" }
+    { title: "Head of SCRIPT Organization - Game Development Branch", year: "2025" },
+    { title: "Head Facilitator of UI/UX Redesign Competition", year: "2025" },
+    { title: "Co-Head Facilitator of Robotics Competition", year: "2025" }
 ];
 
 const RecognitionPath = () => {
