@@ -1,5 +1,6 @@
 "use client";
 
+import React from "react";
 import { Anton } from 'next/font/google';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
@@ -56,15 +57,15 @@ const DetailedPage: React.FC<DetailedPageProps> = ({ project }) => {
                     animate={{ opacity: 1, y: 0 }}
                     className="mb-12"
                 >
-                    <h1 className={`${anton.className} text-5xl text-white mb-4 [text-shadow:0_0_7px_#00FF00,0_0_10px_#00FF00]`}>
+                    <h1 className={`${anton.className} text-3xl sm:text-5xl text-white mb-2 sm:mb-4 [text-shadow:0_0_7px_#00FF00,0_0_10px_#00FF00]`}>
                         {project.title}
                     </h1>
-                    <div className="flex flex-wrap items-center gap-4 text-zinc-400">
-                        <span className="px-3 py-1 rounded-full bg-zinc-800/70">{project.genre}</span>
+                    <div className="flex flex-wrap items-center gap-2 sm:gap-4 text-zinc-400 text-xs sm:text-base">
+                        <span className="px-2 py-0.5 sm:px-3 sm:py-1 rounded-full bg-zinc-800/70">{project.genre}</span>
                         {project.role && (
                             <div className="flex flex-wrap gap-2">
                                 {project.role.map((role, index) => (
-                                    <span key={index} className="px-3 py-1 text-sm rounded-full bg-[#00FF00]/10 text-[#00FF00] border border-[#00FF00]/20">
+                                    <span key={index} className="px-2 py-0.5 sm:px-3 sm:py-1 text-xs sm:text-sm rounded-full bg-[#00FF00]/10 text-[#00FF00] border border-[#00FF00]/20">
                                         {role}
                                     </span>
                                 ))}
@@ -78,7 +79,7 @@ const DetailedPage: React.FC<DetailedPageProps> = ({ project }) => {
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.1 }}
-                    className="flex flex-wrap gap-4 mb-12"
+                    className="flex flex-wrap gap-2 sm:gap-4 mb-6 sm:mb-12"
                 >
                     <a
                         href={project.githubUrl}
@@ -113,12 +114,12 @@ const DetailedPage: React.FC<DetailedPageProps> = ({ project }) => {
                     transition={{ delay: 0.2 }}
                     className="mb-12"
                 >
-                    <h2 className={`${anton.className} text-2xl text-white mb-4`}>Technologies Used</h2>
+                    <h2 className={`${anton.className} text-lg sm:text-2xl text-white mb-2 sm:mb-4`}>Technologies Used</h2>
                     <div className="flex flex-wrap gap-2">
                         {project.technologies.map((tech, index) => (
                             <span
                                 key={index}
-                                className="px-3 py-1 rounded-full bg-zinc-800/70 text-zinc-300 text-sm"
+                                className="px-2 py-0.5 sm:px-3 sm:py-1 rounded-full bg-zinc-800/70 text-zinc-300 text-xs sm:text-sm"
                             >
                                 {tech}
                             </span>
@@ -133,8 +134,8 @@ const DetailedPage: React.FC<DetailedPageProps> = ({ project }) => {
                     transition={{ delay: 0.3 }}
                     className="mb-12"
                 >
-                    <h2 className={`${anton.className} text-2xl text-white mb-4`}>About the Project</h2>
-                    <p className="text-zinc-300 leading-relaxed whitespace-pre-line">{project.description}</p>
+                    <h2 className={`${anton.className} text-lg sm:text-2xl text-white mb-2 sm:mb-4`}>About the Project</h2>
+                    <p className="text-zinc-300 leading-relaxed whitespace-pre-line text-sm sm:text-base">{project.description}</p>
                 </motion.div>
 
                 {/* Role Section */}
@@ -145,10 +146,10 @@ const DetailedPage: React.FC<DetailedPageProps> = ({ project }) => {
                         transition={{ delay: 0.5 }}
                         className="mb-12"
                     >
-                        <h2 className={`${anton.className} text-2xl text-white mb-4`}>My Role</h2>
-                        <div className="flex flex-wrap gap-3">
+                        <h2 className={`${anton.className} text-lg sm:text-2xl text-white mb-2 sm:mb-4`}>My Role</h2>
+                        <div className="flex flex-wrap gap-1 sm:gap-3">
                             {project.role.map((role, index) => (
-                                <div key={index} className="px-4 py-2 rounded-lg bg-[#00FF00]/10 border border-[#00FF00]/20">
+                                <div key={index} className="px-2 py-1 sm:px-4 sm:py-2 rounded-lg bg-[#00FF00]/10 border border-[#00FF00]/20 text-xs sm:text-base">
                                     <span className="text-[#00FF00] font-medium">{role}</span>
                                 </div>
                             ))}
@@ -164,14 +165,14 @@ const DetailedPage: React.FC<DetailedPageProps> = ({ project }) => {
                         transition={{ delay: 0.6 }}
                         className="mb-12"
                     >
-                        <h2 className={`${anton.className} text-2xl text-white mb-4`}>Collaborators</h2>
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <h2 className={`${anton.className} text-lg sm:text-2xl text-white mb-2 sm:mb-4`}>Collaborators</h2>
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-2 sm:gap-4">
                             {project.collaborators.map((collaborator, index) => (
-                                <div key={index} className="p-4 bg-zinc-800/30 rounded-lg">
-                                    <h3 className="text-white font-semibold mb-2">{collaborator.name}</h3>
-                                    <div className="flex flex-wrap gap-2 mb-3">
+                                <div key={index} className="p-2 sm:p-4 bg-zinc-800/30 rounded-lg">
+                                    <h3 className="text-white font-semibold mb-1 sm:mb-2 text-sm sm:text-base">{collaborator.name}</h3>
+                                    <div className="flex flex-wrap gap-1 sm:gap-2 mb-2 sm:mb-3">
                                         {collaborator.role.map((role, index) => (
-                                            <span key={index} className="px-2 py-0.5 text-xs rounded-full bg-zinc-700/50 text-zinc-300 border border-zinc-600/30">
+                                            <span key={index} className="px-1 py-0.5 sm:px-2 text-xs rounded-full bg-zinc-700/50 text-zinc-300 border border-zinc-600/30">
                                                 {role}
                                             </span>
                                         ))}
@@ -181,7 +182,7 @@ const DetailedPage: React.FC<DetailedPageProps> = ({ project }) => {
                                             href={collaborator.link}
                                             target="_blank"
                                             rel="noopener noreferrer"
-                                            className="text-[#00FF00] hover:underline text-sm"
+                                            className="text-[#00FF00] hover:underline text-xs sm:text-sm"
                                         >
                                             View Profile
                                         </a>
@@ -194,17 +195,24 @@ const DetailedPage: React.FC<DetailedPageProps> = ({ project }) => {
 
                 {/* Images Section */}
                 {project.images && project.images.length > 0 && (
-                    <motion.div
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: 0.7 }}
-                        className="mb-12"
-                    >
-                        <h2 className={`${anton.className} text-2xl text-white mb-4`}>Project Gallery</h2>
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                            {project.images.map((image, index) => (
+    <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.7 }}
+        className="mb-12"
+    >
+        <h2 className={`${anton.className} text-lg sm:text-2xl text-white mb-2 sm:mb-4`}>Project Gallery</h2>
+        {/* Mobile: Show only first 2 images, with Show More/Show Less button */}
+        <div className="sm:hidden">
+            {(() => {
+                const [showAllImages, setShowAllImages] = React.useState(false);
+                const imagesToShow = showAllImages ? project.images : project.images.slice(0, 2);
+                return (
+                    <>
+                        <div className="grid grid-cols-1 gap-2">
+                            {imagesToShow.map((image, index) => (
                                 <div key={index} className="relative">
-                                    <div className="relative aspect-[4/3] w-full overflow-hidden rounded-lg">
+                                    <div className="relative aspect-[4/3] w-full overflow-hidden rounded-lg max-h-48">
                                         <Image
                                             src={image.src}
                                             alt={image.alt}
@@ -213,26 +221,56 @@ const DetailedPage: React.FC<DetailedPageProps> = ({ project }) => {
                                         />
                                     </div>
                                     {image.caption && (
-                                        <p className="text-zinc-400 text-sm mt-2">{image.caption}</p>
+                                        <p className="text-zinc-400 text-xs mt-1">{image.caption}</p>
                                     )}
                                 </div>
                             ))}
                         </div>
-                    </motion.div>
-                )}
+                        {project.images.length > 2 && (
+                            <button
+                                className="mt-2 mx-auto block px-4 py-1 text-xs rounded bg-zinc-800/70 text-white border border-zinc-600 hover:bg-zinc-700 transition-colors"
+                                onClick={() => setShowAllImages((prev) => !prev)}
+                            >
+                                {showAllImages ? 'Show Less' : 'Show More'}
+                            </button>
+                        )}
+                    </>
+                );
+            })()}
+        </div>
+        {/* Desktop: Show all images */}
+        <div className="hidden sm:grid grid-cols-1 md:grid-cols-2 gap-6">
+            {project.images.map((image, index) => (
+                <div key={index} className="relative">
+                    <div className="relative aspect-[4/3] w-full overflow-hidden rounded-lg max-h-none">
+                        <Image
+                            src={image.src}
+                            alt={image.alt}
+                            fill
+                            className="object-contain rounded-lg hover:scale-105 transition-transform duration-300"
+                        />
+                    </div>
+                    {image.caption && (
+                        <p className="text-zinc-400 text-sm mt-2">{image.caption}</p>
+                    )}
+                </div>
+            ))}
+        </div>
+    </motion.div>
+)}
 
                 {/* Collaboration CTA */}
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.8 }}
-                    className="mt-20 mb-12 text-center"
+                    className="mt-10 sm:mt-20 mb-6 sm:mb-12 text-center"
                 >
-                    <h2 className={`${anton.className} text-3xl text-white mb-4`}>Want to collaborate?</h2>
-                    <p className="text-zinc-300 mb-6">I&apos;m always open to discussing new projects and opportunities.</p>
+                    <h2 className={`${anton.className} text-xl sm:text-3xl text-white mb-2 sm:mb-4`}>Want to collaborate?</h2>
+                    <p className="text-zinc-300 mb-3 sm:mb-6 text-sm sm:text-base">I&apos;m always open to discussing new projects and opportunities.</p>
                     <Link
                         href="/#contact"
-                        className="inline-block px-8 py-3 bg-[#00FF00] text-black font-semibold rounded-lg hover:bg-[#00CC00] transition-colors"
+                        className="inline-block px-6 py-2 sm:px-8 sm:py-3 bg-[#00FF00] text-black font-semibold rounded-lg hover:bg-[#00CC00] transition-colors text-sm sm:text-base"
                     >
                         Send me a message
                     </Link>
