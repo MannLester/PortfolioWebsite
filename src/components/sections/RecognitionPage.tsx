@@ -1,5 +1,6 @@
 'use client'
 
+import React, { useState, useEffect } from 'react';
 import { Anton } from 'next/font/google';
 import { motion } from 'framer-motion';
 
@@ -29,70 +30,118 @@ const recognitions: Recognition[] = [
     { title: "Co-Head Facilitator of Robotics Competition", year: "2025" }
 ];
 
+function useIsMobile(breakpoint = 768) {
+    const [isMobile, setIsMobile] = useState(false);
+    useEffect(() => {
+        const check = () => setIsMobile(window.innerWidth < breakpoint);
+        check();
+        window.addEventListener("resize", check);
+        return () => window.removeEventListener("resize", check);
+    }, [breakpoint]);
+    return isMobile;
+}
+
 const RecognitionPath = () => {
+    const isMobile = useIsMobile();
+    const [expanded, setExpanded] = useState(false);
+    const maxMobile = 3;
+    const showRecognitions = isMobile && !expanded ? recognitions.slice(0, maxMobile) : recognitions;
+
     return (
-        <div className="relative w-full max-w-5xl mx-auto">
-            {/* Path line */}
-            <motion.div
-                className="absolute left-1/2 -translate-x-[1px] top-0 w-[2px] h-full bg-[#FF00CC]/30"
-                initial={{ height: 0 }}
-                animate={{ height: "100%" }}
-                transition={{ duration: 1.5, ease: "easeInOut" }}
-            />
+        <>
+            <div className="relative w-full max-w-5xl mx-auto">
+                {/* Path line */}
+                <motion.div
+                    className="absolute left-1/2 -translate-x-[1px] top-0 w-[2px] h-full bg-[#FF00CC]/30"
+                    initial={{ height: 0 }}
+                    animate={{ height: "100%" }}
+                    transition={{ duration: 1.5, ease: "easeInOut" }}
+                />
 
-            {/* Recognition items */}
-            <div className="relative space-y-16 md:space-y-12">
-                {recognitions.map((recognition, index) => (
-                    <motion.div
-                        key={index}
-                        className={`flex items-center gap-4 md:gap-8 ${
-                            index % 2 === 0 ? 'md:flex-row flex-col' : 'md:flex-row-reverse flex-col'
-                        }`}
-                        initial={{ opacity: 0, x: index % 2 === 0 ? -50 : 50 }}
-                        whileInView={{ opacity: 1, x: 0 }}
-                        transition={{ duration: 0.5, delay: index * 0.1 }}
-                    >
-                        {/* Content */}
-                        <div className={`flex-1 ${
-                            index % 2 === 0 ? 'md:text-right text-center' : 'md:text-left text-center'
-                        }`}>
-                            <motion.h3
-                                className={`text-lg md:text-xl ${anton.className} mb-1 leading-tight`}
-                                whileHover={{
-                                    textShadow: [
-                                        "0 0 7px #FF00CC",
-                                        "0 0 10px #FF00CC",
-                                        "0 0 21px #FF00CC",
-                                        "0 0 42px #FF00CC",
-                                        "0 0 82px #FF00CC",
-                                        "0 0 92px #FF00CC",
-                                        "0 0 102px #FF00CC",
-                                        "0 0 151px #FF00CC"
-                                    ],
-                                    color: "#FF00CC"
-                                }}
-                                transition={{ duration: 0.3 }}
-                            >
-                                {recognition.title}
-                            </motion.h3>
-                            <span className="text-zinc-400 text-sm md:text-base">{recognition.year}</span>
-                        </div>
-
-                        {/* Center dot */}
+                {/* Recognition items */}
+                <div className="relative space-y-16 md:space-y-12">
+                    {showRecognitions.map((recognition, index) => (
                         <motion.div
-                            className="w-3 h-3 md:w-4 md:h-4 rounded-full bg-[#FF00CC] relative z-10"
-                            initial={{ scale: 0 }}
-                            whileInView={{ scale: 1 }}
-                            transition={{ duration: 0.3, delay: index * 0.1 }}
-                            whileHover={{ scale: 1.5, boxShadow: "0 0 20px #FF00CC" }}
-                        />
+                            key={index}
+                            className={`flex items-center gap-4 md:gap-8 ${
+                                index % 2 === 0 ? 'md:flex-row flex-col' : 'md:flex-row-reverse flex-col'
+                            }`}
+                            initial={{ opacity: 0, x: index % 2 === 0 ? -50 : 50 }}
+                            whileInView={{ opacity: 1, x: 0 }}
+                            transition={{ duration: 0.5, delay: index * 0.1 }}
+                        >
+                            {/* Content */}
+                            <div className={`flex-1 ${
+                                index % 2 === 0 ? 'md:text-right text-center' : 'md:text-left text-center'
+                            }`}>
+                                <motion.h3
+                                    className={`text-lg md:text-xl ${anton.className} mb-1 leading-tight`}
+                                    whileHover={{
+                                        textShadow: [
+                                            "0 0 7px #FF00CC",
+                                            "0 0 10px #FF00CC",
+                                            "0 0 21px #FF00CC",
+                                            "0 0 42px #FF00CC",
+                                            "0 0 82px #FF00CC",
+                                            "0 0 92px #FF00CC",
+                                            "0 0 102px #FF00CC",
+                                            "0 0 151px #FF00CC"
+                                        ],
+                                        color: "#FF00CC"
+                                    }}
+                                    transition={{ duration: 0.3 }}
+                                >
+                                    {recognition.title}
+                                </motion.h3>
+                                <span className="text-zinc-400 text-sm md:text-base">{recognition.year}</span>
+                            </div>
 
-                        {/* Empty div for spacing on the other side */}
-                        <div className="flex-1 hidden md:block" />
-                    </motion.div>
-                ))}
+                            {/* Center dot */}
+                            <motion.div
+                                className="w-3 h-3 md:w-4 md:h-4 rounded-full bg-[#FF00CC] relative z-10"
+                                initial={{ scale: 0 }}
+                                whileInView={{ scale: 1 }}
+                                transition={{ duration: 0.3, delay: index * 0.1 }}
+                                whileHover={{ scale: 1.5, boxShadow: "0 0 20px #FF00CC" }}
+                            />
+
+                            {/* Empty div for spacing on the other side */}
+                            <div className="flex-1 hidden md:block" />
+                        </motion.div>
+                    ))}
+                </div>
             </div>
-        </div>
+            {/* Show All / Show Less button for mobile, outside timeline container */}
+            {isMobile && recognitions.length > maxMobile && (
+                <div className="flex justify-center mt-6 mb-2">
+                    {expanded ? (
+                        <button
+                            className="px-6 py-2 rounded-full bg-[#FF00CC] text-black font-semibold shadow-lg hover:bg-[#ff33cc] transition"
+                            onClick={() => {
+                                setExpanded(false);
+                                setTimeout(() => {
+                                    const anchor = document.getElementById('recognitions');
+                                    if (anchor) {
+                                        anchor.scrollIntoView({ behavior: 'smooth' });
+                                    } else {
+                                        window.location.hash = '#recognitions';
+                                    }
+                                }, 100);
+                            }}
+                        >
+                            Show Less
+                        </button>
+                    ) : (
+                        <button
+                            className="px-6 py-2 rounded-full bg-[#FF00CC] text-black font-semibold shadow-lg hover:bg-[#ff33cc] transition"
+                            onClick={() => setExpanded(true)}
+                        >
+                            See All
+                        </button>
+                    )}
+                </div>
+            )}
+        </>
     );
 };
 
