@@ -5,7 +5,11 @@ import Link from 'next/link';
 import { useState, useEffect } from 'react';
 import { createPortal } from 'react-dom';
 
-const MobileNav = () => {
+interface MobileNavProps {
+  isHomePage?: boolean;
+}
+
+const MobileNav = ({ isHomePage = false }: MobileNavProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
 
@@ -13,6 +17,18 @@ const MobileNav = () => {
     setMounted(true);
     return () => setMounted(false);
   }, []);
+
+  const handleNavClick = () => setIsOpen(false);
+
+  const navLinks = [
+    { label: 'Home', section: 'home' },
+    { label: 'About', section: 'about' },
+    { label: 'Skills', section: 'skills' },
+    { label: 'Projects', section: 'projects' },
+    { label: 'Experience', section: 'experience' },
+    { label: 'Recognitions', section: 'recognitions' },
+    { label: 'Contact', section: 'contact' },
+  ];
 
   const overlayVariants = {
     closed: {
@@ -100,56 +116,17 @@ const MobileNav = () => {
               variants={menuVariants}
             >
               <div className="flex flex-col space-y-6 relative pt-4">
-              <Link 
-                  href="#home" 
-                  className="text-lg hover:text-primary transition-colors block py-2"
-                  onClick={() => setIsOpen(false)}
-                >
-                  Home
-                </Link>
-                <Link 
-                  href="#about" 
-                  className="text-lg hover:text-primary transition-colors block py-2"
-                  onClick={() => setIsOpen(false)}
-                >
-                  About
-                </Link>
-                <Link 
-                  href="#skills" 
-                  className="text-lg hover:text-primary transition-colors block py-2"
-                  onClick={() => setIsOpen(false)}
-                >
-                  Skills
-                </Link>
-                <Link 
-                  href="#projects" 
-                  className="text-lg hover:text-primary transition-colors block py-2"
-                  onClick={() => setIsOpen(false)}
-                >
-                  Projects
-                </Link>
-                <Link 
-                  href="#experience" 
-                  className="text-lg hover:text-primary transition-colors block py-2"
-                  onClick={() => setIsOpen(false)}
-                >
-                  Experience
-                </Link>
-                <Link 
-                  href="#recognitions" 
-                  className="text-lg hover:text-primary transition-colors block py-2"
-                  onClick={() => setIsOpen(false)}
-                >
-                  Recognitions
-                </Link>
-                <Link 
-                  href="#contact" 
-                  className="text-lg hover:text-primary transition-colors block py-2"
-                  onClick={() => setIsOpen(false)}
-                >
-                  Contact
-                </Link>
-              </div>
+  {navLinks.map(({ label, section }) => (
+    <Link
+      key={section}
+      href={isHomePage ? `#${section}` : `/#${section}`}
+      className="text-lg hover:text-primary transition-colors block py-2"
+      onClick={handleNavClick}
+    >
+      {label}
+    </Link>
+  ))}
+</div>
             </motion.nav>
           </>
           )}
