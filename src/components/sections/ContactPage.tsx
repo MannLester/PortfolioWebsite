@@ -71,7 +71,7 @@ const ContactPage = () => {
   };
 
   return (
-    <section id="contact" className="min-h-screen flex flex-col relative mt-10 sm:mt-0" style={{ backgroundImage: `url(${brickBackground.src})`, backgroundSize: 'cover', backgroundPosition: 'center' }}>
+    <section id="contact" className="min-h-screen flex flex-col relative mt-16 sm:mt-0" style={{ backgroundImage: `url(${brickBackground.src})`, backgroundSize: 'cover', backgroundPosition: 'center' }}>
       <div className="absolute inset-0 bg-black opacity-50" />
       
       {/* Main Content */}
