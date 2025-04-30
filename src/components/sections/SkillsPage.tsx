@@ -142,6 +142,9 @@ const SkillsPage = () => {
                             Database Management (Firebase, MySQL)
                         </li>
                         <li className="flex items-start md:items-center glow-bullet before:content-['•'] before:mr-2 md:before:mr-4 before:text-[#00ffff] before:[text-shadow:0_0_5px_#00ffff,0_0_10px_#00ffff] before:text-xl md:before:text-2xl before:mt-1 md:before:mt-0">
+                            Design (Canva, Figma)
+                        </li>
+                        <li className="flex items-start md:items-center glow-bullet before:content-['•'] before:mr-2 md:before:mr-4 before:text-[#00ffff] before:[text-shadow:0_0_5px_#00ffff,0_0_10px_#00ffff] before:text-xl md:before:text-2xl before:mt-1 md:before:mt-0">
                             GitHub Repository Management
                         </li>
                         <li className="flex items-start md:items-center glow-bullet before:content-['•'] before:mr-2 md:before:mr-4 before:text-[#00ffff] before:[text-shadow:0_0_5px_#00ffff,0_0_10px_#00ffff] before:text-xl md:before:text-2xl before:mt-1 md:before:mt-0">
