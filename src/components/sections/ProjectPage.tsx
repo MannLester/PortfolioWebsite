@@ -590,6 +590,7 @@ const ProjectPage = () => {
     const [currentPage, setCurrentPage] = useState(0);
     const [selectedGenre, setSelectedGenre] = useState<string | null>(null);
     const [selectedLanguage, setSelectedLanguage] = useState<string | null>(null);
+    const [selectedDeployed, setSelectedDeployed] = useState<string | null>(null);
     const [direction, setDirection] = useState(0);
     const [isMobile, setIsMobile] = useState(false);
     const [currentMobileProject, setCurrentMobileProject] = useState(1);
@@ -601,7 +602,10 @@ const ProjectPage = () => {
     const filteredProjects = projects.filter(project => {
         const matchesGenre = !selectedGenre || project.genre === selectedGenre;
         const matchesLanguage = !selectedLanguage || project.language === selectedLanguage;
-        return matchesGenre && matchesLanguage;
+        const matchesDeployed = selectedDeployed === null || 
+            (selectedDeployed === 'Deployed' && project.deployed) ||
+            (selectedDeployed === 'Not Deployed' && !project.deployed);
+        return matchesGenre && matchesLanguage && matchesDeployed;
     });
     
     const projectsPerPage = 3;
@@ -728,6 +732,15 @@ const ProjectPage = () => {
                             setCurrentPage(0);
                         }}
                         label="Languages"
+                    />
+                    <SelectFilter
+                        value={selectedDeployed}
+                        options={['Deployed', 'Not Deployed']}
+                        onChange={(value) => {
+                            setSelectedDeployed(value);
+                            setCurrentPage(0);
+                        }}
+                        label="Status"
                     />
                 </div>
 
