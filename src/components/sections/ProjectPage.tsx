@@ -82,6 +82,49 @@ export const projects: Project[] = [
         ]
     },
     {
+        title: "CPU Simulator",
+        description: "CPU Simulator is an interactive educational tool designed to help students, educators, and curious learners understand how a CPU processes instructions and functions within a computer.",
+        technologies: ["TypeScript", "JavaScript","React", "Next.js", "Tailwind CSS"],
+        genres: ["App Development"],
+        languages: ["TypeScript", "JavaScript"],
+        deployed: true,
+        liveUrl: "https://computer-archi.vercel.app",
+        githubUrl: "https://github.com/Gerard-M/computer-archi",
+        role: ["Full Stack Developer"],
+        collaborators: [
+            {
+                name: "Gerard Andrei Malapote",
+                role: ["Full Stack Developer", "Project Manager"],
+                link: "https://github.com/Gerard-M"
+            },
+            {
+                name: "Diomael Francis Lecaroz",
+                role: ["Frontend Developer", "UI/UX Designer"],
+                link: "https://github.com/DiomaelLecaroz"
+            },
+            {
+                name: "Marc Linus Rosales",
+                role: ["Documentation Writer"],
+                link: "https://github.com/MarcLinus"
+            },
+            {
+                name: "Jett Mark Manalo",
+                role: ["Documentation Writer"],
+                link: "https://github.com/jettmanalo"
+            },
+            {
+                name: "Jofether Mendoza",
+                role: ["Documentation Writer"],
+                link: "https://github.com/jettmanalo"
+            },
+            {
+                name: "Kristhian Pinili",
+                role: ["Documentation Writer"],
+                link: "https://github.com/Kristhian-ai"
+            },
+        ]
+    },
+    {
         title: "StayEase",
         description: "StayEase is a dedicated platform designed to simplify the process of finding and listing student accommodations. Tailored for college students seeking dorms and dorm owners looking to rent out their properties, StayEase connects both parties seamlessly. With an intuitive interface, detailed listings, and essential filters, finding the perfect student housing has never been easier.",
         technologies: ["TypeScript", "JavaScript","HTML","CSS","React","Vite","Tailwind CSS", "MongoDB", "Firebase"],
@@ -277,7 +320,7 @@ export const projects: Project[] = [
         languages: ["Blazor.NET"],
         deployed: false,
         role: ["Full Stack Developer", "Project Manager", "Database Administrator", "Assets Designer", "UI/UX Designer"],
-        githubUrl: "https://github.com/MannLester/EduHub",
+        githubUrl: "https://github.com/MannLester/EduHub/tree/master",
         collaborators: [
             {
                 name: "Marc Linus Rosales",
