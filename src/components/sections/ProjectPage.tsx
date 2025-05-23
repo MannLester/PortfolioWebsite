@@ -35,8 +35,8 @@ interface Project {
     title: string;
     description: string;
     technologies: string[];
-    genre: string;
-    language: string;
+    genres: string[];
+    languages: string[];
     deployed: boolean;
     githubUrl: string;
     liveUrl?: string;   
@@ -58,8 +58,8 @@ export const projects: Project[] = [
         title: "StayEase",
         description: "StayEase is a dedicated platform designed to simplify the process of finding and listing student accommodations. Tailored for college students seeking dorms and dorm owners looking to rent out their properties, StayEase connects both parties seamlessly. With an intuitive interface, detailed listings, and essential filters, finding the perfect student housing has never been easier.",
         technologies: ["TypeScript", "JavaScript","HTML","CSS","React","Vite","Tailwind CSS", "MongoDB", "Firebase"],
-        genre: "Website Development",
-        language: "TypeScript",
+        genres: ["Website Development"],
+        languages: ["TypeScript"],
         deployed: true,
         liveUrl: "https://stayease-frontend.vercel.app",
         githubUrl: "https://github.com/clarenzmauro/StayEase",
@@ -113,8 +113,8 @@ export const projects: Project[] = [
         title: "Cards of Power",
         description: "Cards of Power is a turn-based trading card game that revolutionizes strategy and trading. With over 100+ unique cards, each equipped with custom mechanics, players can craft their playstyle to dominate the battlefield. Featuring non-fungible cards with unique IDs, every card gains a real-world and in-game market value, fostering a dynamic trading ecosystem. The game also integrates data visualization to help players improve their strategies and allows users to submit custom card ideas via the Workshop station for approval by developers. Whether you’re battling opponents, investing in your card deck, or strategizing with stats, Cards of Power delivers a thrilling and competitive gaming experience.",
         technologies: ["JavaScript","HTML","CSS","React", "Vite","Tailwind CSS", "Firebase", "Game Design", "Game Development"],
-        genre: "Game Development",
-        language: "JavaScript",
+        genres: ["Game Development"],
+        languages: ["JavaScript"],
         deployed: false,
         githubUrl: "https://github.com/MannLester/CardsofPower",
         role: ["Full Stack Developer", "Project Manager", "Database Administrator", "Assets Designer"],
@@ -140,8 +140,8 @@ export const projects: Project[] = [
         title: "GoCery!",
         description: "Go-Cery is a cutting-edge Android application that enhances the efficiency of traditional grocery shopping by leveraging modern technology. With Go-Cery, customers enjoy a faster, more streamlined experience, while store owners efficiently manage their inventory and operations.",
         technologies: ["Java", "Android Studio", "Firebase", "Glide QR"],
-        genre: "App Development",
-        language: "Java",
+        genres: ["App Development"],
+        languages: ["Java"],
         deployed: false,
         githubUrl: "https://github.com/MannLester/Go-cery",
         role: ["Backend Developer", "Project Manager", "Database Administrator"],
@@ -214,8 +214,8 @@ export const projects: Project[] = [
         title: "Reforge",
         description: "Reforge: Rise of the Seventeen Cities is an RPG game created using the Java language whilst implementing Java Swing modules. It showcases 25 items, 8 pets, 20 bosses, 18 cities, and a compelling storyline. The program allows the user to travel to those 18 cities and learn more about the problem they’re facing, and is equipped with 4 items to beat 3 bosses of each city. After defeating a boss, a loot will be dropped containing resources such as: gold, iron, herb, biscuit, and diamond. This can be used to buy new items or fund programs to help the city progress.",
         technologies: ["Java", "Java Swing", "SQL", "Game Design", "Game Development"],
-        genre: "Game Development",
-        language: "Java",
+        genres: ["Game Development"],
+        languages: ["Java"],
         deployed: false,
         githubUrl: "https://github.com/MannLester/reforge",
         role: ["Full Stack Developer", "Project Manager", "Assets Designer", "UI/UX Designer"],
@@ -246,8 +246,8 @@ export const projects: Project[] = [
         title: "EduHub",
         description: "EduHub is a Blazor.NET-powered information platform designed to revolutionize career education through interactive module-based learning, community engagement, and simulation-driven experiences. By integrating these elements, EduHub provides a dynamic and immersive approach to skill development and professional growth.",
         technologies: ["C#","Blazor.NET", "Game Development", "Website Development"],
-        genre: "Website Development",
-        language: "Blazor.NET",
+        genres: ["Website Development"],
+        languages: ["Blazor.NET"],
         deployed: false,
         role: ["Full Stack Developer", "Project Manager", "Database Administrator", "Assets Designer", "UI/UX Designer"],
         githubUrl: "https://github.com/MannLester/EduHub",
@@ -278,8 +278,8 @@ export const projects: Project[] = [
         title: "Knapsack Program",
         description: "A C programming implementation of the Knapsack Algorithm, designed with a cleaner and more scalable code structure. This project demonstrates efficient data handling for solving the 0/1 Knapsack problem.",
         technologies: ["C"],
-        genre: "Data Structure and Algorithm",
-        language: "C",
+        genres: ["Data Structure and Algorithm"],
+        languages: ["C"],
         deployed: false,
         role: ["Backend Developer"],
         githubUrl: "https://github.com/MannLester/KnapsackProgram",
@@ -288,8 +288,8 @@ export const projects: Project[] = [
         title: "Automatic File Organizer",
         description: "This scripting project automates the organization of downloaded files by categorizing them into separate folders for images, videos, and PDFs. Additionally, files are sorted based on their download date, ensuring a structured and easily accessible directory.",
         technologies: ["Python"],
-        genre: "Automation",
-        language: "Python",
+        genres: ["Automation"],
+        languages: ["Python"],
         role: ["Backend Developer"],
         deployed: false,
         githubUrl: "https://github.com/MannLester/FileOrganizer",
@@ -298,8 +298,8 @@ export const projects: Project[] = [
         title: "The Green Light Project",
         description: "The Green Light Project is a volunteer-driven initiative, and its website is being redesigned to enhance functionality and user experience. This project is an opportunity to contribute as a volunteer web designer while gaining valuable experience in web development.",
         technologies: ["HTML", "CSS", "JavaScript"],
-        genre: "Website Development",
-        language: "HTML, CSS, JavaScript",
+        genres: ["Website Development"],
+        languages: ["JavaScript"],
         deployed: true,
         liveUrl: "https://mannlester.github.io/TheGreenLightProject/HomePage.html",
         githubUrl: "https://github.com/MannLester/TheGreenLightProject",
@@ -309,8 +309,8 @@ export const projects: Project[] = [
         title: "Versus",
         description: "Versus is a 2-player C++ console game wherein the players can choose to battle from three different games: 1v1 Fighting Game, Password Game, and Tic-Tac-Toe Game. Not only does it provide entertainment it also educates the players by incorporating learning materials across the different games.",
         technologies: ["C++", "Game Design","Game Development","Console Application"],
-        genre: "Game Development",
-        language: "C++",
+        genres: ["Game Development"],
+        languages: ["C++"],
         deployed: false,
         githubUrl: "https://github.com/MannLester/Versus",
     },
@@ -318,8 +318,8 @@ export const projects: Project[] = [
         title: "Quantum Chase",
         description: "In Quantum Chase: Hunt For Victory In The Quantum Realm, the users will embark on a journey through the quantum realm, where they will be challenged with questions related to the 17 SDGs. The program incorporates the basic quiz-based game setup which includes a dictionary of questions from different SDGs. It also incorporates passive and skill features that can be used by player to aid them in their game. However, it is of assurance that the passive and skills will not hinder the main purpose of the program, which is to raise awareness.",
         technologies: ["Python", "Flask", "Game Design", "Game Development"],
-        genre: "Game Development",
-        language: "Python",
+        genres: ["Game Development"],
+        languages: ["Python"],
         deployed: false,
         githubUrl: "https://github.com/MannLester/Quantum-Chase-WebGame",
     },
@@ -327,16 +327,16 @@ export const projects: Project[] = [
         title: "Poker Game",
         description: "Welcome to the C++ console-based poker game. This game allows you to play against three computer opponents and test your poker skills. The game follows the rules of Texas Hold'em, and at the end of each match, the card hands are analyzed to determine the winner.",
         technologies: ["C++", "Game Design", "Game Development"],
-        genre: "Game Development",
-        language: "C++",
+        genres: ["Game Development"],
+        languages: ["C++"],
         deployed: false,
         githubUrl: "https://github.com/MannLester/Poker-Game",
     },
     // Add more projects as needed
 ];
 
-const genres = Array.from(new Set(projects.map(project => project.genre)));
-const languages = Array.from(new Set(projects.map(project => project.language)));
+const genres = Array.from(new Set(projects.flatMap(project => project.genres)));
+const languages = Array.from(new Set(projects.flatMap(project => project.languages)));
 
 const SelectFilter: React.FC<{
     value: string | null;
@@ -552,7 +552,7 @@ const ProjectCard: React.FC<{ project: Project }> = ({ project }) => {
                                     <div className="mb-6">
                                         <span className="text-zinc-400 text-sm">Genre:</span>
                                         <span className="text-sm px-3 py-1 rounded-full bg-zinc-800/70 text-zinc-300 w-fit ml-2">
-                                            {selectedProject.genre}
+                                            {selectedProject.genres.join(', ')}
                                         </span>
                                     </div>
 
@@ -600,8 +600,8 @@ const ProjectPage = () => {
     
     // Filter projects based on selected filters
     const filteredProjects = projects.filter(project => {
-        const matchesGenre = !selectedGenre || project.genre === selectedGenre;
-        const matchesLanguage = !selectedLanguage || project.language === selectedLanguage;
+        const matchesGenre = !selectedGenre || project.genres.includes(selectedGenre);
+        const matchesLanguage = !selectedLanguage || project.languages.includes(selectedLanguage);
         const matchesDeployed = selectedDeployed === null || 
             (selectedDeployed === 'Deployed' && project.deployed) ||
             (selectedDeployed === 'Not Deployed' && !project.deployed);
