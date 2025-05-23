@@ -55,6 +55,33 @@ interface Project {
 
 export const projects: Project[] = [
     {
+        title: "GameChagerAI",
+        description: "GameChangerAI is a Flutter-based mobile app that uses advanced machine learning to provide data-driven win probability predictions for NBA games. It offers clear, insightful forecasts for fans, analysts, and sports bettors.",
+        technologies: ["Dart", "Flutter", "Python","NBA Stats API", "Pandas"],
+        genres: ["App Development", "AI/ML"],
+        languages: ["Dart", "Python"],
+        deployed: false,
+        githubUrl: "https://github.com/Chesterlajara/Game-Changer-AI",
+        role: ["Full Stack Developer", "UI/UX Designer", "AI Model Integrator"],
+        collaborators: [
+            {
+                name: "Chester Lajara",
+                role: ["Frontend Developer", "Quality Assurance", "Project Manager"],
+                link: "https://github.com/Chesterlajara"
+            },
+            {
+                name: "Christine Joyce De Leon",
+                role: ["Frontend Developer", "UI/UX Designer"],
+                link: "https://github.com/christinedln"
+            },
+            {
+                name: "Marc Linus Rosales",
+                role: ["AI Model Integrator", "Backend Developer"],
+                link: "https://github.com/MarcLinus"
+            }
+        ]
+    },
+    {
         title: "StayEase",
         description: "StayEase is a dedicated platform designed to simplify the process of finding and listing student accommodations. Tailored for college students seeking dorms and dorm owners looking to rent out their properties, StayEase connects both parties seamlessly. With an intuitive interface, detailed listings, and essential filters, finding the perfect student housing has never been easier.",
         technologies: ["TypeScript", "JavaScript","HTML","CSS","React","Vite","Tailwind CSS", "MongoDB", "Firebase"],
