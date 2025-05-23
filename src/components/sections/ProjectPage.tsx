@@ -115,7 +115,7 @@ export const projects: Project[] = [
             {
                 name: "Jofether Mendoza",
                 role: ["Documentation Writer"],
-                link: "https://github.com/jettmanalo"
+                link: "https://github.com/jofether"
             },
             {
                 name: "Kristhian Pinili",
