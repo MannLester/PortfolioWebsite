@@ -15,9 +15,11 @@ const anton = Anton({
 interface DetailedPageProps {
     project: {
         title: string;
-        genre: string;
-        technologies: string[];
         description: string;
+        technologies: string[];
+        genres: string[];
+        languages: string[];
+        deployed: boolean;
         githubUrl: string;
         liveUrl?: string;
         role?: string[];
@@ -63,7 +65,11 @@ const DetailedPage: React.FC<DetailedPageProps> = ({ project }) => {
                         {project.title}
                     </h1>
                     <div className="flex flex-wrap items-center gap-2 sm:gap-4 text-zinc-400 text-xs sm:text-base">
-                        <span className="px-2 py-0.5 sm:px-3 sm:py-1 rounded-full bg-zinc-800/70">{project.genre}</span>
+                        {project.genres && project.genres.length > 0 && (
+                            <span className="px-2 py-0.5 sm:px-3 sm:py-1 rounded-full bg-zinc-800/70">
+                                {project.genres[0]}
+                            </span>
+                        )}
                         {project.role && (
                             <div className="flex flex-wrap gap-2">
                                 {project.role.map((role, index) => (
