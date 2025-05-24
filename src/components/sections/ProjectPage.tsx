@@ -58,7 +58,7 @@ export const projects: Project[] = [
         title: "GameChagerAI",
         description: "GameChangerAI is a Flutter-based mobile app that uses advanced machine learning to provide data-driven win probability predictions for NBA games. It offers clear, insightful forecasts for fans, analysts, and sports bettors.",
         technologies: ["Dart", "Flutter", "Python","NBA Stats API", "Pandas"],
-        genres: ["App Development", "AI/ML"],
+        genres: ["Mobile Development", "AI/ML"],
         languages: ["Dart", "Python"],
         deployed: false,
         githubUrl: "https://github.com/Chesterlajara/Game-Changer-AI",
@@ -85,7 +85,7 @@ export const projects: Project[] = [
         title: "CPU Simulator",
         description: "CPU Simulator is an interactive educational tool designed to help students, educators, and curious learners understand how a CPU processes instructions and functions within a computer.",
         technologies: ["TypeScript", "JavaScript","React", "Next.js", "Tailwind CSS"],
-        genres: ["App Development"],
+        genres: ["Website Development"],
         languages: ["TypeScript", "JavaScript"],
         deployed: true,
         liveUrl: "https://computer-archi.vercel.app",
@@ -123,6 +123,16 @@ export const projects: Project[] = [
                 link: "https://github.com/Kristhian-ai"
             },
         ]
+    },
+    {
+        title: "SmartPlate",
+        description: "SmartPlate is an intelligent meal planning system that delivers personalized meal plans, Gemini API-powered recipe suggestions, and nutrition tracking to help users meet their dietary needs and health goals.",
+        technologies: ["TypeScript", "JavaScript","React", "Next.js", "Tailwind CSS"],
+        genres: ["Website Development", "Mobile Development"],
+        languages: ["TypeScript", "JavaScript"],
+        deployed: false,
+        githubUrl: "https://github.com/KimMathew/SmartPlate",
+        role: ["Freelance Developer"],
     },
     {
         title: "StayEase",
@@ -210,7 +220,7 @@ export const projects: Project[] = [
         title: "GoCery!",
         description: "Go-Cery is a cutting-edge Android application that enhances the efficiency of traditional grocery shopping by leveraging modern technology. With Go-Cery, customers enjoy a faster, more streamlined experience, while store owners efficiently manage their inventory and operations.",
         technologies: ["Java", "Android Studio", "Firebase", "Glide QR"],
-        genres: ["App Development"],
+        genres: ["Mobile Development"],
         languages: ["Java"],
         deployed: false,
         githubUrl: "https://github.com/MannLester/Go-cery",
