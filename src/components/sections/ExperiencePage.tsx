@@ -3,7 +3,6 @@
 import { Anton } from 'next/font/google';
 import { motion } from 'framer-motion';
 import { useState, useEffect, useRef } from 'react';
-import brickBackground from '@/assets/images/home_page/brick_bg.jpg';
 
 const anton = Anton({
     weight: '400',
@@ -18,6 +17,24 @@ interface Experience {
 }
 
 const experiences: Experience[] = [
+    {
+        title: "Full Stack Developer, Team Leader",
+        company: "Center for AI and Science Technologies (CAIST)",
+        period: "May - July",
+        description: [
+            "Did Full Stack on the Project",
+            "Lead a team of developers towards success",
+            "Engineered mock data for AI training"
+        ]
+    },
+    {
+        title: "Full Stack Developer",
+        company: "Freelance",
+        period: "May 2025",
+        description: [
+            "Freelanced and developed SmartPlate"
+        ]
+    },
     {
         title: "Beta Tester Intern",
         company: "Bowled.io / Internshala",
@@ -66,21 +83,43 @@ const ExperienceCard: React.FC<{ experience: Experience; index: number }> = ({ e
             initial={{ opacity: 0, y: 50 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: index * 0.2 }}
-            className="relative w-72 h-[380px] group"
+            className="relative w-72 h-[380px] group flex-shrink-0"
         >
             {/* Neon border effect */}
             <div className="absolute inset-0 bg-gradient-to-r from-[#00BFFF] to-[#0080FF] opacity-50 blur-md group-hover:opacity-75 transition-opacity"></div>
             
             {/* Card content */}
             <div className="relative bg-zinc-900/90 p-6 rounded-lg h-full flex flex-col border border-[#00BFFF] shadow-[0_0_15px_rgba(0,191,255,0.3)] group-hover:shadow-[0_0_25px_rgba(0,191,255,0.5)] transition-shadow">
-                <h3 className={`${anton.className} text-2xl text-[#00BFFF] mb-3`}>{experience.title}</h3>
-                <p className="text-zinc-400 mb-2 text-base">{experience.company}</p>
-                <p className="text-sm text-zinc-500 mb-4">{experience.period}</p>
-                <ul className="list-disc list-inside space-y-2 text-base">
-                    {experience.description.map((point, idx) => (
-                        <li key={idx} className="text-zinc-300">{point}</li>
-                    ))}
-                </ul>
+                {/* Fixed header section */}
+                <div className="flex-shrink-0 mb-4">
+                    <h3 className={`${anton.className} text-2xl text-[#00BFFF] mb-3`}>{experience.title}</h3>
+                    <p className="text-zinc-400 mb-2 text-base">{experience.company}</p>
+                    <p className="text-sm text-zinc-500">{experience.period}</p>
+                </div>
+                
+                {/* Scrollable content section */}
+                <div className="flex-1 overflow-y-auto scrollbar-thin scrollbar-track-transparent scrollbar-thumb-zinc-600 hover:scrollbar-thumb-zinc-500">
+                    <style jsx>{`
+                        .content-scrollbar::-webkit-scrollbar {
+                            width: 4px;
+                        }
+                        .content-scrollbar::-webkit-scrollbar-track {
+                            background: transparent;
+                        }
+                        .content-scrollbar::-webkit-scrollbar-thumb {
+                            background: rgba(113, 113, 122, 0.5);
+                            border-radius: 2px;
+                        }
+                        .content-scrollbar::-webkit-scrollbar-thumb:hover {
+                            background: rgba(113, 113, 122, 0.7);
+                        }
+                    `}</style>
+                    <ul className="list-disc list-inside space-y-2 text-s content-scrollbar">
+                        {experience.description.map((point, idx) => (
+                            <li key={idx} className="text-zinc-300">{point}</li>
+                        ))}
+                    </ul>
+                </div>
             </div>
         </motion.div>
     );
@@ -89,7 +128,9 @@ const ExperienceCard: React.FC<{ experience: Experience; index: number }> = ({ e
 const ExperiencePage = () => {
     const [isMobile, setIsMobile] = useState(false);
     const [currentExperience, setCurrentExperience] = useState(1);
+    const [currentDesktopIndex, setCurrentDesktopIndex] = useState(1);
     const scrollContainerRef = useRef<HTMLDivElement>(null);
+    const desktopScrollRef = useRef<HTMLDivElement>(null);
     
     // Handle responsive layout detection
     useEffect(() => {
@@ -142,10 +183,39 @@ const ExperiencePage = () => {
             scrollContainer.removeEventListener('scroll', handleScroll);
         };
     }, [isMobile]);
+
+    // Track desktop scroll position
+    useEffect(() => {
+        if (isMobile || !desktopScrollRef.current) return;
+        
+        const scrollContainer = desktopScrollRef.current;
+        let scrollTimeout: NodeJS.Timeout;
+        
+        const handleDesktopScroll = () => {
+            if (!scrollContainer) return;
+            
+            clearTimeout(scrollTimeout);
+            
+            scrollTimeout = setTimeout(() => {
+                const scrollPosition = scrollContainer.scrollLeft;
+                const cardWidth = 336; // 288px (w-72) + 48px (gap-12)
+                const expIndex = Math.floor(scrollPosition / cardWidth);
+                const newIndex = Math.min(Math.max(expIndex + 1, 1), experiences.length);
+                setCurrentDesktopIndex(newIndex);
+            }, 50);
+        };
+        
+        scrollContainer.addEventListener('scroll', handleDesktopScroll, { passive: true });
+        setTimeout(handleDesktopScroll, 100);
+        
+        return () => {
+            clearTimeout(scrollTimeout);
+            scrollContainer.removeEventListener('scroll', handleDesktopScroll);
+        };
+    }, [isMobile]);
     
     return (
-        <div id="experience" className="min-h-screen pt-32 flex flex-col items-center overflow-hidden relative" 
-            style={{ backgroundImage: `url(${brickBackground.src})`, backgroundSize: 'cover', backgroundPosition: 'center' }}>
+        <div id="experience" className="min-h-screen pt-32 flex flex-col items-center overflow-hidden relative bg-black">
             {/* Dark overlay */}
             <div className="absolute inset-0 bg-black/70" />
             
@@ -179,11 +249,52 @@ const ExperiencePage = () => {
             </motion.h2>
             
             <div className="container mx-auto px-4 relative z-10">
-                {/* Desktop View */}
-                <div className="hidden md:flex justify-center gap-12 flex-nowrap">
-                    {experiences.map((exp, index) => (
-                        <ExperienceCard key={exp.title} experience={exp} index={index} />
-                    ))}
+                {/* Desktop View - Show 4 cards, scrollable if more */}
+                <div className="hidden md:block w-full">
+                    <style jsx>{`
+                        .thin-scrollbar::-webkit-scrollbar {
+                            height: 4px;
+                        }
+                        .thin-scrollbar::-webkit-scrollbar-track {
+                            background: transparent;
+                        }
+                        .thin-scrollbar::-webkit-scrollbar-thumb {
+                            background: rgba(0, 191, 255, 0.3);
+                            border-radius: 2px;
+                        }
+                        .thin-scrollbar::-webkit-scrollbar-thumb:hover {
+                            background: rgba(0, 191, 255, 0.5);
+                        }
+                    `}</style>
+                    <div 
+                        ref={desktopScrollRef}
+                        className="overflow-x-auto pb-6 scroll-smooth thin-scrollbar"
+                        style={{ 
+                            scrollSnapType: 'x mandatory',
+                            scrollbarWidth: 'thin',
+                            scrollbarColor: '#00BFFF40 transparent'
+                        }}
+                    >
+                        <div className="flex gap-12 w-max">
+                            {experiences.map((exp, index) => (
+                                <div 
+                                    key={`desktop-${exp.title}`} 
+                                    className="flex-shrink-0" 
+                                    style={{ scrollSnapAlign: 'center' }}
+                                >
+                                    <ExperienceCard experience={exp} index={index} />
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                    
+                    {/* Desktop scroll indicator */}
+                    {experiences.length > 4 && (
+                        <div className="text-center text-xs text-[#00BFFF]/70 mt-4">
+                            <span>{`${currentDesktopIndex}/${experiences.length} Experiences`}</span>
+                            <p className="text-[#00BFFF]/50 mt-1">Scroll horizontally to see more →</p>
+                        </div>
+                    )}
                 </div>
                 
                 {/* Mobile View - Horizontal Scrolling */}

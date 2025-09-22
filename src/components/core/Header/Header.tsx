@@ -48,9 +48,6 @@ const Header = () => {
             <Link href={isHomePage ? "#recognitions" : "/#recognitions"} className="hover:text-primary transition-colors" onClick={handleNavClick}>
               Recognitions
             </Link>
-            <Link href={isHomePage ? "#organizations" : "/#organizations"} className="hover:text-primary transition-colors" onClick={handleNavClick}>
-              Organizations
-            </Link>
             <Link href={isHomePage ? "#contact" : "/#contact"} className="hover:text-primary transition-colors" onClick={handleNavClick}>
               Contact
             </Link>

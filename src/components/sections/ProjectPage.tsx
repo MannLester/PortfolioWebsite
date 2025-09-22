@@ -41,7 +41,27 @@ interface Project {
 
 export const projects: Project[] = [
     {
-        title: "GameChagerAI",
+        title: "GovTracker PH",
+        description: "GameChangerAI is a Flutter-based mobile app that uses advanced machine learning to provide data-driven win probability predictions for NBA games. It offers clear, insightful forecasts for fans, analysts, and sports bettors.",
+        technologies: ["ReactJS", "Supabase", "PotsgreSQL", "Tailwind CSS"],
+        genres: ["Website Development"],
+        languages: ["ReactJS", "JavaScript"],
+        deployed: false,
+        githubUrl: "https://github.com/MannLester/GovTrackerPH",
+        role: ["Full Stack Developer", "UI/UX Designer", "Business Manager", "Project Manager"]
+    },
+    {
+        title: "HalalanPilipinas",
+        description: "HalalanPilipinas is a Flutter-based mobile app that aims to provide users with comprehensive information about the Philippine elections. It offers features such as candidate profiles, election news, and real-time updates.",
+        technologies: ["Dart", "Flutter", "Python","Supabase", "FastAPI", "PostgreSQL"],
+        genres: ["Mobile Development"],
+        languages: ["Dart", "Python"],
+        deployed: false,
+        githubUrl: "https://github.com/MannLester/halalan_pilipinas",
+        role: ["Full Stack Developer", "UI/UX Designer", "Business Manager", "Project Manager"]
+    },
+    {
+        title: "GameChangerAI",
         description: "GameChangerAI is a Flutter-based mobile app that uses advanced machine learning to provide data-driven win probability predictions for NBA games. It offers clear, insightful forecasts for fans, analysts, and sports bettors.",
         technologies: ["Dart", "Flutter", "Python","NBA Stats API", "Pandas"],
         genres: ["Mobile Development", "AI/ML"],
@@ -145,7 +165,7 @@ export const projects: Project[] = [
         collaborators: [
             {
                 name: "Clarenz Mauro",
-                role: ["Backend Developer", "Database Administrator"],
+                role: ["Full Stack Developer", "Database Administrator"],
                 link: "https://github.com/clarenzmauro"
             },
             {
@@ -168,7 +188,7 @@ export const projects: Project[] = [
         collaborators: [
             {
                 name: "Clarenz Mauro",
-                role: ["Backend Developer", "Database Administrator"],
+                role: ["Full Stack Developer", "Database Administrator"],
                 link: "https://github.com/clarenzmauro"
             },
             {
