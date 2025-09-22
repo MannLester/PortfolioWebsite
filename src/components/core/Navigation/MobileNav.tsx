@@ -27,6 +27,7 @@ const MobileNav = ({ isHomePage = false }: MobileNavProps) => {
     { label: 'Projects', section: 'projects' },
     { label: 'Experience', section: 'experience' },
     { label: 'Recognitions', section: 'recognitions' },
+    { label: 'Organizations', section: 'organizations' },
     { label: 'Contact', section: 'contact' },
   ];
 
