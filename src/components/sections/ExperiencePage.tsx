@@ -29,6 +29,15 @@ const experiences: Experience[] = [
     },
     {
         title: "Full Stack Developer",
+        company: "StayEase",
+        period: "May - July",
+        description: [
+            "Developed and maintained the website",
+            "Primarily focused on the dorm owner side of the website"
+        ]
+    },
+    {
+        title: "Full Stack Developer",
         company: "Freelance",
         period: "May 2025",
         description: [
@@ -278,7 +287,7 @@ const ExperiencePage = () => {
                         <div className="flex gap-12 w-max">
                             {experiences.map((exp, index) => (
                                 <div 
-                                    key={`desktop-${exp.title}`} 
+                                    key={`desktop-${index}`} 
                                     className="flex-shrink-0" 
                                     style={{ scrollSnapAlign: 'center' }}
                                 >
@@ -317,11 +326,11 @@ const ExperiencePage = () => {
                         <div className="flex space-x-6 w-max">
                             {experiences.map((exp, index) => (
                                 <div 
-                                    key={`mobile-${exp.title}`} 
+                                    key={`mobile-${index}`} 
                                     className="w-[300px] flex-shrink-0" 
                                     style={{ scrollSnapAlign: 'center' }}
                                 >
-                                    <ExperienceCard key={`mobile-card-${exp.title}`} experience={exp} index={index} />
+                                    <ExperienceCard experience={exp} index={index} />
                                 </div>
                             ))}
                         </div>
