@@ -6,26 +6,6 @@ import React, { useState, useEffect, useRef } from 'react';
 import { useModal } from '@/context/ModalContext';
 import Link from 'next/link';
 
-// StayEase Project Images
-import stayeasePic1 from '@/assets/images/stayease_pics/stayease_pic1.png';
-import stayeasePic2 from '@/assets/images/stayease_pics/stayease_pic2.png';
-import stayeasePic3 from '@/assets/images/stayease_pics/stayease_pic3.png';
-import stayeasePic4 from '@/assets/images/stayease_pics/stayease_pic4.png';
-import stayeasePic5 from '@/assets/images/stayease_pics/stayease_pic5.png';
-
-// Gocery Project Images
-import goceryPic1 from '@/assets/images/gocery_pics/gocery_pic1.jpg';
-import goceryPic2 from '@/assets/images/gocery_pics/gocery_pic2.jpg';
-import goceryPic3 from '@/assets/images/gocery_pics/gocery_pic3.jpg';
-import goceryPic4 from '@/assets/images/gocery_pics/gocery_pic4.jpg';
-import goceryPic5 from '@/assets/images/gocery_pics/gocery_pic5.jpg';
-import goceryPic6 from '@/assets/images/gocery_pics/gocery_pic6.jpg';
-import goceryPic7 from '@/assets/images/gocery_pics/gocery_pic7.jpg';
-import goceryPic8 from '@/assets/images/gocery_pics/gocery_pic8.jpg';
-import goceryPic9 from '@/assets/images/gocery_pics/gocery_pic9.jpg';
-import goceryPic10 from '@/assets/images/gocery_pics/gocery_pic10.jpg';
-
-
 const anton = Anton({
     weight: '400',
     subsets: ['latin'],
@@ -51,6 +31,12 @@ interface Project {
         alt: string;
         caption?: string;
     }[];
+    imageConfig?: {
+        folderName: string;
+        count: number;
+        extension: string;
+        captions?: string[];
+    };
 }
 
 export const projects: Project[] = [
@@ -144,33 +130,18 @@ export const projects: Project[] = [
         liveUrl: "https://stayease-frontend.vercel.app",
         githubUrl: "https://github.com/clarenzmauro/StayEase",
         role: ["Full Stack Developer", "Project Manager", "Database Administrator"],
-        images: [
-            {
-                src: stayeasePic1.src,
-                alt: "StayEase Homepage",
-                caption: "Modern and intuitive homepage design"
-            },
-            {
-                src: stayeasePic2.src,
-                alt: "StayEase Search",
-                caption: "Property Page"
-            },
-            {
-                src: stayeasePic3.src,
-                alt: "StayEase Booking",
-                caption: "Streamlined booking process"
-            },
-            {
-                src: stayeasePic4.src,
-                alt: "StayEase Details",
-                caption: "Detailed property information"
-            },
-            {
-                src: stayeasePic5.src,
-                alt: "StayEase Reviews",
-                caption: "User accounts and details"
-            }
-        ],
+        imageConfig: {
+            folderName: "stayease",
+            count: 5,
+            extension: "png",
+            captions: [
+                "Modern and intuitive homepage design",
+                "Property Page",
+                "Streamlined booking process",
+                "Detailed property information",
+                "User accounts and details"
+            ]
+        },
         collaborators: [
             {
                 name: "Clarenz Mauro",
@@ -237,58 +208,23 @@ export const projects: Project[] = [
                 link: "https://github.com/MarcLinus"
             }
         ],
-        images: [
-            {
-                src: goceryPic1.src,
-                alt: "StayEase Homepage",
-                caption: "Landing Page with Logo Design"
-            },
-            {
-                src: goceryPic2.src,
-                alt: "StayEase Search",
-                caption: "Intuitive User Cart"
-            },
-            {
-                src: goceryPic3.src,
-                alt: "StayEase Booking",
-                caption: "Admin Dashboard"
-            },
-            {
-                src: goceryPic4.src,
-                alt: "StayEase Details",
-                caption: "Add Store Feature"
-            },
-            {
-                src: goceryPic5.src,
-                alt: "StayEase Reviews",
-                caption: "Add Product Feature"
-            },
-            {
-                src: goceryPic6.src,
-                alt: "StayEase Reviews",
-                caption: "QR Generation Feature"
-            },
-            {
-                src: goceryPic7.src,
-                alt: "StayEase Reviews",
-                caption: "Inventory Management Feature"
-            },
-            {
-                src: goceryPic8.src,
-                alt: "StayEase Reviews",
-                caption: "QR Scanner Feature"
-            },
-            {
-                src: goceryPic9.src,
-                alt: "StayEase Reviews",
-                caption: "Receipt Details"
-            },
-            {
-                src: goceryPic10.src,
-                alt: "StayEase Reviews",
-                caption: "Store History"
-            },
-        ],
+        imageConfig: {
+            folderName: "gocery",
+            count: 10,
+            extension: "jpg",
+            captions: [
+                "Landing Page with Logo Design",
+                "Intuitive User Cart",
+                "Admin Dashboard",
+                "Add Store Feature",
+                "Add Product Feature",
+                "QR Generation Feature",
+                "Inventory Management Feature",
+                "QR Scanner Feature",
+                "Receipt Details",
+                "Store History"
+            ]
+        }
     },
     {
         title: "Reforge",
@@ -415,6 +351,23 @@ export const projects: Project[] = [
     // Add more projects as needed
 ];
 
+const generateProjectImages = (project: Project) => {
+    if (!project.imageConfig) return [];
+    
+    const { folderName, count, extension, captions } = project.imageConfig;
+    const images = [];
+    
+    for (let i = 1; i <= count; i++) {
+        images.push({
+            src: `/assets/images/${folderName}_pics/${folderName}_pic${i}.${extension}`,
+            alt: `${project.title} screenshot ${i}`,
+            caption: captions?.[i - 1] || `${project.title} feature ${i}`
+        });
+    }
+    
+    return images;
+};
+
 const genres = Array.from(new Set(projects.flatMap(project => project.genres)));
 const languages = Array.from(new Set(projects.flatMap(project => project.languages)));
 
@@ -474,16 +427,28 @@ const NavigationButton: React.FC<{
 const ProjectCard: React.FC<{ project: Project }> = ({ project }) => {
     const { isModalOpen, setIsModalOpen } = useModal();
     const [selectedProject, setSelectedProject] = useState<Project | null>(null);
-
+    const [projectImages, setProjectImages] = useState<{src: string; alt: string; caption?: string}[]>([]);
+    
     const handleOpenModal = () => {
         setSelectedProject(project);
+        
+        // Generate images only when modal opens
+        if (project.imageConfig) {
+            const images = generateProjectImages(project);
+            setProjectImages(images);
+        } else {
+            setProjectImages([]);
+        }
+        
         setIsModalOpen(true);
         document.body.style.overflow = 'hidden';
     };
 
+
     const handleCloseModal = () => {
         setIsModalOpen(false);
         setSelectedProject(null);
+        setProjectImages([]); // Clear images when modal closes
         document.body.style.overflow = 'unset';
     };
 
@@ -600,6 +565,32 @@ const ProjectCard: React.FC<{ project: Project }> = ({ project }) => {
                                         {selectedProject.deployed ? 'Deployed' : 'Undeployed'}
                                     </span>
 
+                                    {/* Image Gallery - Only renders if images are loaded */}
+                                    {projectImages.length > 0 && (
+                                        <div className="mb-6">
+                                            <h3 className="text-zinc-400 text-sm mb-3">Project Screenshots:</h3>
+                                            <div className="grid grid-cols-2 gap-2 max-h-[200px] overflow-y-auto">
+                                                {projectImages.map((image, index) => (
+                                                    <div key={index} className="relative group">
+                                                        <img
+                                                            src={image.src}
+                                                            alt={image.alt}
+                                                            className="w-full h-20 object-cover rounded-lg border border-zinc-700 hover:border-[#00FF00] transition-colors"
+                                                            loading="lazy"
+                                                        />
+                                                        {image.caption && (
+                                                            <div className="absolute inset-0 bg-black/80 opacity-0 group-hover:opacity-100 transition-opacity rounded-lg flex items-center justify-center">
+                                                                <span className="text-xs text-white text-center px-2">
+                                                                    {image.caption}
+                                                                </span>
+                                                            </div>
+                                                        )}
+                                                    </div>
+                                                ))}
+                                            </div>
+                                        </div>
+                                    )}
+
                                     <div className="flex flex-col gap-2 mb-6 text-sm">
                                         <div className="flex items-center gap-2">
                                             <span className="text-zinc-400">Github:</span>
@@ -650,12 +641,20 @@ const ProjectCard: React.FC<{ project: Project }> = ({ project }) => {
                                         </div>
                                     </div>
 
-                                    <Link 
-                                        href={`/projects/${selectedProject.title.toLowerCase().replace(/\s+/g, '-')}`}
-                                        className="text-[#00FF00] underline text-sm mt-auto inline-block"
-                                    >
-                                        See Detailed Page
-                                    </Link>
+                                    <div className="flex gap-3 mt-auto">
+                                        <Link 
+                                            href={`/projects/${selectedProject.title.toLowerCase().replace(/\s+/g, '-')}`}
+                                            className="text-[#00FF00] underline text-sm"
+                                        >
+                                            See Detailed Page
+                                        </Link>
+                                        <Link 
+                                            href="/dashboard"
+                                            className="px-3 py-1 bg-[#00FF00]/10 text-[#00FF00] border border-[#00FF00]/30 rounded text-sm hover:bg-[#00FF00]/20 transition-all"
+                                        >
+                                            Project Dashboard →
+                                        </Link>
+                                    </div>
                                 </div>
                             </div>
                         </motion.div>

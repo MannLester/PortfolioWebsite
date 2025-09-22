@@ -12,6 +12,24 @@ const anton = Anton({
     subsets: ['latin'],
 });
 
+// Generate project images dynamically
+const generateProjectImages = (project: DetailedPageProps['project']) => {
+    if (!project.imageConfig) return project.images || [];
+    
+    const { folderName, count, extension, captions } = project.imageConfig;
+    const images = [];
+    
+    for (let i = 1; i <= count; i++) {
+        images.push({
+            src: `/assets/images/${folderName}_pics/${folderName}_pic${i}.${extension}`,
+            alt: `${project.title} screenshot ${i}`,
+            caption: captions?.[i - 1] || `${project.title} feature ${i}`
+        });
+    }
+    
+    return images;
+};
+
 interface DetailedPageProps {
     project: {
         title: string;
@@ -33,12 +51,22 @@ interface DetailedPageProps {
             alt: string;
             caption?: string;
         }[];
+        imageConfig?: {
+            folderName: string;
+            count: number;
+            extension: string;
+            captions?: string[];
+        };
     };
 }
 
 const DetailedPage: React.FC<DetailedPageProps> = ({ project }) => {
     // State for mobile Show More/Less
     const [showAllImages, setShowAllImages] = React.useState(false);
+    
+    // Generate images dynamically based on imageConfig or use static images
+    const projectImages = React.useMemo(() => generateProjectImages(project), [project]);
+    
     return (
         <div className="min-h-screen bg-black pt-28">
             <div className="max-w-4xl mx-auto px-4">
@@ -202,7 +230,7 @@ const DetailedPage: React.FC<DetailedPageProps> = ({ project }) => {
                 )}
 
                 {/* Images Section */}
-                {project.images && project.images.length > 0 && (
+                {projectImages && projectImages.length > 0 && (
     <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -213,7 +241,7 @@ const DetailedPage: React.FC<DetailedPageProps> = ({ project }) => {
         {/* Mobile: Show only first 2 images, with Show More/Show Less button */}
         <div className="sm:hidden">
             <div className="grid grid-cols-1 gap-2">
-                {(showAllImages ? project.images : project.images.slice(0, 2)).map((image, index) => (
+                {(showAllImages ? projectImages : projectImages.slice(0, 2)).map((image, index) => (
                     <div key={index} className="relative">
                         <div className="relative aspect-[4/3] w-full overflow-hidden rounded-lg max-h-48">
                             <Image
@@ -229,7 +257,7 @@ const DetailedPage: React.FC<DetailedPageProps> = ({ project }) => {
                     </div>
                 ))}
             </div>
-            {project.images.length > 2 && (
+            {projectImages.length > 2 && (
                 <button
                     className="mt-2 mx-auto block px-4 py-1 text-xs rounded bg-zinc-800/70 text-white border border-zinc-600 hover:bg-zinc-700 transition-colors"
                     onClick={() => setShowAllImages((prev) => !prev)}
@@ -240,7 +268,7 @@ const DetailedPage: React.FC<DetailedPageProps> = ({ project }) => {
         </div>
         {/* Desktop: Show all images */}
         <div className="hidden sm:grid grid-cols-1 md:grid-cols-2 gap-6">
-            {project.images.map((image, index) => (
+            {projectImages.map((image, index) => (
                 <div key={index} className="relative">
                     <div className="relative aspect-[4/3] w-full overflow-hidden rounded-lg max-h-none">
                         <Image
