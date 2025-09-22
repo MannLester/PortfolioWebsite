@@ -127,7 +127,7 @@ export const projects: Project[] = [
         genres: ["Website Development"],
         languages: ["TypeScript"],
         deployed: true,
-        liveUrl: "https://stayease-frontend.vercel.app",
+        liveUrl: "https://www.stayease.ph",
         githubUrl: "https://github.com/clarenzmauro/StayEase",
         role: ["Full Stack Developer", "Project Manager", "Database Administrator"],
         imageConfig: {
@@ -153,11 +153,6 @@ export const projects: Project[] = [
                 role: ["Frontend Developer", "UI/UX Designer"],
                 link: "https://github.com/EdrianHernandez"
             },
-            {
-                name: "Jett Mark Manalo",
-                role: ["Frontend Developer", "UI/UX Designer"],
-                link: "https://github.com/jettmanalo"
-            }
         ]
     },
     {
@@ -166,8 +161,9 @@ export const projects: Project[] = [
         technologies: ["JavaScript","HTML","CSS","React", "Vite","Tailwind CSS", "Firebase", "Game Design", "Game Development"],
         genres: ["Game Development"],
         languages: ["JavaScript"],
-        deployed: false,
-        githubUrl: "https://github.com/MannLester/CardsofPower",
+        deployed: true,
+        githubUrl: "https://github.com/clarenzmauro/CardsofPower",
+        liveUrl: "https://cards-of-power.vercel.app",
         role: ["Full Stack Developer", "Project Manager", "Database Administrator", "Assets Designer"],
         collaborators: [
             {
@@ -180,11 +176,6 @@ export const projects: Project[] = [
                 role: ["Frontend Developer", "UI/UX Designer"],
                 link: "https://github.com/jettmanalo"
             },
-            {
-                name: "Vince Jericho Abella",
-                role: ["Backend Developer"],
-                link: "https://github.com/VinceAbella"
-            }
         ]
     },
     {
