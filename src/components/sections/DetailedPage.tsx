@@ -296,12 +296,22 @@ const DetailedPage: React.FC<DetailedPageProps> = ({ project }) => {
                 >
                     <h2 className={`${anton.className} text-xl sm:text-3xl text-white mb-2 sm:mb-4`}>Want to collaborate?</h2>
                     <p className="text-zinc-300 mb-3 sm:mb-6 text-sm sm:text-base">I&apos;m always open to discussing new projects and opportunities.</p>
-                    <Link
-                        href="/#contact"
-                        className="inline-block px-6 py-2 sm:px-8 sm:py-3 bg-[#00FF00] text-black font-semibold rounded-lg hover:bg-[#00CC00] transition-colors text-sm sm:text-base"
-                    >
-                        Send me a message
-                    </Link>
+                    
+                    {/* Updated buttons with consistent sizing and spacing */}
+                    <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+                        <Link
+                            href="/#contact"
+                            className="inline-block px-6 py-2 sm:px-8 sm:py-3 bg-[#00FF00] text-black font-semibold rounded-lg hover:bg-[#00CC00] transition-colors text-sm sm:text-base"
+                        >
+                            Send me a message
+                        </Link>
+                        <Link 
+                            href="/dashboard"
+                            className="inline-block px-6 py-2 sm:px-8 sm:py-3 bg-[#00FF00]/10 text-[#00FF00] border border-[#00FF00]/30 rounded-lg hover:bg-[#00FF00]/20 transition-all text-sm sm:text-base font-semibold"
+                        >
+                            Project Dashboard →
+                        </Link>
+                    </div>
                 </motion.div>
             </div>
         </div>

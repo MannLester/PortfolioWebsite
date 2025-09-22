@@ -648,12 +648,6 @@ const ProjectCard: React.FC<{ project: Project }> = ({ project }) => {
                                         >
                                             See Detailed Page
                                         </Link>
-                                        <Link 
-                                            href="/dashboard"
-                                            className="px-3 py-1 bg-[#00FF00]/10 text-[#00FF00] border border-[#00FF00]/30 rounded text-sm hover:bg-[#00FF00]/20 transition-all"
-                                        >
-                                            Project Dashboard →
-                                        </Link>
                                     </div>
                                 </div>
                             </div>
