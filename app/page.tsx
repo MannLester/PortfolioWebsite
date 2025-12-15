@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Sidebar from "./components/Sidebar";
 import ProjectsDisplay from "./components/ProjectsDisplay";
+import ExperienceDisplay from "./components/ExperienceDisplay";
 
 type ActiveView = 'home' | 'about' | 'skillsets' | 'experience' | 'projects' | 'recognitions' | 'seminars' | 'affiliations' | 'contact' | 'resume' | 'goals';
 
@@ -18,6 +19,8 @@ export default function Home() {
       <div className="flex-1 flex flex-col">
         {activeView === 'projects' ? (
           <ProjectsDisplay />
+        ) : activeView === 'experience' ? (
+          <ExperienceDisplay />
         ) : (
           <>
             {/* Header */}

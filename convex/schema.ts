@@ -35,4 +35,19 @@ export default defineSchema({
   }).index("by_github_id", ["github_id"])
     .index("by_featured", ["isFeatured"])
     .index("by_deployed", ["isDeployed"]),
+
+  experiences: defineTable({
+    position: v.string(),
+    company: v.string(),
+    location: v.optional(v.string()),
+    duration: v.string(),
+    start_date: v.string(),
+    end_date: v.optional(v.string()),
+    description: v.array(v.string()), // Array of responsibility/achievement strings
+    employment_type: v.string(), // Full-time, Part-time, Freelance, Internship, etc.
+    skills_used: v.optional(v.array(v.string())),
+    is_current: v.boolean(),
+    order_index: v.number(), // For ordering experiences
+  }).index("by_order", ["order_index"])
+    .index("by_current", ["is_current"]),
 });
