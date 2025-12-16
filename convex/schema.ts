@@ -68,4 +68,23 @@ export default defineSchema({
     .index("by_year", ["year"])
     .index("by_featured", ["is_featured"])
     .index("by_order", ["order_index"]),
+
+  seminars: defineTable({
+    title: v.string(),
+    type: v.string(), // Conference, Workshop, Training, Webinar, etc.
+    organization: v.optional(v.string()),
+    description: v.optional(v.string()),
+    date_attended: v.string(),
+    year: v.number(),
+    duration: v.optional(v.string()), // "2 days", "3 hours", etc.
+    location: v.optional(v.string()),
+    topics: v.optional(v.array(v.string())),
+    skills_gained: v.optional(v.array(v.string())),
+    certificate_url: v.optional(v.string()),
+    is_featured: v.boolean(),
+    order_index: v.number(),
+  }).index("by_type", ["type"])
+    .index("by_year", ["year"])
+    .index("by_featured", ["is_featured"])
+    .index("by_order", ["order_index"]),
 });

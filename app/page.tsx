@@ -5,6 +5,7 @@ import Sidebar from "./components/Sidebar";
 import ProjectsDisplay from "./components/ProjectsDisplay";
 import ExperienceDisplay from "./components/ExperienceDisplay";
 import RecognitionDisplay from "./components/RecognitionDisplay";
+import SeminarsDisplay from "./components/SeminarsDisplay";
 
 type ActiveView = 'home' | 'about' | 'skillsets' | 'experience' | 'projects' | 'recognitions' | 'seminars' | 'affiliations' | 'contact' | 'resume' | 'goals';
 
@@ -24,6 +25,8 @@ export default function Home() {
           <ExperienceDisplay />
         ) : activeView === 'recognitions' ? (
           <RecognitionDisplay />
+        ) : activeView === 'seminars' ? (
+          <SeminarsDisplay />
         ) : (
           <>
             {/* Header */}
