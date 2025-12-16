@@ -1,7 +1,6 @@
 "use client";
 
-import { useQuery } from "convex/react";
-import { api } from "@/convex/_generated/api";
+import { useEffect, useState } from "react";
 
 interface Experience {
   _id: string;
@@ -19,9 +18,29 @@ interface Experience {
 }
 
 const ExperienceDisplay = () => {
-  const experiences = useQuery(api.experiences.getAllExperiences);
+  const [experiences, setExperiences] = useState<Experience[] | null>(null);
+  const [loading, setLoading] = useState(true);
 
-  if (experiences === undefined) {
+  useEffect(() => {
+    const fetchExperiences = async () => {
+      try {
+        const response = await fetch('/api/experiences?type=all');
+        const data = await response.json();
+        
+        if (data.success) {
+          setExperiences(data.data);
+        }
+      } catch (error) {
+        console.error('Error fetching experiences:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchExperiences();
+  }, []);
+
+  if (loading || experiences === null) {
     return (
       <div className="flex-1 flex items-center justify-center">
         <div className="text-white/60">Loading experiences...</div>
@@ -52,7 +71,7 @@ const ExperienceDisplay = () => {
     return (
       <div className="relative">
         {/* Timeline line */}
-        {index < experiences.length - 1 && (
+        {index < (experiences?.length || 0) - 1 && (
           <div className="absolute left-4 top-16 w-0.5 h-full bg-white/20 z-0"></div>
         )}
         
@@ -138,8 +157,8 @@ const ExperienceDisplay = () => {
     );
   };
 
-  const totalExperience = experiences.length;
-  const currentJobs = experiences.filter(exp => exp.is_current).length;
+  const totalExperience = experiences?.length || 0;
+  const currentJobs = experiences?.filter(exp => exp.is_current).length || 0;
 
   return (
     <div className="flex-1 flex flex-col overflow-hidden">

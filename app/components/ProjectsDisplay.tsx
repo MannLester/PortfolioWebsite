@@ -1,7 +1,6 @@
 "use client";
 
-import { useQuery } from "convex/react";
-import { api } from "@/convex/_generated/api";
+import { useEffect, useState } from "react";
 
 interface Project {
   _id: string;
@@ -21,10 +20,38 @@ interface Project {
 }
 
 const ProjectsDisplay = () => {
-  const projects = useQuery(api.projects.getAllProjects);
-  const featuredProjects = useQuery(api.projects.getFeaturedProjects);
+  const [projects, setProjects] = useState<Project[] | null>(null);
+  const [featuredProjects, setFeaturedProjects] = useState<Project[] | null>(null);
+  const [loading, setLoading] = useState(true);
 
-  if (projects === undefined) {
+  useEffect(() => {
+    const fetchProjects = async () => {
+      try {
+        const [allResponse, featuredResponse] = await Promise.all([
+          fetch('/api/projects?type=all'),
+          fetch('/api/projects?type=featured')
+        ]);
+        
+        const allData = await allResponse.json();
+        const featuredData = await featuredResponse.json();
+        
+        if (allData.success) {
+          setProjects(allData.data);
+        }
+        if (featuredData.success) {
+          setFeaturedProjects(featuredData.data);
+        }
+      } catch (error) {
+        console.error('Error fetching projects:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchProjects();
+  }, []);
+
+  if (loading || projects === null) {
     return (
       <div className="flex-1 flex items-center justify-center">
         <div className="text-white/60">Loading projects...</div>

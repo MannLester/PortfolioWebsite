@@ -4,6 +4,7 @@ import { useState } from "react";
 import Sidebar from "./components/Sidebar";
 import ProjectsDisplay from "./components/ProjectsDisplay";
 import ExperienceDisplay from "./components/ExperienceDisplay";
+import RecognitionDisplay from "./components/RecognitionDisplay";
 
 type ActiveView = 'home' | 'about' | 'skillsets' | 'experience' | 'projects' | 'recognitions' | 'seminars' | 'affiliations' | 'contact' | 'resume' | 'goals';
 
@@ -21,6 +22,8 @@ export default function Home() {
           <ProjectsDisplay />
         ) : activeView === 'experience' ? (
           <ExperienceDisplay />
+        ) : activeView === 'recognitions' ? (
+          <RecognitionDisplay />
         ) : (
           <>
             {/* Header */}

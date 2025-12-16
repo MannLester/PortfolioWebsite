@@ -50,4 +50,22 @@ export default defineSchema({
     order_index: v.number(), // For ordering experiences
   }).index("by_order", ["order_index"])
     .index("by_current", ["is_current"]),
+
+  recognitions: defineTable({
+    title: v.string(),
+    organization: v.optional(v.string()),
+    category: v.string(), // Certification, Award, Competition, Leadership, Examination
+    description: v.optional(v.string()),
+    date_received: v.string(),
+    year: v.number(),
+    rank_position: v.optional(v.string()), // "1st Place", "Top 10", "Finalist", etc.
+    achievement_type: v.string(), // "Winner", "Participant", "Completer", "Passer", "Head", etc.
+    skills_related: v.optional(v.array(v.string())),
+    certificate_url: v.optional(v.string()),
+    is_featured: v.boolean(),
+    order_index: v.number(),
+  }).index("by_category", ["category"])
+    .index("by_year", ["year"])
+    .index("by_featured", ["is_featured"])
+    .index("by_order", ["order_index"]),
 });
