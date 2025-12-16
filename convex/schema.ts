@@ -106,4 +106,23 @@ export default defineSchema({
     .index("by_status", ["status"])
     .index("by_featured", ["is_featured"])
     .index("by_order", ["order_index"]),
+
+  about: defineTable({
+    title: v.string(),
+    description: v.string(),
+    highlights: v.array(v.string()), // Key highlights/achievements
+    personality_traits: v.array(v.string()),
+    career_focus: v.string(),
+    is_active: v.boolean(), // Only one should be active at a time
+    created_at: v.string(),
+    updated_at: v.string(),
+  }).index("by_active", ["is_active"]),
+
+  contacts: defineTable({
+    contact_type: v.string(), // "link", "email", "number"
+    contact_name: v.string(), // "GitHub", "Contact Number", "Facebook", etc.
+    contact_link: v.string(), // actual URL/email/phone number
+    is_active: v.boolean(),
+  }).index("by_type", ["contact_type"])
+    .index("by_active", ["is_active"]),
 });
