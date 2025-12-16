@@ -87,4 +87,23 @@ export default defineSchema({
     .index("by_year", ["year"])
     .index("by_featured", ["is_featured"])
     .index("by_order", ["order_index"]),
+
+  affiliations: defineTable({
+    name: v.string(),
+    acronym: v.optional(v.string()),
+    type: v.string(), // Organization, Club, Society, Advocacy Group, etc.
+    description: v.optional(v.string()),
+    role: v.optional(v.string()), // Member, Officer, Advocate, etc.
+    status: v.string(), // Active, Alumni, Former, etc.
+    join_date: v.optional(v.string()),
+    end_date: v.optional(v.string()),
+    activities: v.optional(v.array(v.string())),
+    achievements: v.optional(v.array(v.string())),
+    website_url: v.optional(v.string()),
+    is_featured: v.boolean(),
+    order_index: v.number(),
+  }).index("by_type", ["type"])
+    .index("by_status", ["status"])
+    .index("by_featured", ["is_featured"])
+    .index("by_order", ["order_index"]),
 });

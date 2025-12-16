@@ -6,6 +6,7 @@ import ProjectsDisplay from "./components/ProjectsDisplay";
 import ExperienceDisplay from "./components/ExperienceDisplay";
 import RecognitionDisplay from "./components/RecognitionDisplay";
 import SeminarsDisplay from "./components/SeminarsDisplay";
+import AffiliationsDisplay from "./components/AffiliationsDisplay";
 
 type ActiveView = 'home' | 'about' | 'skillsets' | 'experience' | 'projects' | 'recognitions' | 'seminars' | 'affiliations' | 'contact' | 'resume' | 'goals';
 
@@ -27,6 +28,8 @@ export default function Home() {
           <RecognitionDisplay />
         ) : activeView === 'seminars' ? (
           <SeminarsDisplay />
+        ) : activeView === 'affiliations' ? (
+          <AffiliationsDisplay />
         ) : (
           <>
             {/* Header */}
