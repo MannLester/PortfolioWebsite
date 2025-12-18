@@ -12,6 +12,7 @@ import type * as about from "../about.js";
 import type * as affiliations from "../affiliations.js";
 import type * as contacts from "../contacts.js";
 import type * as experiences from "../experiences.js";
+import type * as goals from "../goals.js";
 import type * as projects from "../projects.js";
 import type * as recognitions from "../recognitions.js";
 import type * as seminars from "../seminars.js";
@@ -28,6 +29,7 @@ declare const fullApi: ApiFromModules<{
   affiliations: typeof affiliations;
   contacts: typeof contacts;
   experiences: typeof experiences;
+  goals: typeof goals;
   projects: typeof projects;
   recognitions: typeof recognitions;
   seminars: typeof seminars;

@@ -136,4 +136,13 @@ export default defineSchema({
     is_active: v.boolean(),
   }).index("by_type", ["contact_type"])
     .index("by_active", ["is_active"]),
+
+  goals: defineTable({
+    goal_name: v.string(),
+    goal_desc: v.string(),
+    goal_reason: v.string(),
+    progress: v.number(), // 0-100
+    is_completed: v.boolean(),
+  }).index("by_completed", ["is_completed"])
+    .index("by_progress", ["progress"]),
 });
