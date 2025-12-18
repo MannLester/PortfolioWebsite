@@ -107,6 +107,17 @@ export default defineSchema({
     .index("by_featured", ["is_featured"])
     .index("by_order", ["order_index"]),
 
+  // Skills table: for both technical and soft skills
+  skills: defineTable({
+    category: v.string(), // "technical" | "soft"
+    skill_name: v.string(),
+    skill_desc: v.string(),
+    rating_number: v.number(), // 0-100
+    rating_letter: v.string(), // e.g., "A", "B"
+  })
+    .index("by_category", ["category"]) 
+    .index("by_rating", ["rating_number"]),
+
   about: defineTable({
     title: v.string(),
     description: v.string(),

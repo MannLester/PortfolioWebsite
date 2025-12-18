@@ -9,6 +9,7 @@ import SeminarsDisplay from "./components/SeminarsDisplay";
 import AffiliationsDisplay from "./components/AffiliationsDisplay";
 import AboutDisplay from "./components/AboutDisplay";
 import ContactDisplay from "./components/ContactDisplay";
+import SkillsDisplay from "./components/SkillsDisplay";
 
 type ActiveView = 'home' | 'about' | 'skillsets' | 'experience' | 'projects' | 'recognitions' | 'seminars' | 'affiliations' | 'contact' | 'resume' | 'goals';
 
@@ -32,6 +33,8 @@ export default function Home() {
           <SeminarsDisplay />
         ) : activeView === 'affiliations' ? (
           <AffiliationsDisplay />
+        ) : activeView === 'skillsets' ? (
+          <SkillsDisplay />
         ) : activeView === 'about' ? (
           <AboutDisplay />
         ) : activeView === 'contact' ? (
