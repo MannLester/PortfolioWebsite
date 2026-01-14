@@ -284,4 +284,55 @@ http.route({
     }
   }),
 });
+
+http.route({
+  path: "/update-experience",
+  method: "POST",
+  handler: httpAction(async (ctx, request) => {
+    const body = await request.json();
+    try {
+      await ctx.runMutation(api.mutations.experienceMutations.updateExperience, body);
+      return new Response(JSON.stringify({ status: "success" }), {
+        status: 200,
+        headers: { "Content-Type": "application/json", "Access-Control-Allow-Origin": "*" },
+      });
+    } catch (error: unknown) {
+      const errorMessage = error instanceof Error ? error.message : "Unknown error occurred";
+      
+      return new Response(JSON.stringify({ error: errorMessage }), {
+        status: 400,
+        headers: {
+          "Content-Type": "application/json",
+          "Access-Control-Allow-Origin": "*",
+        },
+      });
+    }
+  }),
+});
+
+http.route({
+  path: "/delete-experience",
+  method: "POST", // Using POST for simplicity with request bodies in Flutter
+  handler: httpAction(async (ctx, request) => {
+    const { id } = await request.json();
+    try {
+      await ctx.runMutation(api.mutations.experienceMutations.deleteExperience, { id });
+      return new Response(JSON.stringify({ deleted: id }), {
+        status: 200,
+        headers: { "Content-Type": "application/json", "Access-Control-Allow-Origin": "*" },
+      });
+    } catch (error: unknown) {
+      const errorMessage = error instanceof Error ? error.message : "Unknown error occurred";
+      
+      return new Response(JSON.stringify({ error: errorMessage }), {
+        status: 400,
+        headers: {
+          "Content-Type": "application/json",
+          "Access-Control-Allow-Origin": "*",
+        },
+      });
+    }
+  }),
+});
+
 export default http;
