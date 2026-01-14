@@ -11,9 +11,11 @@
 import type * as http from "../http.js";
 import type * as mutations_affiliationsMutations from "../mutations/affiliationsMutations.js";
 import type * as mutations_experienceMutations from "../mutations/experienceMutations.js";
+import type * as mutations_projectsMutations from "../mutations/projectsMutations.js";
 import type * as mutations_skillsMutations from "../mutations/skillsMutations.js";
 import type * as queries_affiliationsQueries from "../queries/affiliationsQueries.js";
 import type * as queries_experienceQueries from "../queries/experienceQueries.js";
+import type * as queries_projectsQueries from "../queries/projectsQueries.js";
 import type * as queries_skillsQueries from "../queries/skillsQueries.js";
 import type * as tables_affiliationsTable from "../tables/affiliationsTable.js";
 import type * as tables_experienceTable from "../tables/experienceTable.js";
@@ -30,9 +32,11 @@ declare const fullApi: ApiFromModules<{
   http: typeof http;
   "mutations/affiliationsMutations": typeof mutations_affiliationsMutations;
   "mutations/experienceMutations": typeof mutations_experienceMutations;
+  "mutations/projectsMutations": typeof mutations_projectsMutations;
   "mutations/skillsMutations": typeof mutations_skillsMutations;
   "queries/affiliationsQueries": typeof queries_affiliationsQueries;
   "queries/experienceQueries": typeof queries_experienceQueries;
+  "queries/projectsQueries": typeof queries_projectsQueries;
   "queries/skillsQueries": typeof queries_skillsQueries;
   "tables/affiliationsTable": typeof tables_affiliationsTable;
   "tables/experienceTable": typeof tables_experienceTable;
