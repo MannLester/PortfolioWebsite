@@ -335,4 +335,74 @@ http.route({
   }),
 });
 
+http.route({
+  path: "/get-skills",
+  method: "GET",
+  handler: httpAction(async (ctx) => {
+    const skills = await ctx.runQuery(api.queries.skillsQueries.getAll);
+
+    return new Response(JSON.stringify(skills), {
+      status: 200,
+      headers: {
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*",
+      },
+    });
+  }),
+});
+
+http.route({
+  path: "/add-skill",
+  method: "POST",
+  handler: httpAction(async (ctx, request) => {
+    const body = await request.json();
+    try {
+      const id = await ctx.runMutation(api.mutations.skillsMutations.addSkills, body);
+      return new Response(JSON.stringify({ id }), {
+        status: 200,
+        headers: { "Content-Type": "application/json", "Access-Control-Allow-Origin": "*" },
+      });
+    } catch (error: unknown) {
+      const errorMessage = error instanceof Error ? error.message : "Unknown error occurred";
+      return new Response(JSON.stringify({ error: errorMessage }), { status: 400 });
+    }
+  }),
+});
+
+http.route({
+  path: "/update-skill",
+  method: "POST",
+  handler: httpAction(async (ctx, request) => {
+    const body = await request.json();
+    try {
+      await ctx.runMutation(api.mutations.skillsMutations.updateSkills, body);
+      return new Response(JSON.stringify({ status: "success" }), {
+        status: 200,
+        headers: { "Content-Type": "application/json", "Access-Control-Allow-Origin": "*" },
+      });
+    } catch (error: unknown) {
+      const errorMessage = error instanceof Error ? error.message : "Unknown error occurred";
+      return new Response(JSON.stringify({ error: errorMessage }), { status: 400 });
+    }
+  }),
+});
+
+http.route({
+  path: "/delete-skill",
+  method: "POST",
+  handler: httpAction(async (ctx, request) => {
+    const { id } = await request.json();
+    try {
+      await ctx.runMutation(api.mutations.skillsMutations.deleteSkills, { id });
+      return new Response(JSON.stringify({ deleted: id }), {
+        status: 200,
+        headers: { "Content-Type": "application/json", "Access-Control-Allow-Origin": "*" },
+      });
+    } catch (error: unknown) {
+      const errorMessage = error instanceof Error ? error.message : "Unknown error occurred";
+      return new Response(JSON.stringify({ error: errorMessage }), { status: 400 });
+    }
+  }),
+});
+
 export default http;
