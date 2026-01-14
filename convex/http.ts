@@ -226,5 +226,62 @@ http.route({
   }),
 });
 
+http.route({
+  path: "/get-experiences",
+  method: "GET",
+  handler: httpAction(async (ctx) => {
+    // Run the query we created in step 1
+    const experiences = await ctx.runQuery(api.queries.experienceQueries.getAll);
+    return new Response(JSON.stringify(experiences), {
+      status: 200,
+      headers: {
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*",
+      },
+    });
+  }),
+});
 
+// Add new experience
+http.route({
+  path: "/add-experience",
+  method: "POST",
+  handler: httpAction(async (ctx, request) => {
+    // 1. Parse the JSON body sent from Flutter
+    const body = await request.json();
+
+    try {
+      // 2. Run the mutation using the correct path
+      const result = await ctx.runMutation(api.mutations.experienceMutations.addExperiences, {
+        experienceRole: body.experienceRole,
+        experienceCompany: body.experienceCompany,
+        experienceDesc: body.experienceDesc,
+        experienceTasks: body.experienceTasks,
+        experienceStartDate: body.experienceStartDate,
+        experienceEndDate: body.experienceEndDate,
+        experienceLocation: body.experienceLocation,
+        experienceTechStack: body.experienceTechStack,
+      });
+
+      // 3. Return the success response with the new document ID
+      return new Response(JSON.stringify({ id: result }), {
+        status: 200,
+        headers: {
+          "Content-Type": "application/json",
+          "Access-Control-Allow-Origin": "*",
+        },
+      });
+    } catch (error: unknown) {
+      const errorMessage = error instanceof Error ? error.message : "Unknown error occurred";
+      
+      return new Response(JSON.stringify({ error: errorMessage }), {
+        status: 400,
+        headers: {
+          "Content-Type": "application/json",
+          "Access-Control-Allow-Origin": "*",
+        },
+      });
+    }
+  }),
+});
 export default http;
