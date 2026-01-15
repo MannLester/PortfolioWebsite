@@ -10,15 +10,18 @@ import { api } from "@/convex/_generated/api";
 import Image from 'next/image';
 
 export function ProjectsSection() {
-  const [activeFilter, setActiveFilter] = useState<'all' | 'web' | 'mobile' | 'ai'>('all');
+  const [activeFilter, setActiveFilter] = useState<string>('all');
   const projects = useQuery(api.queries.projectsQueries.getAll);
+  const projectFields = useQuery(api.queries.projectsQueries.getProjectFields);
   
-  const filters = [
-    { key: 'all' as const, label: 'All' },
-    { key: 'web' as const, label: 'Web' },
-    { key: 'mobile' as const, label: 'Mobile' },
-    { key: 'ai' as const, label: 'AI' }
-  ];
+  // Create filters dynamically from database + 'all' option
+  const filters = projectFields ? [
+    { key: 'all', label: 'All' },
+    ...projectFields.map(field => ({
+      key: field,
+      label: field.charAt(0).toUpperCase() + field.slice(1) // Capitalize first letter
+    }))
+  ] : [{ key: 'all', label: 'All' }];
   
   const filteredProjects = projects ? (
     activeFilter === 'all' 
@@ -26,7 +29,7 @@ export function ProjectsSection() {
       : projects.filter(project => project.projectField === activeFilter)
   ) : [];
   
-  if (!projects) {
+  if (!projects || !projectFields) {
     return (
       <section className="py-20 bg-muted/50" id="projects">
         <Container>
@@ -91,7 +94,7 @@ export function ProjectsSection() {
                     <h3 className="text-xl font-semibold">{project.projectTitle}</h3>
                     <Badge variant={
                       project.projectField === 'web' ? 'primary' :
-                      project.projectField === 'mobile' ? 'secondary' :
+                      project.projectField === 'Mobile Development' ? 'secondary' :
                       project.projectField === 'ai' ? 'success' : 'default'
                     }>
                       {project.projectField.toUpperCase()}
