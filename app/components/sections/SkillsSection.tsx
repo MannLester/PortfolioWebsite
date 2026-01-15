@@ -3,50 +3,25 @@
 import React, { useState } from 'react';
 import { Container } from '@/app/components/layout/Container';
 import { Badge } from '@/app/components/ui/Badge';
-import { portfolioData } from '@/app/data/portfolio';
+import { useQuery } from "convex/react";
+import { api } from "@/convex/_generated/api";
 
 export function SkillsSection() {
-  const { skills } = portfolioData;
+  const skills = useQuery(api.queries.skillsQueries.getAll);
   const [expandedCategories, setExpandedCategories] = useState<Set<string>>(new Set());
   
-  const categoryConfig = {
-    frontend: {
-      title: "Modern Web Stacks",
-      icon: "🎨",
-      primary: ["Next.js", "React", "TypeScript"],
-      secondary: ["Tailwind CSS", "HTML5/CSS3", "JavaScript"]
-    },
-    backend: {
-      title: "Server Development",
-      icon: "⚙️",
-      primary: ["Node.js", "Python", "Express.js"],
-      secondary: ["FastAPI", "REST APIs", "GraphQL"]
-    },
-    database: {
-      title: "Data Management",
-      icon: "🗄️",
-      primary: ["PostgreSQL", "MongoDB", "Supabase"],
-      secondary: ["Redis", "Database Design", "Query Optimization"]
-    },
-    mobile: {
-      title: "Mobile Development",
-      icon: "📱",
-      primary: ["Flutter", "React Native"],
-      secondary: ["Dart", "iOS", "Android", "Cross-Platform"]
-    },
-    ai: {
-      title: "AI & Machine Learning",
-      icon: "🤖",
-      primary: ["TensorFlow", "PyTorch"],
-      secondary: ["Scikit-learn", "Data Science", "Neural Networks", "NLP"]
-    },
-    tools: {
-      title: "Development Tools",
-      icon: "🛠️",
-      primary: ["Git", "Docker", "Vercel"],
-      secondary: ["CI/CD", "Testing", "Monitoring", "Deployment"]
-    }
-  };
+  if (!skills) {
+    return (
+      <section className="py-20 bg-background" id="skills">
+        <Container>
+          <div className="max-w-6xl mx-auto text-center">
+            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-gray-900 mx-auto"></div>
+            <p className="mt-4 text-gray-600">Loading skills...</p>
+          </div>
+        </Container>
+      </section>
+    );
+  }
   
   const toggleCategory = (category: string) => {
     const newExpanded = new Set(expandedCategories);
@@ -64,30 +39,30 @@ export function SkillsSection() {
         <div className="max-w-6xl mx-auto">
           <h2 className="text-3xl md:text-4xl font-bold text-center mb-12">Skills</h2>
           
-          {/* Expandable Skill Category Cards */}
+          {/* Skill Category Cards */}
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
-            {Object.entries(categoryConfig).map(([category, config]) => {
-              const isExpanded = expandedCategories.has(category);
+            {skills.map((skill) => {
+              const isExpanded = expandedCategories.has(skill._id);
               return (
                 <div 
-                  key={category} 
+                  key={skill._id} 
                   className="bg-card border border-border rounded-lg transition-all duration-300 hover:shadow-lg"
                 >
                   {/* Header: Icon + Title + Primary Skills */}
                   <button
-                    onClick={() => toggleCategory(category)}
+                    onClick={() => toggleCategory(skill._id)}
                     className="w-full p-4 text-left hover:bg-accent/50 rounded-lg transition-colors"
                   >
                     <div className="flex items-start gap-3">
                       <span className="text-2xl mt-0.5">
-                        {config.icon}
+                        {skill.skillIcon}
                       </span>
                       <div className="flex-1">
                         <h3 className="text-lg font-semibold mb-1">
-                          {config.title}
+                          {skill.skillTitle}
                         </h3>
                         <p className="text-sm text-muted-foreground">
-                          {config.primary.join(", ")}
+                          {skill.skillSubtitle.join(", ")}
                         </p>
                       </div>
                       {/* Accordion Toggle Icon */}
@@ -105,7 +80,7 @@ export function SkillsSection() {
                   }`}>
                     <div className="px-4 pb-4 pt-0 border-t border-border/50">
                       <p className="text-sm text-muted-foreground mt-3">
-                        {config.secondary.join(", ")}
+                        {skill.skillMore.join(", ")}
                       </p>
                     </div>
                   </div>
@@ -119,13 +94,15 @@ export function SkillsSection() {
             <h3 className="text-xl font-semibold text-center mb-6">All Technologies</h3>
             <div className="flex flex-wrap justify-center gap-2 max-w-4xl mx-auto">
               {skills.map((skill) => (
-                <Badge 
-                  key={skill.name} 
-                  variant={skill.level >= 4 ? 'primary' : 'secondary'}
-                  className="text-sm px-3 py-1"
-                >
-                  {skill.name}
-                </Badge>
+                skill.skillSubtitle.map((subtitle) => (
+                  <Badge 
+                    key={`${skill._id}-${subtitle}`} 
+                    variant="secondary"
+                    className="text-sm px-3 py-1"
+                  >
+                    {subtitle}
+                  </Badge>
+                ))
               ))}
             </div>
           </div>

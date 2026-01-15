@@ -1,4 +1,5 @@
-import React from 'react';
+"use client"
+
 import { Container } from '@/app/components/layout/Container';
 import { Button } from '@/app/components/ui/Button';
 import { Card, CardContent } from '@/app/components/ui/Card';

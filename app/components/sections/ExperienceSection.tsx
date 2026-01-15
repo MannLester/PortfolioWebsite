@@ -1,10 +1,12 @@
-import React from 'react';
+"use client"
+
 import { Container } from '@/app/components/layout/Container';
 import { Badge } from '@/app/components/ui/Badge';
-import { portfolioData } from '@/app/data/portfolio';
+import { useQuery } from "convex/react";
+import { api } from "@/convex/_generated/api";
 
 export function ExperienceSection() {
-  const { experience } = portfolioData;
+  const experience = useQuery(api.queries.experienceQueries.getAll);
   
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
@@ -13,6 +15,19 @@ export function ExperienceSection() {
       month: 'short' 
     });
   };
+  
+  if (!experience) {
+    return (
+      <section className="py-20 bg-background" id="experience">
+        <Container>
+          <div className="max-w-4xl mx-auto text-center">
+            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-gray-900 mx-auto"></div>
+            <p className="mt-4 text-gray-600">Loading experience...</p>
+          </div>
+        </Container>
+      </section>
+    );
+  }
   
   return (
     <section className="py-20 bg-background" id="experience">
@@ -23,7 +38,7 @@ export function ExperienceSection() {
           {/* Timeline */}
           <div className="space-y-8">
             {experience.map((exp, index) => (
-              <div key={exp.id} className="relative">
+              <div key={exp._id} className="relative">
                 {/* Timeline Line */}
                 {index !== experience.length - 1 && (
                   <div className="absolute left-6 top-16 w-px h-full bg-border" />
@@ -39,25 +54,25 @@ export function ExperienceSection() {
                   <div className="flex-1 bg-card border border-border rounded-lg p-6">
                     <div className="flex flex-col md:flex-row md:items-center justify-between mb-3">
                       <div>
-                        <h3 className="text-xl font-semibold">{exp.position}</h3>
-                        <p className="text-lg text-primary font-medium">{exp.company}</p>
+                        <h3 className="text-xl font-semibold">{exp.experienceRole}</h3>
+                        <p className="text-lg text-primary font-medium">{exp.experienceCompany}</p>
                       </div>
                       <div className="text-sm text-muted-foreground">
-                        <div>{formatDate(exp.startDate)} - {exp.endDate ? formatDate(exp.endDate) : 'Present'}</div>
-                        <div className="text-right">{exp.location}</div>
+                        <div>{formatDate(exp.experienceStartDate)} - {exp.experienceEndDate ? formatDate(exp.experienceEndDate) : 'Present'}</div>
+                        <div className="text-right">{exp.experienceLocation}</div>
                       </div>
                     </div>
                     
-                    <p className="text-muted-foreground mb-4">{exp.description}</p>
+                    <p className="text-muted-foreground mb-4">{exp.experienceDesc}</p>
                     
                     {/* Responsibilities */}
                     <div className="mb-4">
-                      <h4 className="font-medium mb-2">Key Achievements:</h4>
+                      <h4 className="font-medium mb-2">Key Tasks:</h4>
                       <ul className="space-y-1 text-sm text-muted-foreground">
-                        {exp.responsibilities.slice(0, 3).map((responsibility, idx) => (
+                        {exp.experienceTasks.slice(0, 3).map((task, idx) => (
                           <li key={idx} className="flex items-start">
                             <span className="text-primary mr-2 mt-1">•</span>
-                            {responsibility}
+                            {task}
                           </li>
                         ))}
                       </ul>
@@ -67,7 +82,7 @@ export function ExperienceSection() {
                     <div>
                       <h4 className="font-medium mb-2">Technologies:</h4>
                       <div className="flex flex-wrap gap-1">
-                        {exp.technologies.map((tech) => (
+                        {exp.experienceTechStack.map((tech) => (
                           <Badge key={tech} variant="secondary" className="text-xs">
                             {tech}
                           </Badge>

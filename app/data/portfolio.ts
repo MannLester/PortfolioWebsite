@@ -50,13 +50,13 @@ export const portfolioData: PortfolioData = {
     {
       name: "LinkedIn",
       url: "https://linkedin.com/in/mann-lee",
-      icon: "/images/icons/github-icon.png",
+      icon: "/images/icons/github-icon.png", // Using github icon until LinkedIn icon is added
       username: "/in/mann-lee"
     },
     {
       name: "Twitter",
       url: "https://twitter.com/mannlee_dev",
-      icon: "/images/icons/twitter-icon.png",
+      icon: "/images/icons/github-icon.png", // Using github icon until Twitter icon is added
       username: "@mannlee_dev"
     }
   ],

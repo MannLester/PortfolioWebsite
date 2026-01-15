@@ -1,36 +1,24 @@
 "use client"
 
-import React, { useState } from 'react';
+import React from 'react';
 import Image from 'next/image';
-
-const affiliations = [
-    {
-        affiliationImage: "image.png",
-        affiliationTitle: "Company A",
-        affiliationLink: "https://example.com",
-        affilitationRole: "Partner"
-    },
-    {
-        affiliationImage: "image2.png",
-        affiliationTitle: "Organization B",
-        affiliationLink: "https://example2.com",
-        affilitationRole: "Member"
-    },
-    {
-        affiliationImage: "image3.png",
-        affiliationTitle: "Institute C",
-        affiliationLink: "https://example3.com",
-        affilitationRole: "Collaborator"
-    },
-    {
-        affiliationImage: "image4.png",
-        affiliationTitle: "Foundation D",
-        affiliationLink: "https://example4.com",
-        affilitationRole: "Advisor"
-    }
-]
+import { useQuery } from "convex/react";
+import { api } from "@/convex/_generated/api";
 
 export function AffiliationSection() {
+    const affiliations = useQuery(api.queries.affiliationsQueries.getAll);
+    
+    if (!affiliations) {
+        return (
+            <div className="w-full py-6 overflow-hidden bg-gradient-to-r from-gray-50 to-white">
+                <div className="text-center py-8">
+                    <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-gray-900 mx-auto"></div>
+                    <p className="mt-4 text-gray-600">Loading affiliations...</p>
+                </div>
+            </div>
+        );
+    }
+    
     return (
         <div className="w-full py-6 overflow-hidden bg-gradient-to-r from-gray-50 to-white">
             <div className="relative">
@@ -38,7 +26,13 @@ export function AffiliationSection() {
                     <h2 className="text-3xl font-bold text-center mb-8 text-black">Affiliations & Organizations</h2>
                 </div>
                 {/* Animated Strip Container */}
-                <div className="flex animate-scroll space-x-8">
+                <div className="flex space-x-8" style={{
+                    animation: 'scroll 20s linear infinite',
+                    animationPlayState: 'running'
+                }}
+                onMouseEnter={(e) => e.currentTarget.style.animationPlayState = 'paused'}
+                onMouseLeave={(e) => e.currentTarget.style.animationPlayState = 'running'}
+                >
                     {/* Multiple sets for seamless continuous loop */}
                     {[...Array(3)].map((_, setIndex) => 
                         affiliations.map((affiliation, index) => (
@@ -64,7 +58,7 @@ export function AffiliationSection() {
                                             {affiliation.affiliationTitle}
                                         </h3>
                                         <p className="text-xs text-gray-600 mt-1">
-                                            {affiliation.affilitationRole}
+                                            {Array.isArray(affiliation.affilitationRole) ? affiliation.affilitationRole.join(", ") : affiliation.affilitationRole}
                                         </p>
                                     </div>
                                 </div>
@@ -78,24 +72,18 @@ export function AffiliationSection() {
                 <div className="absolute top-0 right-0 w-20 h-full bg-gradient-to-l from-white to-transparent pointer-events-none z-10"></div>
             </div>
             
-            <style jsx>{`
-                @keyframes scroll {
-                    0% {
-                        transform: translateX(0);
+            <style dangerouslySetInnerHTML={{
+                __html: `
+                    @keyframes scroll {
+                        0% {
+                            transform: translateX(0);
+                        }
+                        100% {
+                            transform: translateX(-33.33%);
+                        }
                     }
-                    100% {
-                        transform: translateX(-33.33%);
-                    }
-                }
-                
-                .animate-scroll {
-                    animation: scroll 20s linear infinite;
-                }
-                
-                .animate-scroll:hover {
-                    animation-play-state: paused;
-                }
-            `}</style>
+                `
+            }} />
         </div>
     );
 }
