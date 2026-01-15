@@ -70,70 +70,139 @@ export function ProjectsSection() {
             </div>
           </div>
           
-          {/* Projects Grid */}
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {filteredProjects.map((project) => (
-              <Card key={project._id} hoverable className="h-full flex flex-col">
-                {/* Project Image */}
-                <div className="aspect-video bg-muted rounded-t-lg flex items-center justify-center overflow-hidden">
-                  {project.projectImageUrl ? (
-                    <Image 
-                      src={project.projectImageUrl} 
-                      alt={project.projectTitle} 
-                      width={400}
-                      height={225}
-                      className="w-full h-full object-cover rounded-t-lg" 
-                    />
-                  ) : (
-                    <div className="text-4xl">🚀</div>
-                  )}
-                </div>
-                
-                <CardHeader className="flex-1">
-                  <div className="flex items-start justify-between mb-3">
-                    <h3 className="text-xl font-semibold">{project.projectTitle}</h3>
-                    <Badge variant={
-                      project.projectField === 'web' ? 'primary' :
-                      project.projectField === 'Mobile Development' ? 'secondary' :
-                      project.projectField === 'ai' ? 'success' : 'default'
-                    }>
-                      {project.projectField.toUpperCase()}
-                    </Badge>
+          {/* Projects Grid - Mobile: Horizontal scroll, Desktop: Grid */}
+          <div className="md:grid md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-8">
+            {/* Mobile horizontal scroll container */}
+            <div className="md:hidden flex gap-4 overflow-x-auto pb-4 px-4 -mx-4 scrollbar-hide">
+              {filteredProjects.map((project) => (
+                <Card key={project._id} hoverable className="h-full flex flex-col flex-shrink-0 w-64">
+                  {/* Project Image */}
+                  <div className="aspect-video bg-muted rounded-t-lg flex items-center justify-center overflow-hidden">
+                    {project.projectImageUrl ? (
+                      <Image 
+                        src={project.projectImageUrl} 
+                        alt={project.projectTitle} 
+                        width={256}
+                        height={144}
+                        className="w-full h-full object-cover rounded-t-lg" 
+                      />
+                    ) : (
+                      <div className="text-2xl md:text-4xl">🚀</div>
+                    )}
                   </div>
                   
-                  <p className="text-muted-foreground mb-4">{project.projectDesc}</p>
+                  <CardHeader className="flex-1 p-3">
+                    <div className="flex items-start justify-between mb-2">
+                      <h3 className="text-lg font-semibold leading-tight">{project.projectTitle}</h3>
+                      <Badge variant={
+                        project.projectField === 'web' ? 'primary' :
+                        project.projectField === 'Mobile Development' ? 'secondary' :
+                        project.projectField === 'ai' ? 'success' : 'default'
+                      } className="text-xs">
+                        {project.projectField.toUpperCase()}
+                      </Badge>
+                    </div>
+                    
+                    <p className="text-muted-foreground text-sm mb-3 line-clamp-3">{project.projectDesc}</p>
+                    
+                    {/* Technologies */}
+                    <div className="flex flex-wrap gap-1 mb-3">
+                      {project.projectTech.slice(0, 3).map((tech) => (
+                        <Badge key={tech} variant="outline" className="text-xs">
+                          {tech}
+                        </Badge>
+                      ))}
+                      {project.projectTech.length > 3 && (
+                        <Badge variant="outline" className="text-xs">
+                          +{project.projectTech.length - 3}
+                        </Badge>
+                      )}
+                    </div>
+                  </CardHeader>
                   
-                  {/* Technologies */}
-                  <div className="flex flex-wrap gap-1 mb-4">
-                    {project.projectTech.slice(0, 4).map((tech) => (
-                      <Badge key={tech} variant="outline" className="text-xs">
-                        {tech}
-                      </Badge>
-                    ))}
-                    {project.projectTech.length > 4 && (
-                      <Badge variant="outline" className="text-xs">
-                        +{project.projectTech.length - 4}
-                      </Badge>
+                  <CardContent className="pt-0 p-3">
+                    <div className="flex gap-2">
+                      {project.isDeployed && project.projectLiveLink && (
+                        <Button size="sm" className="flex-1 text-xs" onClick={() => window.open(project.projectLiveLink, '_blank')}>
+                          Live Demo
+                        </Button>
+                      )}
+                      {project.projectGithubLink && (
+                        <Button variant="outline" size="sm" className="flex-1 text-xs" onClick={() => window.open(project.projectGithubLink, '_blank')}>
+                          GitHub
+                        </Button>
+                      )}
+                    </div>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+            
+            {/* Desktop grid layout */}
+            <div className="hidden md:contents">
+              {filteredProjects.map((project) => (
+                <Card key={project._id} hoverable className="h-full flex flex-col">
+                  {/* Project Image */}
+                  <div className="aspect-video bg-muted rounded-t-lg flex items-center justify-center overflow-hidden">
+                    {project.projectImageUrl ? (
+                      <Image 
+                        src={project.projectImageUrl} 
+                        alt={project.projectTitle} 
+                        width={400}
+                        height={225}
+                        className="w-full h-full object-cover rounded-t-lg" 
+                      />
+                    ) : (
+                      <div className="text-4xl">🚀</div>
                     )}
                   </div>
-                </CardHeader>
-                
-                <CardContent className="pt-0">
-                  <div className="flex gap-2">
-                    {project.isDeployed && project.projectLiveLink && (
-                      <Button size="sm" className="flex-1" onClick={() => window.open(project.projectLiveLink, '_blank')}>
-                        Live Demo
-                      </Button>
-                    )}
-                    {project.projectGithubLink && (
-                      <Button variant="outline" size="sm" className="flex-1" onClick={() => window.open(project.projectGithubLink, '_blank')}>
-                        GitHub
-                      </Button>
-                    )}
-                  </div>
-                </CardContent>
-              </Card>
-            ))}
+                  
+                  <CardHeader className="flex-1">
+                    <div className="flex items-start justify-between mb-3">
+                      <h3 className="text-xl font-semibold">{project.projectTitle}</h3>
+                      <Badge variant={
+                        project.projectField === 'web' ? 'primary' :
+                        project.projectField === 'Mobile Development' ? 'secondary' :
+                        project.projectField === 'ai' ? 'success' : 'default'
+                      }>
+                        {project.projectField.toUpperCase()}
+                      </Badge>
+                    </div>
+                    
+                    <p className="text-muted-foreground mb-4">{project.projectDesc}</p>
+                    
+                    {/* Technologies */}
+                    <div className="flex flex-wrap gap-1 mb-4">
+                      {project.projectTech.slice(0, 4).map((tech) => (
+                        <Badge key={tech} variant="outline" className="text-xs">
+                          {tech}
+                        </Badge>
+                      ))}
+                      {project.projectTech.length > 4 && (
+                        <Badge variant="outline" className="text-xs">
+                          +{project.projectTech.length - 4}
+                        </Badge>
+                      )}
+                    </div>
+                  </CardHeader>
+                  
+                  <CardContent className="pt-0">
+                    <div className="flex gap-2">
+                      {project.isDeployed && project.projectLiveLink && (
+                        <Button size="sm" className="flex-1" onClick={() => window.open(project.projectLiveLink, '_blank')}>
+                          Live Demo
+                        </Button>
+                      )}
+                      {project.projectGithubLink && (
+                        <Button variant="outline" size="sm" className="flex-1" onClick={() => window.open(project.projectGithubLink, '_blank')}>
+                          GitHub
+                        </Button>
+                      )}
+                    </div>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
           </div>
           
           {filteredProjects.length === 0 && (

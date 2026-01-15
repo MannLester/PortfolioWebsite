@@ -12,46 +12,48 @@ export function ContactSection() {
     <section className="py-20 bg-muted/50" id="contact">
       <Container>
         <div className="max-w-4xl mx-auto text-center">
-          <h2 className="text-3xl md:text-4xl font-bold mb-6">Let&apos;s build something together.</h2>
-          <p className="text-lg text-muted-foreground mb-12 max-w-2xl mx-auto">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 md:mb-6">Let&apos;s build something together.</h2>
+          <p className="text-sm sm:text-base md:text-lg text-muted-foreground mb-8 md:mb-12 max-w-2xl mx-auto">
             I&apos;m always interested in new opportunities and interesting projects. 
             Whether you have a question or just want to say hi, I&apos;ll try my best to get back to you!
           </p>
           
-          <div className="grid md:grid-cols-3 gap-6 mb-12">
-            {/* Email */}
-            <Card>
-              <CardContent className="p-6 text-center">
-                <div className="text-2xl mb-3">📧</div>
-                <h3 className="font-semibold mb-2">Email</h3>
-                <a 
-                  href={`mailto:${personalInfo.email}`}
-                  className="text-primary hover:underline"
-                >
-                  {personalInfo.email}
-                </a>
-              </CardContent>
-            </Card>
-            
+          <div className="grid grid-cols-2 gap-4 md:gap-6 mb-6">
             {/* Location */}
             <Card>
-              <CardContent className="p-6 text-center">
-                <div className="text-2xl mb-3">📍</div>
-                <h3 className="font-semibold mb-2">Location</h3>
-                <p className="text-muted-foreground">{personalInfo.location}</p>
+              <CardContent className="p-4 md:p-6 text-center">
+                <div className="text-xl md:text-2xl mb-2 md:mb-3">📍</div>
+                <h3 className="text-sm md:text-base font-semibold mb-2">Location</h3>
+                <p className="text-xs md:text-sm text-muted-foreground">{personalInfo.location}</p>
               </CardContent>
             </Card>
             
             {/* Phone */}
             <Card>
-              <CardContent className="p-6 text-center">
-                <div className="text-2xl mb-3">📱</div>
-                <h3 className="font-semibold mb-2">Phone</h3>
+              <CardContent className="p-4 md:p-6 text-center">
+                <div className="text-xl md:text-2xl mb-2 md:mb-3">📱</div>
+                <h3 className="text-sm md:text-base font-semibold mb-2">Phone</h3>
                 <a 
                   href={`tel:${personalInfo.phone}`}
-                  className="text-primary hover:underline"
+                  className="text-xs md:text-sm text-primary hover:underline"
                 >
                   {personalInfo.phone}
+                </a>
+              </CardContent>
+            </Card>
+          </div>
+          
+          {/* Email - Full width below */}
+          <div className="max-w-md mx-auto mb-8 md:mb-12">
+            <Card>
+              <CardContent className="p-4 md:p-6 text-center">
+                <div className="text-xl md:text-2xl mb-2 md:mb-3">📧</div>
+                <h3 className="text-sm md:text-base font-semibold mb-2">Email</h3>
+                <a 
+                  href={`mailto:${personalInfo.email}`}
+                  className="text-xs md:text-sm text-primary hover:underline"
+                >
+                  {personalInfo.email}
                 </a>
               </CardContent>
             </Card>

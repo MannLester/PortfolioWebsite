@@ -105,8 +105,8 @@ export function HeroSection() {
       <Container className="text-center relative z-10">
         <div className="max-w-4xl mx-auto">
           {/* Greeting */}
-          <div className="mb-6">
-            <h1 className="text-5xl md:text-7xl font-bold mb-4">
+          <div className="mb-4 md:mb-6">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-bold mb-3 md:mb-4">
               Hi, I&apos;m{' '}
               <span 
                 className="transition-all duration-1000 ease-in-out"
@@ -121,7 +121,7 @@ export function HeroSection() {
             </h1>
             
             {/* Dynamic rotating subtitle - All roles visible */}
-            <div className="text-2xl md:text-3xl font-semibold mb-2 transition-all duration-500">
+            <div className="text-sm sm:text-lg md:text-2xl lg:text-3xl font-semibold mb-2 transition-all duration-500">
               {roles.map((role, index) => (
                 <span key={role.title}>
                   <span 
@@ -147,15 +147,15 @@ export function HeroSection() {
           </div>
           
           {/* Bio */}
-          <p className="text-lg text-slate-30 max-w-3xl mx-auto mb-8 leading-relaxed">
+          <p className="text-sm sm:text-base md:text-lg text-slate-30 max-w-3xl mx-auto mb-6 md:mb-8 leading-relaxed px-4 sm:px-0">
             {personalInfo.bio}
           </p>
           
           {/* Call-to-Action Buttons with dynamic colors */}
-          <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
+          <div className="flex flex-col sm:flex-row gap-3 md:gap-4 justify-center mb-8 md:mb-12 px-4 sm:px-0">
             <Button 
               size="lg" 
-              className="min-w-40 transition-all duration-1000 ease-in-out border-0"
+              className="min-w-32 sm:min-w-40 text-sm sm:text-base transition-all duration-1000 ease-in-out border-0"
               style={{
                 backgroundColor: currentRole.color,
                 color: '#ffffff',
@@ -168,7 +168,7 @@ export function HeroSection() {
             <Button 
               variant="outline" 
               size="lg" 
-              className="min-w-40 transition-all duration-1000 ease-in-out"
+              className="min-w-32 sm:min-w-40 text-sm sm:text-base transition-all duration-1000 ease-in-out"
               style={{
                 borderColor: currentRole.color,
                 color: currentRole.color,

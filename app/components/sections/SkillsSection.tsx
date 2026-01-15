@@ -40,53 +40,107 @@ export function SkillsSection() {
           <h2 className="text-3xl md:text-4xl font-bold text-center mb-12">Skills</h2>
           
           {/* Skill Category Cards */}
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
-            {skills.map((skill) => {
-              const isExpanded = expandedCategories.has(skill._id);
-              return (
-                <div 
-                  key={skill._id} 
-                  className="bg-card border border-border rounded-lg transition-all duration-300 hover:shadow-lg"
-                >
-                  {/* Header: Icon + Title + Primary Skills */}
-                  <button
-                    onClick={() => toggleCategory(skill._id)}
-                    className="w-full p-4 text-left hover:bg-accent/50 rounded-lg transition-colors"
+          {/* Mobile: Horizontal scroll, Desktop: Grid */}
+          <div className="md:grid md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
+            {/* Mobile horizontal scroll container */}
+            <div className="md:hidden flex gap-4 overflow-x-auto pb-4 px-4 -mx-4 scrollbar-hide justify-center">
+              {skills.map((skill) => {
+                const isExpanded = expandedCategories.has(skill._id);
+                return (
+                  <div 
+                    key={skill._id} 
+                    className="bg-card border border-border rounded-lg transition-all duration-300 hover:shadow-lg flex-shrink-0 w-72"
                   >
-                    <div className="flex items-start gap-3">
-                      <span className="text-2xl mt-0.5">
-                        {skill.skillIcon}
-                      </span>
-                      <div className="flex-1">
-                        <h3 className="text-lg font-semibold mb-1">
-                          {skill.skillTitle}
-                        </h3>
-                        <p className="text-sm text-muted-foreground">
-                          {skill.skillSubtitle.join(", ")}
+                    {/* Header: Icon + Title + Primary Skills */}
+                    <button
+                      onClick={() => toggleCategory(skill._id)}
+                      className="w-full p-4 text-left hover:bg-accent/50 rounded-lg transition-colors"
+                    >
+                      <div className="flex items-start gap-3">
+                        <span className="text-2xl mt-0.5">
+                          {skill.skillIcon}
+                        </span>
+                        <div className="flex-1">
+                          <h3 className="text-lg font-semibold mb-1">
+                            {skill.skillTitle}
+                          </h3>
+                          <p className="text-sm text-muted-foreground">
+                            {skill.skillSubtitle.join(", ")}
+                          </p>
+                        </div>
+                        {/* Accordion Toggle Icon */}
+                        <div className={`transition-transform duration-300 mt-1 ${isExpanded ? 'rotate-180' : ''}`}>
+                          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                          </svg>
+                        </div>
+                      </div>
+                    </button>
+                    
+                    {/* Expandable Content - Additional Skills */}
+                    <div className={`overflow-hidden transition-all duration-300 ${
+                      isExpanded ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
+                    }`}>
+                      <div className="px-4 pb-4 pt-0 border-t border-border/50">
+                        <p className="text-sm text-muted-foreground mt-3">
+                          {skill.skillMore.join(", ")}
                         </p>
                       </div>
-                      {/* Accordion Toggle Icon */}
-                      <div className={`transition-transform duration-300 mt-1 ${isExpanded ? 'rotate-180' : ''}`}>
-                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                        </svg>
-                      </div>
-                    </div>
-                  </button>
-                  
-                  {/* Expandable Content - Additional Skills */}
-                  <div className={`overflow-hidden transition-all duration-300 ${
-                    isExpanded ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
-                  }`}>
-                    <div className="px-4 pb-4 pt-0 border-t border-border/50">
-                      <p className="text-sm text-muted-foreground mt-3">
-                        {skill.skillMore.join(", ")}
-                      </p>
                     </div>
                   </div>
-                </div>
-              );
-            })}
+                );
+              })}
+            </div>
+            
+            {/* Desktop grid layout */}
+            <div className="hidden md:contents">
+              {skills.map((skill) => {
+                const isExpanded = expandedCategories.has(skill._id);
+                return (
+                  <div 
+                    key={skill._id} 
+                    className="bg-card border border-border rounded-lg transition-all duration-300 hover:shadow-lg"
+                  >
+                    {/* Header: Icon + Title + Primary Skills */}
+                    <button
+                      onClick={() => toggleCategory(skill._id)}
+                      className="w-full p-4 text-left hover:bg-accent/50 rounded-lg transition-colors"
+                    >
+                      <div className="flex items-start gap-3">
+                        <span className="text-2xl mt-0.5">
+                          {skill.skillIcon}
+                        </span>
+                        <div className="flex-1">
+                          <h3 className="text-lg font-semibold mb-1">
+                            {skill.skillTitle}
+                          </h3>
+                          <p className="text-sm text-muted-foreground">
+                            {skill.skillSubtitle.join(", ")}
+                          </p>
+                        </div>
+                        {/* Accordion Toggle Icon */}
+                        <div className={`transition-transform duration-300 mt-1 ${isExpanded ? 'rotate-180' : ''}`}>
+                          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                          </svg>
+                        </div>
+                      </div>
+                    </button>
+                    
+                    {/* Expandable Content - Additional Skills */}
+                    <div className={`overflow-hidden transition-all duration-300 ${
+                      isExpanded ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
+                    }`}>
+                      <div className="px-4 pb-4 pt-0 border-t border-border/50">
+                        <p className="text-sm text-muted-foreground mt-3">
+                          {skill.skillMore.join(", ")}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
           </div>
           
           {/* All Skills as Badges */}

@@ -23,38 +23,43 @@ export function AffiliationSection() {
         <div className="w-full py-6 overflow-hidden bg-gradient-to-r from-gray-50 to-white">
             <div className="relative">
                 <div className="center">
-                    <h2 className="text-3xl font-bold text-center mb-8 text-black">Affiliations & Organizations</h2>
+                    <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-center mb-6 md:mb-8 text-black">Affiliations & Organizations</h2>
                 </div>
                 {/* Animated Strip Container */}
-                <div className="flex space-x-8" style={{
-                    animation: 'scroll 20s linear infinite',
-                    animationPlayState: 'running'
-                }}
-                onMouseEnter={(e) => e.currentTarget.style.animationPlayState = 'paused'}
-                onMouseLeave={(e) => e.currentTarget.style.animationPlayState = 'running'}
+                <div 
+                    className="flex space-x-8 animate-scroll" 
+                    onMouseEnter={(e) => e.currentTarget.style.animationPlayState = 'paused'}
+                    onMouseLeave={(e) => e.currentTarget.style.animationPlayState = 'running'}
                 >
-                    {/* Multiple sets for seamless continuous loop */}
+                    {/* Exactly 3 sets for true circular seamless loop */}
                     {[...Array(3)].map((_, setIndex) => 
                         affiliations.map((affiliation, index) => (
                             <div
                                 key={`set-${setIndex}-${index}`}
-                                className="flex-shrink-0 group cursor-pointer transform hover:scale-105 transition-all duration-300 ml-8"
+                                className="flex-shrink-0 group cursor-pointer transform hover:scale-105 transition-all duration-80 ml-3 md:ml-5"
                                 onClick={() => window.open(affiliation.affiliationLink, '_blank')}
                             >
-                                <div className="flex flex-col items-center space-y-2 p-4 rounded-lg bg-white shadow-sm hover:shadow-md transition-shadow duration-300">
-                                    <div className="w-16 h-16 bg-gray-200 rounded-full flex items-center justify-center overflow-hidden group-hover:bg-gray-100 transition-colors duration-300">
-                                        <Image 
-                                            src={`/images/${affiliation.affiliationImage}`} 
-                                            alt={affiliation.affiliationTitle} 
-                                            width={64}
-                                            height={64}
+                                <div className="flex flex-col items-center space-y-1.5 md:space-y-2 p-2.5 md:p-4 rounded-lg bg-white shadow-sm hover:shadow-md transition-shadow duration-300">
+                                    <div className="w-12 h-12 md:w-16 md:h-16 bg-gray-200 rounded-full flex items-center justify-center overflow-hidden group-hover:bg-gray-100 transition-colors duration-300">
+                                        {affiliation.affiliationImage ? (
+                                            <Image 
+                                                src={affiliation.affiliationImage.startsWith('http') 
+                                                    ? affiliation.affiliationImage 
+                                                    : `/images/${affiliation.affiliationImage}`
+                                                } 
+                                                alt={affiliation.affiliationTitle} 
+                                                width={48}
+                                                height={48}
+                                                className="w-full h-full object-cover rounded-full md:w-16 md:h-16"
                                             />
-                                        <div className="hidden text-gray-500 text-xs font-medium">
-                                            {affiliation.affiliationTitle.charAt(0)}
-                                        </div>
+                                        ) : (
+                                            <div className="text-gray-500 text-xs font-medium">
+                                                {affiliation.affiliationTitle.charAt(0)}
+                                            </div>
+                                        )}
                                     </div>
                                     <div className="text-center">
-                                        <h3 className="text-sm font-semibold text-gray-800 group-hover:text-blue-600 transition-colors duration-300">
+                                        <h3 className="text-xs md:text-sm font-semibold text-gray-800 group-hover:text-blue-600 transition-colors duration-300">
                                             {affiliation.affiliationTitle}
                                         </h3>
                                         <p className="text-xs text-gray-600 mt-1">
@@ -81,6 +86,10 @@ export function AffiliationSection() {
                         100% {
                             transform: translateX(-33.33%);
                         }
+                    }
+                    
+                    .animate-scroll {
+                        animation: scroll 30s linear infinite;
                     }
                 `
             }} />
