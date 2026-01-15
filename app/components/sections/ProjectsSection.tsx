@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Container } from '@/app/components/layout/Container';
 import { Card, CardContent, CardHeader } from '@/app/components/ui/Card';
 import { Badge } from '@/app/components/ui/Badge';
@@ -11,8 +11,64 @@ import Image from 'next/image';
 
 export function ProjectsSection() {
   const [activeFilter, setActiveFilter] = useState<string>('all');
+  const [isMobileDropdownOpen, setIsMobileDropdownOpen] = useState(false);
+  const [isDesktopDropdownOpen, setIsDesktopDropdownOpen] = useState(false);
+  const [isDragging, setIsDragging] = useState(false);
+  const [startX, setStartX] = useState(0);
+  const [scrollLeft, setScrollLeft] = useState(0);
+  const mobileDropdownRef = useRef<HTMLDivElement>(null);
+  const desktopDropdownRef = useRef<HTMLDivElement>(null);
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
   const projects = useQuery(api.queries.projectsQueries.getAll);
   const projectFields = useQuery(api.queries.projectsQueries.getProjectFields);
+
+  // Close dropdowns when clicking outside
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (mobileDropdownRef.current && !mobileDropdownRef.current.contains(event.target as Node)) {
+        setIsMobileDropdownOpen(false);
+      }
+      if (desktopDropdownRef.current && !desktopDropdownRef.current.contains(event.target as Node)) {
+        setIsDesktopDropdownOpen(false);
+      }
+    }
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
+
+  // Handle drag scrolling
+  const handleMouseDown = (e: React.MouseEvent) => {
+    if (!scrollContainerRef.current) return;
+    setIsDragging(true);
+    setStartX(e.pageX - scrollContainerRef.current.offsetLeft);
+    setScrollLeft(scrollContainerRef.current.scrollLeft);
+    scrollContainerRef.current.style.cursor = 'grabbing';
+  };
+
+  const handleMouseLeave = () => {
+    setIsDragging(false);
+    if (scrollContainerRef.current) {
+      scrollContainerRef.current.style.cursor = 'grab';
+    }
+  };
+
+  const handleMouseUp = () => {
+    setIsDragging(false);
+    if (scrollContainerRef.current) {
+      scrollContainerRef.current.style.cursor = 'grab';
+    }
+  };
+
+  const handleMouseMove = (e: React.MouseEvent) => {
+    if (!isDragging || !scrollContainerRef.current) return;
+    e.preventDefault();
+    const x = e.pageX - scrollContainerRef.current.offsetLeft;
+    const walk = (x - startX) * 2; // Scroll speed multiplier
+    scrollContainerRef.current.scrollLeft = scrollLeft - walk;
+  };
   
   // Create filters dynamically from database + 'all' option
   const filters = projectFields ? [
@@ -22,12 +78,19 @@ export function ProjectsSection() {
       label: field.charAt(0).toUpperCase() + field.slice(1) // Capitalize first letter
     }))
   ] : [{ key: 'all', label: 'All' }];
+
+  // For desktop: split filters into visible and dropdown
+  const visibleFilters = filters.slice(0, 4);
+  const dropdownFilters = filters.slice(4);
   
   const filteredProjects = projects ? (
     activeFilter === 'all' 
       ? projects 
       : projects.filter(project => project.projectField === activeFilter)
   ) : [];
+
+  // Get current filter label for mobile dropdown
+  const currentFilterLabel = filters.find(f => f.key === activeFilter)?.label || 'All';
   
   if (!projects || !projectFields) {
     return (
@@ -52,8 +115,46 @@ export function ProjectsSection() {
             
             {/* Filter Buttons */}
             <div className="flex justify-center">
-              <div className="flex gap-2 p-1 bg-muted rounded-lg">
-                {filters.map((filter) => (
+              {/* Mobile Dropdown */}
+              <div className="md:hidden relative" ref={mobileDropdownRef}>
+                <button
+                  onClick={() => setIsMobileDropdownOpen(!isMobileDropdownOpen)}
+                  className="flex items-center gap-2 px-4 py-2 bg-muted rounded-lg text-sm font-medium text-foreground"
+                >
+                  {currentFilterLabel}
+                  <svg 
+                    className={`w-4 h-4 transition-transform ${isMobileDropdownOpen ? 'rotate-180' : ''}`}
+                    fill="none" 
+                    stroke="currentColor" 
+                    viewBox="0 0 24 24"
+                  >
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="m19 9-7 7-7-7" />
+                  </svg>
+                </button>
+                
+                {isMobileDropdownOpen && (
+                  <div className="absolute top-full left-0 right-0 mt-2 bg-background border border-border rounded-lg shadow-lg z-10">
+                    {filters.map((filter) => (
+                      <button
+                        key={filter.key}
+                        onClick={() => {
+                          setActiveFilter(filter.key);
+                          setIsMobileDropdownOpen(false);
+                        }}
+                        className={`w-full text-left px-4 py-2 text-sm hover:bg-muted transition-colors ${
+                          activeFilter === filter.key ? 'bg-muted text-foreground font-medium' : 'text-muted-foreground'
+                        }`}
+                      >
+                        {filter.label}
+                      </button>
+                    ))}
+                  </div>
+                )}
+              </div>
+
+              {/* Desktop Filter Buttons */}
+              <div className="hidden md:flex gap-2 p-1 bg-muted rounded-lg">
+                {visibleFilters.map((filter) => (
                   <button
                     key={filter.key}
                     onClick={() => setActiveFilter(filter.key)}
@@ -66,143 +167,129 @@ export function ProjectsSection() {
                     {filter.label}
                   </button>
                 ))}
+                
+                {/* Desktop Dropdown for additional filters */}
+                {dropdownFilters.length > 0 && (
+                  <div className="relative" ref={desktopDropdownRef}>
+                    <button
+                      onClick={() => setIsDesktopDropdownOpen(!isDesktopDropdownOpen)}
+                      className={`flex items-center gap-1 px-4 py-2 rounded-md text-sm font-medium transition-all ${
+                        dropdownFilters.some(f => f.key === activeFilter)
+                          ? 'bg-background text-foreground shadow-sm'
+                          : 'text-muted-foreground hover:text-foreground'
+                      }`}
+                    >
+                      ...
+                      <svg 
+                        className={`w-3 h-3 transition-transform ${isDesktopDropdownOpen ? 'rotate-180' : ''}`}
+                        fill="none" 
+                        stroke="currentColor" 
+                        viewBox="0 0 24 24"
+                      >
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="m19 9-7 7-7-7" />
+                      </svg>
+                    </button>
+                    
+                    {isDesktopDropdownOpen && (
+                      <div className="absolute top-full right-0 mt-2 bg-background border border-border rounded-lg shadow-lg z-10 min-w-32">
+                        {dropdownFilters.map((filter) => (
+                          <button
+                            key={filter.key}
+                            onClick={() => {
+                              setActiveFilter(filter.key);
+                              setIsDesktopDropdownOpen(false);
+                            }}
+                            className={`w-full text-left px-4 py-2 text-sm hover:bg-muted transition-colors ${
+                              activeFilter === filter.key ? 'bg-muted text-foreground font-medium' : 'text-muted-foreground'
+                            }`}
+                          >
+                            {filter.label}
+                          </button>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                )}
               </div>
             </div>
           </div>
           
-          {/* Projects Grid - Mobile: Horizontal scroll, Desktop: Grid */}
-          <div className="md:grid md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-8">
-            {/* Mobile horizontal scroll container */}
-            <div className="md:hidden flex gap-4 overflow-x-auto pb-4 px-4 -mx-4 scrollbar-hide">
-              {filteredProjects.map((project) => (
-                <Card key={project._id} hoverable className="h-full flex flex-col flex-shrink-0 w-64">
-                  {/* Project Image */}
-                  <div className="aspect-video bg-muted rounded-t-lg flex items-center justify-center overflow-hidden">
-                    {project.projectImageUrl ? (
-                      <Image 
-                        src={project.projectImageUrl} 
-                        alt={project.projectTitle} 
-                        width={256}
-                        height={144}
-                        className="w-full h-full object-cover rounded-t-lg" 
-                      />
-                    ) : (
-                      <div className="text-2xl md:text-4xl">🚀</div>
-                    )}
+          {/* Projects Grid - Single row horizontal scroll for all screen sizes */}
+          <div 
+            ref={scrollContainerRef}
+            className="flex gap-3 sm:gap-4 md:gap-6 lg:gap-8 overflow-x-auto pb-4 px-4 -mx-4 scrollbar-hide scroll-smooth select-none cursor-grab" 
+            style={{scrollBehavior: 'smooth', WebkitOverflowScrolling: 'touch'}}
+            onMouseDown={handleMouseDown}
+            onMouseLeave={handleMouseLeave}
+            onMouseUp={handleMouseUp}
+            onMouseMove={handleMouseMove}
+          >
+            {filteredProjects.map((project) => (
+              <Card key={project._id} hoverable className="flex flex-col flex-shrink-0 w-64 sm:w-72 md:w-72 lg:w-80 xl:w-88 select-text cursor-default pointer-events-auto h-120">
+                {/* Project Image */}
+                <div className="h-40 bg-muted rounded-t-lg flex items-center justify-center overflow-hidden flex-shrink-0">
+                  {project.projectImageUrl ? (
+                    <Image 
+                      src={project.projectImageUrl} 
+                      alt={project.projectTitle} 
+                      width={352}
+                      height={160}
+                      className="w-full h-full object-cover rounded-t-lg" 
+                    />
+                  ) : (
+                    <div className="text-2xl sm:text-3xl md:text-4xl lg:text-4xl">🚀</div>
+                  )}
+                </div>
+                
+                <CardHeader className="flex-1 p-3 md:p-4 lg:p-5">
+                  <div className="mb-2 md:mb-3">
+                    <h3 className="text-sm sm:text-base md:text-lg lg:text-xl font-semibold leading-tight mb-2">
+                      {project.projectTitle}
+                    </h3>
+                    <Badge variant={
+                      project.projectField === 'web' ? 'primary' :
+                      project.projectField === 'Mobile Development' ? 'secondary' :
+                      project.projectField === 'ai' ? 'success' : 'default'
+                    } className="text-xs shrink-0 px-2 py-1">
+                      {project.projectField.toUpperCase()}
+                    </Badge>
                   </div>
                   
-                  <CardHeader className="flex-1 p-3">
-                    <div className="flex items-start justify-between mb-2">
-                      <h3 className="text-lg font-semibold leading-tight">{project.projectTitle}</h3>
-                      <Badge variant={
-                        project.projectField === 'web' ? 'primary' :
-                        project.projectField === 'Mobile Development' ? 'secondary' :
-                        project.projectField === 'ai' ? 'success' : 'default'
-                      } className="text-xs">
-                        {project.projectField.toUpperCase()}
-                      </Badge>
-                    </div>
-                    
-                    <p className="text-muted-foreground text-sm mb-3 line-clamp-3">{project.projectDesc}</p>
-                    
-                    {/* Technologies */}
-                    <div className="flex flex-wrap gap-1 mb-3">
-                      {project.projectTech.slice(0, 3).map((tech) => (
-                        <Badge key={tech} variant="outline" className="text-xs">
-                          {tech}
-                        </Badge>
-                      ))}
-                      {project.projectTech.length > 3 && (
-                        <Badge variant="outline" className="text-xs">
-                          +{project.projectTech.length - 3}
-                        </Badge>
-                      )}
-                    </div>
-                  </CardHeader>
+                  <p className="text-muted-foreground text-xs sm:text-sm md:text-sm lg:text-base mb-3 lg:mb-4 line-clamp-3 leading-relaxed">
+                    {project.projectDesc}
+                  </p>
                   
-                  <CardContent className="pt-0 p-3">
-                    <div className="flex gap-2">
-                      {project.isDeployed && project.projectLiveLink && (
-                        <Button size="sm" className="flex-1 text-xs" onClick={() => window.open(project.projectLiveLink, '_blank')}>
-                          Live Demo
-                        </Button>
-                      )}
-                      {project.projectGithubLink && (
-                        <Button variant="outline" size="sm" className="flex-1 text-xs" onClick={() => window.open(project.projectGithubLink, '_blank')}>
-                          GitHub
-                        </Button>
-                      )}
-                    </div>
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
-            
-            {/* Desktop grid layout */}
-            <div className="hidden md:contents">
-              {filteredProjects.map((project) => (
-                <Card key={project._id} hoverable className="h-full flex flex-col">
-                  {/* Project Image */}
-                  <div className="aspect-video bg-muted rounded-t-lg flex items-center justify-center overflow-hidden">
-                    {project.projectImageUrl ? (
-                      <Image 
-                        src={project.projectImageUrl} 
-                        alt={project.projectTitle} 
-                        width={400}
-                        height={225}
-                        className="w-full h-full object-cover rounded-t-lg" 
-                      />
-                    ) : (
-                      <div className="text-4xl">🚀</div>
+                  {/* Technologies */}
+                  <div className="flex flex-wrap gap-1 lg:gap-1.5 mb-3 lg:mb-4">
+                    {project.projectTech.slice(0, 3).map((tech) => (
+                      <Badge key={tech} variant="outline" className="text-xs px-1.5 lg:px-2 py-0.5">
+                        {tech}
+                      </Badge>
+                    ))}
+                    {project.projectTech.length > 3 && (
+                      <Badge variant="outline" className="text-xs px-1.5 lg:px-2 py-0.5">
+                        +{project.projectTech.length - 3}
+                      </Badge>
                     )}
                   </div>
-                  
-                  <CardHeader className="flex-1">
-                    <div className="flex items-start justify-between mb-3">
-                      <h3 className="text-xl font-semibold">{project.projectTitle}</h3>
-                      <Badge variant={
-                        project.projectField === 'web' ? 'primary' :
-                        project.projectField === 'Mobile Development' ? 'secondary' :
-                        project.projectField === 'ai' ? 'success' : 'default'
-                      }>
-                        {project.projectField.toUpperCase()}
-                      </Badge>
-                    </div>
-                    
-                    <p className="text-muted-foreground mb-4">{project.projectDesc}</p>
-                    
-                    {/* Technologies */}
-                    <div className="flex flex-wrap gap-1 mb-4">
-                      {project.projectTech.slice(0, 4).map((tech) => (
-                        <Badge key={tech} variant="outline" className="text-xs">
-                          {tech}
-                        </Badge>
-                      ))}
-                      {project.projectTech.length > 4 && (
-                        <Badge variant="outline" className="text-xs">
-                          +{project.projectTech.length - 4}
-                        </Badge>
-                      )}
-                    </div>
-                  </CardHeader>
-                  
-                  <CardContent className="pt-0">
-                    <div className="flex gap-2">
-                      {project.isDeployed && project.projectLiveLink && (
-                        <Button size="sm" className="flex-1" onClick={() => window.open(project.projectLiveLink, '_blank')}>
-                          Live Demo
-                        </Button>
-                      )}
-                      {project.projectGithubLink && (
-                        <Button variant="outline" size="sm" className="flex-1" onClick={() => window.open(project.projectGithubLink, '_blank')}>
-                          GitHub
-                        </Button>
-                      )}
-                    </div>
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
+                </CardHeader>
+                
+                <CardContent className="pt-0 p-3 md:p-4 lg:p-5">
+                  <div className="flex gap-2">
+                    {project.isDeployed && project.projectLiveLink && (
+                      <Button size="sm" className="flex-1 text-xs sm:text-sm py-1.5 lg:py-2" onClick={() => window.open(project.projectLiveLink, '_blank')}>
+                        Live Demo
+                      </Button>
+                    )}
+                    {project.projectGithubLink && (
+                      <Button variant="outline" size="sm" className="flex-1 text-xs sm:text-sm py-1.5 lg:py-2" onClick={() => window.open(project.projectGithubLink, '_blank')}>
+                        GitHub
+                      </Button>
+                    )}
+                  </div>
+                </CardContent>
+              </Card>
+            ))}
           </div>
           
           {filteredProjects.length === 0 && (

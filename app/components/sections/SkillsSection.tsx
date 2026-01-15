@@ -9,6 +9,7 @@ import { api } from "@/convex/_generated/api";
 export function SkillsSection() {
   const skills = useQuery(api.queries.skillsQueries.getAll);
   const [expandedCategories, setExpandedCategories] = useState<Set<string>>(new Set());
+  const [showAllSkills, setShowAllSkills] = useState(false);
   
   if (!skills) {
     return (
@@ -40,16 +41,16 @@ export function SkillsSection() {
           <h2 className="text-3xl md:text-4xl font-bold text-center mb-12">Skills</h2>
           
           {/* Skill Category Cards */}
-          {/* Mobile: Horizontal scroll, Desktop: Grid */}
+          {/* Mobile: Vertical list with View More, Desktop: Grid */}
           <div className="md:grid md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
-            {/* Mobile horizontal scroll container */}
-            <div className="md:hidden flex gap-4 overflow-x-auto pb-4 px-4 -mx-4 scrollbar-hide justify-center">
-              {skills.map((skill) => {
+            {/* Mobile vertical list */}
+            <div className="md:hidden space-y-4">
+              {(showAllSkills ? skills : skills.slice(0, 3)).map((skill) => {
                 const isExpanded = expandedCategories.has(skill._id);
                 return (
                   <div 
                     key={skill._id} 
-                    className="bg-card border border-border rounded-lg transition-all duration-300 hover:shadow-lg flex-shrink-0 w-72"
+                    className="bg-card border border-border rounded-lg transition-all duration-300 hover:shadow-lg"
                   >
                     {/* Header: Icon + Title + Primary Skills */}
                     <button
@@ -90,6 +91,18 @@ export function SkillsSection() {
                   </div>
                 );
               })}
+              
+              {/* View More / View Less Button */}
+              {skills.length > 3 && (
+                <div className="text-center pt-4">
+                  <button
+                    onClick={() => setShowAllSkills(!showAllSkills)}
+                    className="px-6 py-2 text-sm font-medium text-primary hover:text-primary/80 transition-colors"
+                  >
+                    {showAllSkills ? 'View Less' : 'View More'}
+                  </button>
+                </div>
+              )}
             </div>
             
             {/* Desktop grid layout */}
@@ -140,24 +153,6 @@ export function SkillsSection() {
                   </div>
                 );
               })}
-            </div>
-          </div>
-          
-          {/* All Skills as Badges */}
-          <div className="mt-12">
-            <h3 className="text-xl font-semibold text-center mb-6">All Technologies</h3>
-            <div className="flex flex-wrap justify-center gap-2 max-w-4xl mx-auto">
-              {skills.map((skill) => (
-                skill.skillSubtitle.map((subtitle) => (
-                  <Badge 
-                    key={`${skill._id}-${subtitle}`} 
-                    variant="secondary"
-                    className="text-sm px-3 py-1"
-                  >
-                    {subtitle}
-                  </Badge>
-                ))
-              ))}
             </div>
           </div>
         </div>
