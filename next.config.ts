@@ -9,6 +9,12 @@ const nextConfig: NextConfig = {
         port: '',
         pathname: '/api/storage/**',
       },
+      {
+        protocol: 'https',
+        hostname: 'lovable-raven-488.convex.cloud',
+        port: '',
+        pathname: '/api/storage/**',
+      },
     ],
   },
 };
