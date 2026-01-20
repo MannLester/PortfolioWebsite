@@ -16,6 +16,7 @@ export function ProjectsSection() {
   const [isDragging, setIsDragging] = useState(false);
   const [startX, setStartX] = useState(0);
   const [scrollLeft, setScrollLeft] = useState(0);
+  const [modalImage, setModalImage] = useState<{ url: string; title: string } | null>(null);
   const mobileDropdownRef = useRef<HTMLDivElement>(null);
   const desktopDropdownRef = useRef<HTMLDivElement>(null);
   const scrollContainerRef = useRef<HTMLDivElement>(null);
@@ -227,7 +228,10 @@ export function ProjectsSection() {
             {filteredProjects.map((project) => (
               <Card key={project._id} hoverable className="flex flex-col flex-shrink-0 w-64 sm:w-72 md:w-72 lg:w-80 xl:w-88 select-text cursor-default pointer-events-auto h-120">
                 {/* Project Image */}
-                <div className="h-40 bg-muted rounded-t-lg flex items-center justify-center overflow-hidden flex-shrink-0">
+                <div 
+                  className="h-40 bg-muted rounded-t-lg flex items-center justify-center overflow-hidden flex-shrink-0 cursor-pointer hover:opacity-90 transition-opacity"
+                  onClick={() => project.projectImageUrl && setModalImage({ url: project.projectImageUrl, title: project.projectTitle })}
+                >
                   {project.projectImageUrl ? (
                     <Image 
                       src={project.projectImageUrl} 
@@ -261,16 +265,11 @@ export function ProjectsSection() {
                   
                   {/* Technologies */}
                   <div className="flex flex-wrap gap-1 lg:gap-1.5 mb-3 lg:mb-4">
-                    {project.projectTech.slice(0, 3).map((tech) => (
+                    {project.projectTech.map((tech) => (
                       <Badge key={tech} variant="outline" className="text-xs px-1.5 lg:px-2 py-0.5">
                         {tech}
                       </Badge>
                     ))}
-                    {project.projectTech.length > 3 && (
-                      <Badge variant="outline" className="text-xs px-1.5 lg:px-2 py-0.5">
-                        +{project.projectTech.length - 3}
-                      </Badge>
-                    )}
                   </div>
                 </CardHeader>
                 
@@ -298,6 +297,35 @@ export function ProjectsSection() {
             </div>
           )}
         </div>
+
+        {/* Image Modal */}
+        {modalImage && (
+          <div 
+            className="fixed inset-0 bg-black/80 z-50 flex items-center justify-center p-4 cursor-pointer"
+            onClick={() => setModalImage(null)}
+          >
+            <div className="relative max-w-4xl max-h-[90vh] w-full">
+              <button
+                onClick={() => setModalImage(null)}
+                className="absolute -top-10 right-0 text-white hover:text-gray-300 transition-colors"
+                aria-label="Close modal"
+              >
+                <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
+              <Image
+                src={modalImage.url}
+                alt={modalImage.title}
+                width={1200}
+                height={800}
+                className="w-full h-auto max-h-[85vh] object-contain rounded-lg"
+                onClick={(e) => e.stopPropagation()}
+              />
+              <p className="text-white text-center mt-4 text-lg font-medium">{modalImage.title}</p>
+            </div>
+          </div>
+        )}
       </Container>
     </section>
   );
