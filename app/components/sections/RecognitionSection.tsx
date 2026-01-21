@@ -9,7 +9,12 @@ import { api } from '@/convex/_generated/api';
 export function RecognitionSection() {
   // 1. Fetch live data from Convex
   const groupedData = useQuery(api.queries.recognitionsQueries.getGroupedByLevel);
-  const [currentIntl, setCurrentIntl] = useState(0);
+  const [currentIndices, setCurrentIndices] = useState<{[key: string]: number}>({
+    "International": 0,
+    "National": 0,
+    "National (Secondary)": 0,
+    "Program Award": 0,
+  });
   const [modalImage, setModalImage] = useState<{ url: string; title: string } | null>(null);
 
   // 2. Define our layout "Slots" and map them to DB levels
@@ -40,16 +45,26 @@ export function RecognitionSection() {
     }
   ];
 
-  // 3. Auto-swiper logic for the International Slot
+  // 3. Auto-swiper logic for all levels with multiple entries
   useEffect(() => {
-    const intlCount = groupedData?.international?.length || 0;
-    if (intlCount <= 1) return;
-
     const timer = setInterval(() => {
-      setCurrentIntl((prev) => (prev + 1) % intlCount);
+      setCurrentIndices(prev => {
+        const newIndices = { ...prev };
+        
+        // Update each level if it has multiple entries
+        bentoSlots.forEach(slot => {
+          const count = slot.data.length;
+          if (count > 1) {
+            newIndices[slot.level] = (newIndices[slot.level] + 1) % count;
+          }
+        });
+        
+        return newIndices;
+      });
     }, 5000);
+    
     return () => clearInterval(timer);
-  }, [groupedData?.international]);
+  }, [groupedData]);
 
   if (!groupedData) return <div className="py-24 text-center text-zinc-500">Loading Milestones...</div>;
 
@@ -71,9 +86,8 @@ export function RecognitionSection() {
           // Safety check if data for this level exists
           if (slot.data.length === 0) return null;
 
-          const isInternational = slot.level === "International";
-          const displayEntry = isInternational ? slot.data[currentIntl] : slot.data[0];
-          const isCarousel = isInternational && slot.data.length > 1;
+          const displayEntry = slot.data[currentIndices[slot.level] || 0];
+          const isCarousel = slot.data.length > 1;
 
           return (
             <motion.div 
@@ -118,7 +132,7 @@ export function RecognitionSection() {
                 {isCarousel && (
                   <div className="absolute bottom-0 left-0 h-1 bg-white/20 w-full z-30">
                     <motion.div 
-                      key={currentIntl}
+                      key={currentIndices[slot.level]}
                       initial={{ width: 0 }}
                       animate={{ width: "100%" }}
                       transition={{ duration: 5, ease: "linear" }}
