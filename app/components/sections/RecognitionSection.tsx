@@ -10,6 +10,7 @@ export function RecognitionSection() {
   // 1. Fetch live data from Convex
   const groupedData = useQuery(api.queries.recognitionsQueries.getGroupedByLevel);
   const [currentIntl, setCurrentIntl] = useState(0);
+  const [modalImage, setModalImage] = useState<{ url: string; title: string } | null>(null);
 
   // 2. Define our layout "Slots" and map them to DB levels
   const bentoSlots = [
@@ -78,14 +79,17 @@ export function RecognitionSection() {
             <motion.div 
               key={`${slot.level}-${index}`} 
               layout
-              className={`${slot.area} group relative flex flex-col overflow-hidden rounded-[3rem] bg-zinc-900/40 border border-zinc-800/50 backdrop-blur-sm transition-colors hover:border-zinc-700`}
+              className={`${slot.area} group relative flex flex-row overflow-hidden rounded-[3rem] bg-zinc-900/40 border border-zinc-800/50 backdrop-blur-sm transition-colors hover:border-zinc-700`}
             >
               {/* RADIAL GLOW */}
               <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none"
                 style={{ background: `radial-gradient(circle at 50% 50%, ${slot.glowColor} 0%, transparent 80%)` }} />
 
               {/* IMAGE SECTION */}
-              <div className="relative w-full flex-1 overflow-hidden">
+              <div 
+                className="relative w-1/2 min-h-full overflow-hidden cursor-pointer"
+                onClick={() => displayEntry.imageUrl && setModalImage({ url: displayEntry.imageUrl, title: displayEntry.title })}
+              >
                 <AnimatePresence mode="wait">
                   <motion.div
                     key={displayEntry._id} // Using Convex ID for better animation tracking
@@ -122,16 +126,15 @@ export function RecognitionSection() {
                     />
                   </div>
                 )}
+              </div>
 
-                <div className="absolute top-6 left-6 z-20 flex items-center gap-3">
+              {/* TEXT SECTION */}
+              <div className="relative z-10 w-1/2 p-8 flex flex-col justify-center bg-gradient-to-r from-zinc-900/90 to-zinc-950">
+                <div className="mb-4">
                   <span className="px-4 py-1.5 rounded-full bg-black/50 backdrop-blur-xl border border-white/10 text-[10px] font-black tracking-widest uppercase">
                     {displayEntry.level}
                   </span>
                 </div>
-              </div>
-
-              {/* TEXT SECTION */}
-              <div className="relative z-10 p-8 bg-gradient-to-t from-zinc-950 to-zinc-900/90 border-t border-white/5">
                 <motion.span 
                   key={`org-${displayEntry.organization}`}
                   initial={{ opacity: 0 }} animate={{ opacity: 1 }}
@@ -155,6 +158,35 @@ export function RecognitionSection() {
           );
         })}
       </div>
+
+      {/* Image Modal */}
+      {modalImage && (
+        <div 
+          className="fixed inset-0 bg-black/90 z-50 flex items-center justify-center p-4 cursor-pointer"
+          onClick={() => setModalImage(null)}
+        >
+          <div className="relative max-w-4xl max-h-[90vh] w-full">
+            <button
+              onClick={() => setModalImage(null)}
+              className="absolute -top-10 right-0 text-white hover:text-gray-300 transition-colors"
+              aria-label="Close modal"
+            >
+              <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </button>
+            <Image
+              src={modalImage.url}
+              alt={modalImage.title}
+              width={1200}
+              height={800}
+              className="w-full h-auto max-h-[85vh] object-contain rounded-lg"
+              onClick={(e) => e.stopPropagation()}
+            />
+            <p className="text-white text-center mt-4 text-lg font-medium">{modalImage.title}</p>
+          </div>
+        </div>
+      )}
     </section>
   );
 }
