@@ -168,7 +168,7 @@ export function RecognitionSection() {
                        ? "text-2xl" 
                        : slot.level === "National" 
                          ? "text-xl" 
-                         : "text-lg"
+                         : "text-base"
                    }`}
                 >
                   {displayEntry.title}
@@ -187,7 +187,7 @@ export function RecognitionSection() {
                      slot.level === "International" 
                        ? "text-[10px]" 
                        : slot.level === "National" 
-                         ? "text-[9px]" 
+                         ? "text-[8px]" 
                          : "text-[8px]"
                    }`}>
                      {displayEntry.date}
