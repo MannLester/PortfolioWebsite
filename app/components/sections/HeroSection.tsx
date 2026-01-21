@@ -165,18 +165,25 @@ export function HeroSection() {
             >
               View Projects
             </Button>
-            <Button 
-              variant="outline" 
-              size="lg" 
-              className="min-w-32 sm:min-w-40 text-sm sm:text-base transition-all duration-1000 ease-in-out"
-              style={{
-                borderColor: currentRole.color,
-                color: currentRole.color,
-                transition: 'all 1000ms cubic-bezier(0.4, 0, 0.2, 1)'
-              }}
+            <a 
+              href="/images/resume/UpdatedResume.pdf" // Path to your PDF in the /public folder
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="inline-block" // Ensures the link doesn't mess up button layout
             >
-              Download Resume
-            </Button>
+              <Button 
+                variant="outline" 
+                size="lg" 
+                className="min-w-32 sm:min-w-40 text-sm sm:text-base transition-all duration-1000 ease-in-out"
+                style={{
+                  borderColor: currentRole.color,
+                  color: currentRole.color,
+                  transition: 'all 1000ms cubic-bezier(0.4, 0, 0.2, 1)'
+                }}
+              >
+                View Resume
+              </Button>
+            </a>
           </div>
           
           {/* Social Links */}
