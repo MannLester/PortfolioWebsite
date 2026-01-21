@@ -8,14 +8,6 @@ import { api } from "@/convex/_generated/api";
 export function ExperienceSection() {
   const experience = useQuery(api.queries.experienceQueries.getAll);
   
-  const formatDate = (dateString: string) => {
-    const date = new Date(dateString);
-    return date.toLocaleDateString('en-US', { 
-      year: 'numeric', 
-      month: 'short' 
-    });
-  };
-  
   if (!experience) {
     return (
       <section className="py-20 bg-background" id="experience">
@@ -45,7 +37,7 @@ export function ExperienceSection() {
                     <p className="text-lg text-primary font-medium">{exp.experienceCompany}</p>
                   </div>
                   <div className="text-sm text-muted-foreground">
-                    <div>{formatDate(exp.experienceStartDate)} - {exp.experienceEndDate ? formatDate(exp.experienceEndDate) : 'Present'}</div>
+                    <div>{exp.experienceStartDate} - {exp.experienceEndDate || 'Present'}</div>
                     <div className="text-right">{exp.experienceLocation}</div>
                   </div>
                 </div>

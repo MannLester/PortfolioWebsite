@@ -168,7 +168,7 @@ export function RecognitionSection() {
                        ? "text-2xl" 
                        : slot.level === "National" 
                          ? "text-xl" 
-                         : "text-base"
+                         : "text-sm"
                    }`}
                 >
                   {displayEntry.title}
