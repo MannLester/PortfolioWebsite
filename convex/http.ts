@@ -548,4 +548,134 @@ http.route({
   }),
 });
 
+// Recognition routes
+http.route({
+  path: "/get-recognitions",
+  method: "GET",
+  handler: httpAction(async (ctx) => {
+    const recognitions = await ctx.runQuery(api.queries.recognitionsQueries.getGroupedByLevel);
+    return new Response(JSON.stringify(recognitions), {
+      status: 200,
+      headers: {
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*",
+      },
+    });
+  }),
+});
+
+http.route({
+  path: "/add-recognition",
+  method: "POST",
+  handler: httpAction(async (ctx, request) => {
+    const body = await request.json();
+    try {
+      // If storageId is provided, get the file URL from storage
+      let imageUrl = body.imageUrl || "";
+      if (body.storageId) {
+        const fileUrl = await ctx.storage.getUrl(body.storageId);
+        imageUrl = fileUrl || "";
+      }
+
+      const id = await ctx.runMutation(api.mutations.recognitionsMutations.addRecognition, {
+        title: body.title,
+        award: body.award,
+        organization: body.organization,
+        date: body.date,
+        level: body.level,
+        description: body.description || "",
+        imageUrl: imageUrl,
+        order: body.order,
+      });
+      return new Response(JSON.stringify({ success: true, id }), {
+        status: 201,
+        headers: {
+          "Content-Type": "application/json",
+          "Access-Control-Allow-Origin": "*",
+        },
+      });
+    } catch (error: unknown) {
+      const errorMessage = error instanceof Error ? error.message : "Unknown error occurred";
+      return new Response(JSON.stringify({ error: errorMessage }), {
+        status: 400,
+        headers: {
+          "Content-Type": "application/json",
+          "Access-Control-Allow-Origin": "*",
+        },
+      });
+    }
+  }),
+});
+
+http.route({
+  path: "/update-recognition",
+  method: "POST",
+  handler: httpAction(async (ctx, request) => {
+    const body = await request.json();
+    try {
+      // If storageId is provided, get the file URL from storage
+      let imageUrl = body.imageUrl;
+      if (body.storageId) {
+        const fileUrl = await ctx.storage.getUrl(body.storageId);
+        imageUrl = fileUrl || imageUrl;
+      }
+
+      await ctx.runMutation(api.mutations.recognitionsMutations.updateRecognition, {
+        id: body.id,
+        title: body.title,
+        award: body.award,
+        organization: body.organization,
+        date: body.date,
+        level: body.level,
+        description: body.description,
+        imageUrl: imageUrl,
+        order: body.order,
+      });
+      return new Response(JSON.stringify({ success: true }), {
+        status: 200,
+        headers: {
+          "Content-Type": "application/json",
+          "Access-Control-Allow-Origin": "*",
+        },
+      });
+    } catch (error: unknown) {
+      const errorMessage = error instanceof Error ? error.message : "Unknown error occurred";
+      return new Response(JSON.stringify({ error: errorMessage }), {
+        status: 400,
+        headers: {
+          "Content-Type": "application/json",
+          "Access-Control-Allow-Origin": "*",
+        },
+      });
+    }
+  }),
+});
+
+http.route({
+  path: "/delete-recognition",
+  method: "POST",
+  handler: httpAction(async (ctx, request) => {
+    const { id } = await request.json();
+    try {
+      await ctx.runMutation(api.mutations.recognitionsMutations.removeRecognition, { id });
+      return new Response(JSON.stringify({ success: true, deleted: id }), {
+        status: 200,
+        headers: {
+          "Content-Type": "application/json",
+          "Access-Control-Allow-Origin": "*",
+        },
+      });
+    } catch (error: unknown) {
+      const errorMessage = error instanceof Error ? error.message : "Unknown error occurred";
+      return new Response(JSON.stringify({ error: errorMessage }), {
+        status: 400,
+        headers: {
+          "Content-Type": "application/json",
+          "Access-Control-Allow-Origin": "*",
+        },
+      });
+    }
+  }),
+});
+
 export default http;
