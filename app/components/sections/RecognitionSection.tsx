@@ -129,29 +129,69 @@ export function RecognitionSection() {
               </div>
 
               {/* TEXT SECTION */}
-              <div className="relative z-10 w-1/2 p-8 flex flex-col justify-center bg-gradient-to-r from-zinc-900/90 to-zinc-950">
+              <div className={`relative z-10 w-1/2 p-8 flex flex-col justify-center bg-gradient-to-r from-zinc-900/90 to-zinc-950 ${
+                slot.level === "International" 
+                  ? "text-base" 
+                  : slot.level === "National" 
+                    ? "text-sm" 
+                    : "text-xs"
+              }`}>
                 <div className="mb-4">
-                  <span className="px-4 py-1.5 rounded-full bg-black/50 backdrop-blur-xl border border-white/10 text-[10px] font-black tracking-widest uppercase">
+                  <span className={`px-4 py-1.5 rounded-full bg-black/50 backdrop-blur-xl border border-white/10 font-black tracking-widest uppercase ${
+                    slot.level === "International" 
+                      ? "text-[10px]" 
+                      : slot.level === "National" 
+                        ? "text-[9px]" 
+                        : "text-[8px]"
+                  }`}>
                     {displayEntry.level}
                   </span>
                 </div>
                 <motion.span 
                   key={`org-${displayEntry.organization}`}
                   initial={{ opacity: 0 }} animate={{ opacity: 1 }}
-                  className="text-[10px] font-bold text-blue-500 uppercase tracking-[0.2em]"
+                  className={`font-bold text-blue-500 uppercase tracking-[0.2em] ${
+                    slot.level === "International" 
+                      ? "text-[10px]" 
+                      : slot.level === "National" 
+                        ? "text-[9px]" 
+                        : "text-[8px]"
+                  }`}
                 >
                   {displayEntry.organization}
                 </motion.span>
                 <motion.h3 
                    key={`title-${displayEntry.title}`}
                    initial={{ opacity: 0, y: 5 }} animate={{ opacity: 1, y: 0 }}
-                   className="mt-2 text-2xl font-bold leading-none text-white line-clamp-2"
+                   className={`mt-2 font-bold leading-none text-white line-clamp-2 ${
+                     slot.level === "International" 
+                       ? "text-2xl" 
+                       : slot.level === "National" 
+                         ? "text-xl" 
+                         : "text-lg"
+                   }`}
                 >
                   {displayEntry.title}
                 </motion.h3>
-                <p className="mt-2 text-zinc-400 font-medium">{displayEntry.award}</p>
+                <p className={`mt-2 text-zinc-400 font-medium ${
+                  slot.level === "International" 
+                    ? "text-base" 
+                    : slot.level === "National" 
+                      ? "text-sm" 
+                      : "text-xs"
+                }`}>
+                  {displayEntry.award}
+                </p>
                 {displayEntry.date && (
-                   <span className="mt-1 block text-[10px] text-zinc-600">{displayEntry.date}</span>
+                   <span className={`mt-1 block text-zinc-600 ${
+                     slot.level === "International" 
+                       ? "text-[10px]" 
+                       : slot.level === "National" 
+                         ? "text-[9px]" 
+                         : "text-[8px]"
+                   }`}>
+                     {displayEntry.date}
+                   </span>
                 )}
               </div>
             </motion.div>
