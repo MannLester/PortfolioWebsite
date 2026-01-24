@@ -49,14 +49,14 @@ export const portfolioData: PortfolioData = {
     },
     {
       name: "LinkedIn",
-      url: "https://linkedin.com/in/mann-lee",
-      icon: "/images/icons/github-icon.png", // Using github icon until LinkedIn icon is added
+      url: "https://www.linkedin.com/in/mann-lester-magbuhos-182ba1281/",
+      icon: "/images/icons/linkedin logo.png", // Using github icon until LinkedIn icon is added
       username: "/in/mann-lee"
     },
     {
-      name: "Twitter",
-      url: "https://twitter.com/mannlee_dev",
-      icon: "/images/icons/github-icon.png", // Using github icon until Twitter icon is added
+      name: "Facebook",
+      url: "https://www.facebook.com/mann.lester.magbuhos.2024",
+      icon: "/images/icons/facebook logo.png", // Using github icon until Twitter icon is added
       username: "@mannlee_dev"
     }
   ],

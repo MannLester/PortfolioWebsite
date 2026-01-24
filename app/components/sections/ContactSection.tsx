@@ -4,6 +4,7 @@ import { Container } from '@/app/components/layout/Container';
 import { Button } from '@/app/components/ui/Button';
 import { Card, CardContent } from '@/app/components/ui/Card';
 import { portfolioData } from '@/app/data/portfolio';
+import Image from 'next/image';
 
 export function ContactSection() {
   const { personalInfo, socialLinks } = portfolioData;
@@ -67,21 +68,29 @@ export function ContactSection() {
           </div>
           
           {/* Social Links */}
-          <div className="flex justify-center gap-4">
-            {socialLinks.map((link) => (
-              <a
-                key={link.name}
-                href={link.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="p-3 rounded-lg border border-border hover:bg-accent transition-colors"
-                aria-label={link.name}
-              >
-                {/* Placeholder icons - replace with actual icons */}
-                <div className="w-6 h-6 bg-muted-foreground rounded" />
-              </a>
-            ))}
-          </div>
+                    <div className="flex justify-center gap-6">
+                      {socialLinks.map((link) => (
+                        <a
+                          key={link.name}
+                          href={link.url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="p-2 rounded-lg hover:bg-accent transition-all duration-300"
+                          onMouseLeave={(e) => {
+                            e.currentTarget.style.borderColor = 'var(--border)';
+                            e.currentTarget.style.boxShadow = 'none';
+                          }}
+                          aria-label={link.name}
+                        >
+                          <Image 
+                            src={link.icon}
+                            alt={link.name}
+                            width={24}
+                            height={24}
+                          />
+                        </a>
+                      ))}
+                    </div>
         </div>
       </Container>
     </section>
